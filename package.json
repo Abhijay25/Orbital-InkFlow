@@ -25,6 +25,7 @@
     "@electron-toolkit/utils": "^4.0.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@fontsource/roboto": "^5.2.5",
     "@mui/material": "^7.1.0",
     "better-sqlite3": "^11.10.0",
     "react-split": "^2.0.14"
