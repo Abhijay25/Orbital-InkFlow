@@ -1,8 +1,11 @@
-
+import Button from '@mui/material/Button';
 
 function App() {
-  return <div></div>
-
+  return (
+    <>
+      <Button variant="outlined">Outlined</Button>
+    </>
+  )
 }
 
 export default App;
