@@ -1,5 +1,7 @@
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import Split from "react-split";
+import FileSystem from "./components/FileSystem";
+import Content from "./components/Content";
 
 function App() {
   return (
@@ -13,29 +15,10 @@ function App() {
             height: "100%"
           }}
         >
-          <Stack sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            bgcolor: "grey",
-            m: 1, mr: 0.01,
-            borderRadius: 2
-          }}
-          >
-            File System
-          </Stack>
 
-          <Box sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            bgcolor: "grey",
-            m: 1, ml: 0.01,
-            borderRadius: 2
-          }}
-          >
-            Content Window
-          </Box>
+          <FileSystem />
+          <Content />
+          
         </Split>
       </Box>
     </>
