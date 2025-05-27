@@ -9,7 +9,7 @@ function Content() {
             bgcolor: "grey",
             m: 1, ml: 0.01,
             borderRadius: 2
-        }}
+        }} // Box container for File System components
         >
             Content Window
         </Box>
