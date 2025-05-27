@@ -1,18 +1,35 @@
-import { Stack } from "@mui/material";
+import {
+    Box,
+    Stack,
+    List,
+    Divider,
+} from "@mui/material";
 
+import Folder from "./Folder";
+import File from "./File";
 
 function FileSystem() {
     return (
         <Stack sx={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             bgcolor: "grey",
             m: 1, mr: 0.01,
             borderRadius: 2
         }} // Box Container for MD Editor components
         >
-            File System
+            <List>
+                <Box sx={{ width: '100%', maxWidth: 360 }}>
+
+                    <Folder files={[<File textName={"Home"} />, <File textName={"Inbox"} />]}/>
+
+                    <Divider />
+
+                    <Folder files={[<File textName={"CS1101S notes"} />]} />
+
+                </Box>
+            </List>
         </Stack>
     )
 }
