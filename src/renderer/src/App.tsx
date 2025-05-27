@@ -6,21 +6,21 @@ import Content from "./components/Content";
 function App() {
   return (
     <>
-      <Box sx={{ height: "100vh", width: "100vw", overflow: "hidden" }}>
+      <Box sx={{ height: "100vh", width: "100vw", overflow: "hidden" }}>   
         <Split sizes={[14, 86]}
           minSize={[14, 86]}
           direction="horizontal"
           style={{
             display: "flex",
             height: "100%"
-          }}
+          }} // Container Box and Split styling 
         >
 
-          <FileSystem />
+          <FileSystem /> 
           <Content />
           
-        </Split>
-      </Box>
+        </Split> 
+      </Box> 
     </>
   )
 }
