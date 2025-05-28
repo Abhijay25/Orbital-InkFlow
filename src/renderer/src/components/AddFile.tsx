@@ -14,6 +14,7 @@ interface AddFileProps {
 // Button to add a file
 function AddFile({fileItems, setFileItems}: AddFileProps) {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const [inputValue, setInputValue] = useState<string>("");
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -21,13 +22,12 @@ function AddFile({fileItems, setFileItems}: AddFileProps) {
 
     const handleClose = () => {
         setAnchorEl(null);
+        setInputValue("");
     };
 
     const open = Boolean(anchorEl);
 
     const id = open ? 'simple-popover' : undefined;
-
-    const [inputValue, setInputValue] = useState<String>("");
 
     // Handles and update our inputValue under TextField
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,18 +36,29 @@ function AddFile({fileItems, setFileItems}: AddFileProps) {
 
     // Enables "Enter" to key in our textName
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' && inputValue.trim()) {
+            event.preventDefault(); 
             setFileItems([...fileItems,
-            { id: crypto.randomUUID(), fileName: inputValue }
+                { id: crypto.randomUUID(), fileName: inputValue }
             ]);
-            setInputValue("");
+            handleClose(); 
         }
     };
 
     return (
         <div>
-            <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-                <img src={addFileImage} style={{ width: '20px', height: 'auto' }} />
+            <Button 
+                aria-describedby={id} 
+                variant="contained" 
+                onClick={handleClick}
+            >
+                <img 
+                    src={addFileImage} 
+                    style={{ 
+                        width: '20px', 
+                        height: 'auto',
+                    }} 
+                />
             </Button>
             <Popover
                 id={id}
@@ -59,15 +70,18 @@ function AddFile({fileItems, setFileItems}: AddFileProps) {
                     horizontal: 'left',
                 }}
             >
-                <TextField
-                    id="standard-basic"
-                    label="New Note"
-                    variant="standard"
-                    value={inputValue}
-                    size="small"
-                    onChange={handleChange}
-                    onKeyDown={handleKeyDown}
-                />
+                <div style={{ padding: '8px' }}>
+                    <TextField
+                        autoFocus
+                        id="standard-basic"
+                        label="New Note"
+                        variant="standard"
+                        value={inputValue}
+                        size="small"
+                        onChange={handleChange}
+                        onKeyDown={handleKeyDown}
+                    />
+                </div>
             </Popover>
         </div>
     );
