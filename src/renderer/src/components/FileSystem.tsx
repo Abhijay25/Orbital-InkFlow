@@ -16,7 +16,7 @@ function FileSystem() {
             justifyContent: "flex-start",
             bgcolor: "#3b3b3b",
             m: 1, mr: 0.01,
-            borderRadius: 2
+            borderRadius: 1
         }} // Box Container for MD Editor components
         >
             <List>
