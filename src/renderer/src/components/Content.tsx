@@ -6,7 +6,7 @@ function Content() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            bgcolor: "grey",
+            bgcolor: "#3b3b3b",
             m: 1, ml: 0.01,
             borderRadius: 2
         }} // Box container for File System components
