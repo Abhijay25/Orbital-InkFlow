@@ -151,12 +151,6 @@ code {
   }
 }
 
-.left-aligned-div {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Pushes children to the left */
-}
-
 @media (max-width: 720px) {
   .text {
     font-size: 20px;
