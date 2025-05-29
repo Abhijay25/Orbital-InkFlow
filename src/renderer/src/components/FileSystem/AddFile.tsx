@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Popover from '@mui/material/Popover';
 import Button from '@mui/material/Button';
-import addFileImage from "../../../../resources/add-file.png";
+import addFileImage from "../../../../../resources/add-file.png";
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import { fileItem } from './Folder';
