@@ -4,8 +4,8 @@ import { useState } from "react";
 import File from "./File";
 
 export type fileItem = {
-    id: String,
-    fileName: String
+    id: string,
+    fileName: string
 }
 
 interface FolderProps {

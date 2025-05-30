@@ -1,11 +1,12 @@
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
 import InboxIcon from '@mui/icons-material/Inbox';
-import { useState } from "react";
+import { useState, useContext} from "react";
 import { fileItem } from "./Folder";
+import { FileIDContext } from "@renderer/App";
 
 interface FileProps {
-    id: String;
-    textName: String;
+    id: string;
+    textName: string;
     fileItems: fileItem[];
     setFileItems: React.Dispatch<React.SetStateAction<fileItem[]>>;
 }
@@ -18,7 +19,14 @@ function File({id, textName, fileItems, setFileItems}: FileProps) {
 
     const open = Boolean(anchorEl);
 
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    const { setFileID } = useContext(FileIDContext);
+
+    const handleClick = () => {
+        setFileID(key);
+        console.log(key);
+    }
+
+    const handleRightClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -39,7 +47,8 @@ function File({id, textName, fileItems, setFileItems}: FileProps) {
                 aria-controls={open ? 'basic-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
-                onClick={handleClick}
+                onClick={handleClick} 
+                onContextMenu={handleRightClick}
                 sx={{
                     height: {
                         xs: 40,
