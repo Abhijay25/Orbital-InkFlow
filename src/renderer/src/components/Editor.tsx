@@ -1,10 +1,15 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import Placeholder from '@tiptap/extension-placeholder';
 import '../styles/Editor.css'
 
-const extensions = [StarterKit]
+const extensions = [StarterKit, 
+   Placeholder.configure({
+        placeholder: 'Title',
+      }),
+]
 
-const content = '<p>What am I doing</p>'
+const content = '<h1></h1>'
 
 const Editor = () => {
   const editor = useEditor({
