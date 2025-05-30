@@ -7,7 +7,6 @@ import {
 
 import Folder from "./Folder";
 
-
 function FileSystem() {
     return (
         <Stack sx={{
@@ -17,20 +16,24 @@ function FileSystem() {
             bgcolor: "#3b3b3b",
             m: 1, mr: 0.01,
             borderRadius: 1,
-            overflow:"auto"
+            overflow: "auto"
         }} // Box Container for MD Editor components
         >
             <List>
                 <Box sx={{ width: '100%', maxWidth: 360 }}>
 
-                    <Folder fileItems={[
-                        { id: crypto.randomUUID(), fileName: "Home" },
-                        { id: crypto.randomUUID(), fileName: "Inbox" }
-                    ]}/>
+                    <Folder
+                        fileItems={[
+                            { id: crypto.randomUUID(), fileName: "Home" },
+                            { id: crypto.randomUUID(), fileName: "Inbox" }
+                        ]}
+                    />
 
                     <Divider />
 
-                    <Folder fileItems={[]} />
+                    <Folder
+                        fileItems={[]}
+                    />
 
                 </Box>
             </List>
