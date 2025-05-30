@@ -33,7 +33,7 @@ $ yarn build:mac
 $ yarn build:linux
 ```
 
-## Level Of Achievement
+## Level of Achievement
 
 Apollo 11
 
@@ -65,9 +65,9 @@ To create a note taking app that incorporates features that improve ease of use 
 ## Core Features
 
  - *Notes Organiser* : Utilizing Markdown text and file system to enable searching through and editing files with ease
- - *Calender* : Monthly calender with the ability to take down daily notes, and create To-Do lists
- - *timer* : A modifiable timer than can be used as a reminder or for study techniques (like Pomodoro method)
- - *AI Assistant* : A support chatbot to help streamline, translate or transcript notes
+ - *Calendar* : Monthly calendar with the ability to take down daily notes, and create To-Do lists
+ - *Timer* : A modifiable timer than can be used as a reminder or for study techniques (like Pomodoro method)
+ - *AI Assistant* : A support chatbot to help streamline, translate or transcribe notes
 
 ## Design
 
