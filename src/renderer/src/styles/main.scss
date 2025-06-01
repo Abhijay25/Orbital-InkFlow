@@ -1,6 +1,6 @@
-@import './base.css';
-@import '../../../../@/styles/keyframe-animations'; 
-@import '../../../../@/styles/variables';
+@use './base.css';
+@use '../../../../@/styles/keyframe-animations' as *;
+@use '../../../../@/styles/variables' as *;
 
 
 body {
