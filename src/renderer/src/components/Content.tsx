@@ -1,11 +1,12 @@
 import { Box } from "@mui/material";
 import Editor from "./Editor"; 
 import "../styles/Editor.css";
+import "../styles/main.scss";
 
 function Content() {
     return (
         <Box sx={{
-            display: "flex",
+            // display: "flex",
             alignItems: "center",
             justifyContent: "center",
             bgcolor: "#3b3b3b",

@@ -3,7 +3,7 @@ import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder';
 import '../styles/Editor.css'
 
-const extensions = [StarterKit, 
+const extensions = [StarterKit,
    Placeholder.configure({
         placeholder: 'Title',
       }),
