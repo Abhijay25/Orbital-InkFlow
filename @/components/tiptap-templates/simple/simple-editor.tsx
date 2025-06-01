@@ -15,7 +15,7 @@ import { Underline } from "@tiptap/extension-underline"
 
 // --- Custom Extensions ---
 import { Link } from "@/components/tiptap-extension/link-extension"
-import { Selection } from "@/components/tiptap-extension/selection-extension"
+import { Selection } from "@tiptap/pm/state"
 import { TrailingNode } from "@/components/tiptap-extension/trailing-node-extension"
 
 // --- UI Primitives ---
