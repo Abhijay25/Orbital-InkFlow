@@ -11,7 +11,7 @@ function FileSystem() {
     return (
         <Stack sx={{
             display: "flex",
-            alignItems: "center",
+            alignItems: "left",
             justifyContent: "flex-start",
             bgcolor: "#3b3b3b",
             m: 1, mr: 0.01,
