@@ -1,6 +1,6 @@
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
 import InboxIcon from '@mui/icons-material/Inbox';
-import { useState, useContext} from "react";
+import { useState, useContext } from "react";
 import { fileItem } from "./Folder";
 import { FileIDContext } from "@renderer/App";
 
@@ -11,7 +11,7 @@ interface FileProps {
     setFileItems: React.Dispatch<React.SetStateAction<fileItem[]>>;
 }
 
-function File({id, textName, fileItems, setFileItems}: FileProps) {
+function File({ id, textName, fileItems, setFileItems }: FileProps) {
 
     const key = id;
 
@@ -47,32 +47,13 @@ function File({id, textName, fileItems, setFileItems}: FileProps) {
                 aria-controls={open ? 'basic-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
-                onClick={handleClick} 
+                onClick={handleClick}
                 onContextMenu={handleRightClick}
-                sx={{
-                    height: {
-                        xs: 40,
-                        sm: 48,
-                        md: 56,
-                        lg: 64,
-                    },
-                    px: {
-                        xs: 1,
-                        sm: 2,
-                        md: 3,
-                    },
-                }}
             >
                 <ListItemIcon>
                     <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={textName} primaryTypographyProps={{
-                    fontSize: {
-                        xs: '0.8rem',
-                        sm: '1rem',
-                        md: '1.2rem',
-                    },
-                }} />
+                <ListItemText primary={textName} />
             </ListItemButton>
             <Menu
                 id="basic-menu"
