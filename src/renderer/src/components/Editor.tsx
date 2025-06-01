@@ -19,7 +19,7 @@ const Editor = () => {
 
   return (
     <div className="editor-container">
-        <EditorContent editor={editor} />
+        <EditorContent editor={editor}  />
     </div>
   )
 }
