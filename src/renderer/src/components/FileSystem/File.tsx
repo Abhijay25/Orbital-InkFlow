@@ -23,7 +23,6 @@ function File({ id, textName, fileItems, setFileItems }: FileProps) {
 
     const handleClick = () => {
         setFileID(key);
-        console.log(key);
     }
 
     const handleRightClick = (event: React.MouseEvent<HTMLElement>) => {
