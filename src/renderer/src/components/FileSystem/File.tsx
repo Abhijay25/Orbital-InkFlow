@@ -11,7 +11,7 @@ interface FileProps {
     setFileItems: React.Dispatch<React.SetStateAction<fileItem[]>>;
 }
 
-function File({ id, textName, fileItems, setFileItems }: FileProps) {
+function File({ id, textName, setFileItems }: FileProps) {
 
     const key = id;
 
