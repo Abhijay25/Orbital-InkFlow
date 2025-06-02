@@ -22,6 +22,7 @@ function Folder(FolderProps) {
             fileItems={fileItems}
             setFileItems={setFileItems}
             id={fileItem.id}
+            key={fileItem.id}
         />
         )
     })
