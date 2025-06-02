@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import db from '../database/db' 
 
 function createWindow(): void {
   // Create the browser window.
@@ -77,3 +78,20 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+// IPC: Listen for save-content call
+// Saves the content to SQLite database in the notes table with a timestamp
+ipcMain.handle('save-content', async (event, content) => {
+  const stmt = db.prepare("INSERT INTO notes (content) VALUES (?)");
+  const result = stmt.run(content);
+  return { success: true, id: result.lastInsertRowid};
+});
+
+// IPC: Listen for get-latest-content call
+// Fetch the most recent content from the database
+ipcMain.handle('get-latest-content', async () => {
+  // SELECT the most recent update within the database
+  const stmt = db.prepare("SELECT content FROM notes ORDER BY created_at DESC LIMIT 1");
+  const result = stmt.get() as {content: string} | undefined;
+  return result ? result.content : null;
+});
