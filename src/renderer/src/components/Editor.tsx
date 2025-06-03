@@ -5,9 +5,9 @@ import '../styles/Editor.css'
 import { forwardRef, useImperativeHandle, useEffect } from 'react'
 
 const extensions = [StarterKit,
-  Placeholder.configure({
-    placeholder: 'Title',
-  }),
+   Placeholder.configure({
+        placeholder: 'Title',
+      }),
 ]
 
 const defaultContent = '<h1></h1>'

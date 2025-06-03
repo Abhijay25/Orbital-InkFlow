@@ -4,15 +4,15 @@ import {
     List,
     Divider,
 } from "@mui/material";
-
 import Folder from "./Folder";
+import DailyCalendar from "./DailyCalendar";
 
 function FileSystem() {
     return (
         <Stack sx={{
             display: "flex",
             alignItems: "left",
-            justifyContent: "flex-start",
+            justifyContent: "space-between",
             bgcolor: "#3b3b3b",
             m: 1, mr: 0.01,
             borderRadius: 1,
@@ -37,6 +37,7 @@ function FileSystem() {
 
                 </Box>
             </List>
+            <DailyCalendar />
         </Stack>
     )
 }
