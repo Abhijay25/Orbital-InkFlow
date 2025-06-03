@@ -42,7 +42,7 @@ function Content() {
     return (
         // Box container for File System components
         <Box sx={{
-            // display: "flex",
+            display: "flex",
             alignItems: "center",
             justifyContent: "center",
             bgcolor: "#3b3b3b",
