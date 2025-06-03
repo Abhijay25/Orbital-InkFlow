@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import Split from "react-split";
-import FileSystem from "./components/FileSystem/FileSystem";
+import FileSystem from "./components/Sidebar/FileSystem";
 import Content from "./components/Content";
 import { useState, createContext } from "react";
 
