@@ -18,6 +18,13 @@ const Editor = forwardRef((props, ref) => {
   const editor = useEditor({
     extensions,
     content: defaultContent,
+
+    // Auto-updates and auto-saves user's input
+    onUpdate: async ({editor}) => {
+      const htmlContent = editor.getHTML();
+      await window.electronAPI.saveContent(htmlContent);
+      console.log("content saved successfully");
+    }
   })
 
   // useEffect -> fetches the latest content from db, and pasted on textEditor
