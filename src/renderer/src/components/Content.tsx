@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import Editor from "./Editor";
 import "../styles/Editor.css";
 import { useRef } from "react";
@@ -20,24 +20,9 @@ interface EditorRef {
 
 function Content() {
 
-    // Use ref to get the HTML from the Editor component
+    // Use ref to get instance of the Editor component
+    // Can be used in the future
     const editorRef = useRef<EditorRef>(null);
-
-    // Get the HTML (as string) from the Editor component
-    const getEditorContent = () => {
-        const html = editorRef.current?.getHTML();
-        // console.log('Editor HTML:', html); // Debugging line
-        return html;
-    }
-
-    // Button to save the content in Editor
-    const handleSaveClick = async () => {
-        const htmlContent = getEditorContent();
-        if (htmlContent) {
-            await window.electronAPI.saveContent(htmlContent);
-            console.log('Content saved successfully');
-        }
-    }
 
     return (
         // Box container for File System components
@@ -53,7 +38,6 @@ function Content() {
             <div className="content-window">
                 <Editor ref={editorRef} />
             </div>
-            <Button onClick={handleSaveClick}>Save</Button>
         </Box>
     )
 }
