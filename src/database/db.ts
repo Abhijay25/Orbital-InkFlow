@@ -25,12 +25,13 @@ const db = new Database(dbPath) as DatabaseType;
 // E.g. If a not references a category, that category must exist
 db.pragma('foreign_keys = ON');
 
-// Creates a table called: notes
-// Has columns: id, content, and timestamp for created_at and updated_at
+// Drop and recreate the notes table to ensure correct schema
 db.exec(`
-    CREATE TABLE IF NOT EXISTS notes (
+    DROP TABLE IF EXISTS notes;
+    CREATE TABLE notes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         content TEXT,
+        file_id TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );

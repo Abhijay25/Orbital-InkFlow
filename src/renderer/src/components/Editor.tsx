@@ -10,11 +10,15 @@ const extensions = [StarterKit,
       }),
 ]
 
+interface EditorProps {
+  fileId: string;
+}
+
 const defaultContent = '<h1></h1>'
 
 // Editor component with ref to get HTML
 // This HTML is then sent, so it can be saved to the database
-const Editor = forwardRef((props, ref) => {
+const Editor = forwardRef(({ fileId }: EditorProps, ref) => {
   const editor = useEditor({
     extensions,
     content: defaultContent,
@@ -22,8 +26,8 @@ const Editor = forwardRef((props, ref) => {
     // Auto-updates and auto-saves user's input
     onUpdate: async ({editor}) => {
       const htmlContent = editor.getHTML();
-      await window.electronAPI.saveContent(htmlContent);
-      console.log("content saved successfully");
+      await window.electronAPI.saveContentToFile(fileId, htmlContent);
+      console.log("content saved successfully to: ", fileId);
     }
   })
 

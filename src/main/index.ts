@@ -95,3 +95,10 @@ ipcMain.handle('get-latest-content', async () => {
   const result = stmt.get() as {content: string} | undefined;
   return result ? result.content : null;
 });
+
+ipcMain.handle('save-content-to-file', async (event, file_id: string, content: string) => {
+  const stmt = db.prepare("INSERT INTO notes (file_id, content) VALUES (?, ?)");
+  const result = stmt.run(file_id, content);
+  console.log("This file is being saved to: ", file_id)
+  return { success: true, id: result.lastInsertRowid};
+});
