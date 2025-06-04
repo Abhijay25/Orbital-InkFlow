@@ -1,16 +1,16 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder';
-import '../styles/Editor.css'
 import { forwardRef, useImperativeHandle, useEffect } from 'react'
 import Image from '@tiptap/extension-image';
 
-const extensions = [StarterKit, Image.configure({
-  allowBase64: true,
-}),
-   Placeholder.configure({
-        placeholder: 'Title',
-      }),
+import '../styles/Editor.css'
+
+const extensions = [StarterKit, 
+  Image.configure({allowBase64: true,}), 
+  Placeholder.configure({
+    placeholder: 'Title',
+  }), 
 ]
 
 const defaultContent = '<h1></h1>'
