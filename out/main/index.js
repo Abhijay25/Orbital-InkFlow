@@ -13,9 +13,11 @@ const dbPath = path.join(userDataPath, "inkflow.db");
 const db = new Database(dbPath);
 db.pragma("foreign_keys = ON");
 db.exec(`
-    CREATE TABLE IF NOT EXISTS notes (
+    DROP TABLE IF EXISTS notes;
+    CREATE TABLE notes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         content TEXT,
+        file_id TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
@@ -73,4 +75,10 @@ electron.ipcMain.handle("get-latest-content", async () => {
   const stmt = db.prepare("SELECT content FROM notes ORDER BY created_at DESC LIMIT 1");
   const result = stmt.get();
   return result ? result.content : null;
+});
+electron.ipcMain.handle("save-content-to-file", async (event, file_id, content) => {
+  const stmt = db.prepare("INSERT INTO notes (file_id, content) VALUES (?, ?)");
+  const result = stmt.run(file_id, content);
+  console.log("This file is being saved to: ", file_id);
+  return { success: true, id: result.lastInsertRowid };
 });

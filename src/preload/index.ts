@@ -7,6 +7,7 @@ if (!process.contextIsolated) {
 try {
   contextBridge.exposeInMainWorld('electronAPI', {
     saveContent: (content: string) => ipcRenderer.invoke('save-content', content),
+    saveContentToFile: (file_id: string, content:string) => ipcRenderer.invoke('save-content-to-file', file_id, content),
     getLatestContent: () => ipcRenderer.invoke('get-latest-content')
   })
 } catch (error) {
