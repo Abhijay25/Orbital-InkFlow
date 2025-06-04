@@ -1,36 +1,49 @@
 import { List } from "@mui/material";
 import AddFile from "./AddFile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import File from "./File";
 
 export type fileItem = {
     id: string,
-    fileName: string
-}
-
-interface FolderProps {
-    fileItems: fileItem[];
+    fileName: string,
+    createdAt: string
 }
 
 function Folder(FolderProps) {
 
     const [fileItems, setFileItems] = useState<fileItem[]>(FolderProps.fileItems);
+
+    const loadFiles = async () => {
+            const files = await window.electronAPI.getFiles();
+            const mappedFiles = files.map(file => ({
+                id: file.id,
+                fileName: file.name,
+                createdAt: file.created_at
+            }));
+            setFileItems(mappedFiles);
+        };
+
+    useEffect(() => {
+        loadFiles();
+    }, []);
+
+
     const files = fileItems.map(fileItem => {
         return (
-        <File
-            textName={fileItem.fileName}
-            fileItems={fileItems}
-            setFileItems={setFileItems}
-            id={fileItem.id}
-            key={fileItem.id}
-        />
+            <File
+                textName={fileItem.fileName}
+                fileItems={fileItems}
+                setFileItems={setFileItems}
+                id={fileItem.id}
+                key={fileItem.id}
+            />
         )
     })
 
     return (
         <nav aria-label="default folder">
             <List>
-                <AddFile fileItems={fileItems} setFileItems={setFileItems} />
+                <AddFile onSave={loadFiles}/>
                 {files}
             </List>
         </nav>

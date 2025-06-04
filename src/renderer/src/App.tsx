@@ -33,7 +33,7 @@ function App() {
         >
           <FileIDContext.Provider value={{ fileID, setFileID }}>
             <FileSystem />
-            <Content />
+            <Content fileId={fileID}/>
           </FileIDContext.Provider>
         </Split>
       </Box>

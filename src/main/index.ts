@@ -95,3 +95,32 @@ ipcMain.handle('get-latest-content', async () => {
   const result = stmt.get() as {content: string} | undefined;
   return result ? result.content : null;
 });
+
+ipcMain.handle('save-content-to-file', async (event, file_id: string, content: string) => {
+  const stmt = db.prepare("INSERT INTO notes (file_id, content) VALUES (?, ?)");
+  const result = stmt.run(file_id, content);
+  console.log("This file is being saved to: ", file_id)
+  return { success: true, id: result.lastInsertRowid};
+});
+
+ipcMain.handle('get-latest-content-by-file', async (event, file_id: string) => {
+  // SELECT the most recent update within the database
+  const stmt = db.prepare("SELECT content FROM notes WHERE file_id = ? ORDER BY created_at DESC LIMIT 1");
+  const result = stmt.get(file_id) as {content: string} | undefined;
+  return result ? result.content : null;
+});
+
+// Saves a file to a file system database under sidebar
+ipcMain.handle('save-file', async (event, file_id: string, name: string) => {
+  const stmt = db.prepare("INSERT OR REPLACE INTO files (id, name) VALUES (?, ?)");
+  const result = stmt.run(file_id, name);
+  console.log("Update file system");
+  return { sucess: true, id: file_id };
+});
+
+// Get all files from database
+ipcMain.handle('get-files', async () => {
+  const stmt = db.prepare("SELECT id, name, created_at FROM files ORDER BY created_at DESC");
+  const files = stmt.all() as Array<{id: string, name: string, created_at: string}>;
+  return files;
+});
