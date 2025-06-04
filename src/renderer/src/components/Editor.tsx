@@ -3,8 +3,11 @@ import StarterKit from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder';
 import '../styles/Editor.css'
 import { forwardRef, useImperativeHandle, useEffect } from 'react'
+import Image from '@tiptap/extension-image';
 
-const extensions = [StarterKit,
+const extensions = [StarterKit, Image.configure({
+  allowBase64: true,
+}),
    Placeholder.configure({
         placeholder: 'Title',
       }),
