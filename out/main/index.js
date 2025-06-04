@@ -13,13 +13,18 @@ const dbPath = path.join(userDataPath, "inkflow.db");
 const db = new Database(dbPath);
 db.pragma("foreign_keys = ON");
 db.exec(`
-    DROP TABLE IF EXISTS notes;
-    CREATE TABLE notes (
+    CREATE TABLE IF NOT EXISTS notes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         content TEXT,
         file_id TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS files (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 `);
 function createWindow() {
@@ -81,4 +86,20 @@ electron.ipcMain.handle("save-content-to-file", async (event, file_id, content) 
   const result = stmt.run(file_id, content);
   console.log("This file is being saved to: ", file_id);
   return { success: true, id: result.lastInsertRowid };
+});
+electron.ipcMain.handle("get-latest-content-by-file", async (event, file_id) => {
+  const stmt = db.prepare("SELECT content FROM notes WHERE file_id = ? ORDER BY created_at DESC LIMIT 1");
+  const result = stmt.get(file_id);
+  return result ? result.content : null;
+});
+electron.ipcMain.handle("save-file", async (event, file_id, name) => {
+  const stmt = db.prepare("INSERT OR REPLACE INTO files (id, name) VALUES (?, ?)");
+  stmt.run(file_id, name);
+  console.log("Update file system");
+  return { sucess: true, id: file_id };
+});
+electron.ipcMain.handle("get-files", async () => {
+  const stmt = db.prepare("SELECT id, name, created_at FROM files ORDER BY created_at DESC");
+  const files = stmt.all();
+  return files;
 });
