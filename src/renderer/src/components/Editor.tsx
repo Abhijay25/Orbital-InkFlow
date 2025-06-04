@@ -13,20 +13,24 @@ const extensions = [StarterKit,
   }), 
 ]
 
+interface EditorProps {
+  fileId: string;
+}
+
 const defaultContent = '<h1></h1>'
 
 // Editor component with ref to get HTML
 // This HTML is then sent, so it can be saved to the database
-const Editor = forwardRef((props, ref) => {
+const Editor = forwardRef(({ fileId }: EditorProps, ref) => {
   const editor = useEditor({
     extensions,
     content: defaultContent,
 
     // Auto-updates and auto-saves user's input
-    onUpdate: async ({editor}) => {
+    onUpdate: async ({ editor }) => {
       const htmlContent = editor.getHTML();
-      await window.electronAPI.saveContent(htmlContent);
-      console.log("content saved successfully");
+      await window.electronAPI.saveContentToFile(fileId, htmlContent);
+      console.log("content saved successfully to: ", fileId);
     }
   })
 
@@ -37,18 +41,21 @@ const Editor = forwardRef((props, ref) => {
     const loadContent = async () => {
       // try-catch block used for clearer error message used for debugging
       try {
-        console.log("retrieve content");
-        const savedContent = await window.electronAPI.getLatestContent();
+        console.log("retrieve content for file: ", fileId);
+        const savedContent = await window.electronAPI.getLatestContentByFile(fileId);
         if (savedContent && editor) {
           editor.commands.setContent(savedContent);
         }
       } catch (error) {
-        console.log("Encounter error when trying to load content from database to frontend");
+        console.log("Encounter error when trying to load content from database to frontend for file: ", fileId);
       }
     };
 
-    loadContent();
-    console.log("content loaded");
+    if (fileId) {
+      loadContent();
+      console.log("content loaded");
+    }
+
   }, [editor])
 
   useImperativeHandle(ref, () => ({

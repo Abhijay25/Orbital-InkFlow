@@ -8,6 +8,7 @@ import Folder from "./Folder";
 import DailyCalendar from "./DailyCalendar";
 
 function FileSystem() {
+    
     return (
         <Stack sx={{
             display: "flex",
@@ -21,13 +22,6 @@ function FileSystem() {
         >
             <List>
                 <Box sx={{ width: '100%', maxWidth: 360 }}>
-
-                    <Folder
-                        fileItems={[
-                            { id: crypto.randomUUID(), fileName: "Home" },
-                            { id: crypto.randomUUID(), fileName: "Inbox" }
-                        ]}
-                    />
 
                     <Divider />
 
