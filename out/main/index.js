@@ -71,16 +71,6 @@ electron.app.on("window-all-closed", () => {
     electron.app.quit();
   }
 });
-electron.ipcMain.handle("save-content", async (event, content) => {
-  const stmt = db.prepare("INSERT INTO notes (content) VALUES (?)");
-  const result = stmt.run(content);
-  return { success: true, id: result.lastInsertRowid };
-});
-electron.ipcMain.handle("get-latest-content", async () => {
-  const stmt = db.prepare("SELECT content FROM notes ORDER BY created_at DESC LIMIT 1");
-  const result = stmt.get();
-  return result ? result.content : null;
-});
 electron.ipcMain.handle("save-content-to-file", async (event, file_id, content) => {
   const stmt = db.prepare("INSERT INTO notes (file_id, content) VALUES (?, ?)");
   const result = stmt.run(file_id, content);
