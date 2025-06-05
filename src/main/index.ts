@@ -2,7 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import db from '../database/db' 
+import db from '../database/db'
 
 function createWindow(): void {
   // Create the browser window.
@@ -11,7 +11,7 @@ function createWindow(): void {
     height: 670,
     show: false,
     vibrancy: "under-window",
-    visualEffectState: "active", 
+    visualEffectState: "active",
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
@@ -76,36 +76,18 @@ app.on('window-all-closed', () => {
   }
 })
 
-// To be deleted
-// // IPC: Listen for save-content call
-// // Saves the content to SQLite database in the notes table with a timestamp
-// ipcMain.handle('save-content', async (event, content) => {
-//   const stmt = db.prepare("INSERT INTO notes (content) VALUES (?)");
-//   const result = stmt.run(content);
-//   return { success: true, id: result.lastInsertRowid};
-// });
-
-// // IPC: Listen for get-latest-content call
-// // Fetch the most recent content from the database
-// ipcMain.handle('get-latest-content', async () => {
-//   // SELECT the most recent update within the database
-//   const stmt = db.prepare("SELECT content FROM notes ORDER BY created_at DESC LIMIT 1");
-//   const result = stmt.get() as {content: string} | undefined;
-//   return result ? result.content : null;
-// });
-
 // Saves the content to SQLite database in the notes table with a timestamp, by file_id
 ipcMain.handle('save-content-to-file', async (event, file_id: string, content: string) => {
   const stmt = db.prepare("INSERT INTO notes (file_id, content) VALUES (?, ?)");
   const result = stmt.run(file_id, content);
   console.log("This file is being saved to: ", file_id)
-  return { success: true, id: result.lastInsertRowid};
+  return { success: true, id: result.lastInsertRowid };
 });
 
 // SELECT the most recent update within the database by file_id
 ipcMain.handle('get-latest-content-by-file', async (event, file_id: string) => {
   const stmt = db.prepare("SELECT content FROM notes WHERE file_id = ? ORDER BY created_at DESC LIMIT 1");
-  const result = stmt.get(file_id) as {content: string} | undefined;
+  const result = stmt.get(file_id) as { content: string } | undefined;
   return result ? result.content : null;
 });
 
@@ -120,6 +102,16 @@ ipcMain.handle('save-file', async (event, file_id: string, name: string) => {
 // Get all files from database
 ipcMain.handle('get-files', async () => {
   const stmt = db.prepare("SELECT id, name, created_at FROM files ORDER BY created_at DESC");
-  const files = stmt.all() as Array<{id: string, name: string, created_at: string}>;
+  const files = stmt.all() as Array<{ id: string, name: string, created_at: string }>;
   return files;
+});
+
+// Delete a file from the file system database under sidebar
+ipcMain.handle('delete-file', async (event, file_id: string) => {
+  const stmt1 = db.prepare("DELETE FROM files WHERE id = ?");
+  const stmt2 = db.prepare("DELETE FROM notes WHERE file_id = ?;");
+  const result1 = stmt1.run(file_id);
+  const result2 = stmt2.run(file_id);
+  console.log("Deleted a file: ", file_id);
+  return { sucess: true, id: file_id };
 });
