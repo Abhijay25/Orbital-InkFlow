@@ -1,0 +1,13 @@
+.timer-container {
+    background-color: grey;
+    z-index: 5; 
+    border-radius: 5px;
+}
+
+.timer-content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
