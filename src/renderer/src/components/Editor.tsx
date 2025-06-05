@@ -42,7 +42,7 @@ const Editor = forwardRef<EditorRef, EditorProps>(({ fileId }: EditorProps, ref)
   })
 
   // useEffect -> fetches the latest content from db, and pasted on textEditor
-  // [editor] will be the dependency array -> useEffect run when the editor changes
+  // [editor, fileId] will be the dependency array -> useEffect run when the editor changes
   useEffect(() => {
 
     const loadContent = async () => {

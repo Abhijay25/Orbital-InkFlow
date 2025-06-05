@@ -7,9 +7,7 @@ import "../styles/Editor.css";
 declare global {
     interface Window {
         electronAPI: {
-            saveContent: (content: string) => Promise<void>;
             saveContentToFile: (file_id: string, content: string) => Promise<void>;
-            getLatestContent: () => Promise<string | null>;
             getLatestContentByFile: (file_id: string) => Promise<string | null>;
             saveFile: (file_id: string, name: string) => Promise<{ success: boolean, id: string }>;
             getFiles: () => Promise<Array<{id: string, name: string, created_at: string}>>;

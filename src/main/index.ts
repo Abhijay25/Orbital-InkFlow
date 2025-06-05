@@ -76,26 +76,25 @@ app.on('window-all-closed', () => {
   }
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+// To be deleted
+// // IPC: Listen for save-content call
+// // Saves the content to SQLite database in the notes table with a timestamp
+// ipcMain.handle('save-content', async (event, content) => {
+//   const stmt = db.prepare("INSERT INTO notes (content) VALUES (?)");
+//   const result = stmt.run(content);
+//   return { success: true, id: result.lastInsertRowid};
+// });
 
-// IPC: Listen for save-content call
-// Saves the content to SQLite database in the notes table with a timestamp
-ipcMain.handle('save-content', async (event, content) => {
-  const stmt = db.prepare("INSERT INTO notes (content) VALUES (?)");
-  const result = stmt.run(content);
-  return { success: true, id: result.lastInsertRowid};
-});
+// // IPC: Listen for get-latest-content call
+// // Fetch the most recent content from the database
+// ipcMain.handle('get-latest-content', async () => {
+//   // SELECT the most recent update within the database
+//   const stmt = db.prepare("SELECT content FROM notes ORDER BY created_at DESC LIMIT 1");
+//   const result = stmt.get() as {content: string} | undefined;
+//   return result ? result.content : null;
+// });
 
-// IPC: Listen for get-latest-content call
-// Fetch the most recent content from the database
-ipcMain.handle('get-latest-content', async () => {
-  // SELECT the most recent update within the database
-  const stmt = db.prepare("SELECT content FROM notes ORDER BY created_at DESC LIMIT 1");
-  const result = stmt.get() as {content: string} | undefined;
-  return result ? result.content : null;
-});
-
+// Saves the content to SQLite database in the notes table with a timestamp, by file_id
 ipcMain.handle('save-content-to-file', async (event, file_id: string, content: string) => {
   const stmt = db.prepare("INSERT INTO notes (file_id, content) VALUES (?, ?)");
   const result = stmt.run(file_id, content);
@@ -103,8 +102,8 @@ ipcMain.handle('save-content-to-file', async (event, file_id: string, content: s
   return { success: true, id: result.lastInsertRowid};
 });
 
+// SELECT the most recent update within the database by file_id
 ipcMain.handle('get-latest-content-by-file', async (event, file_id: string) => {
-  // SELECT the most recent update within the database
   const stmt = db.prepare("SELECT content FROM notes WHERE file_id = ? ORDER BY created_at DESC LIMIT 1");
   const result = stmt.get(file_id) as {content: string} | undefined;
   return result ? result.content : null;
