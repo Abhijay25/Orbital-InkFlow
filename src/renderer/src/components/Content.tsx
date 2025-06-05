@@ -4,6 +4,7 @@ import "../styles/Editor.css";
 
 // Declare a type for window.electronAPI <- declared under preload/index.js
 // This is where we store all the functions that alter database from frontend
+// 'global' keyword, make it accessible to all
 declare global {
     interface Window {
         electronAPI: {
@@ -11,6 +12,7 @@ declare global {
             getLatestContentByFile: (file_id: string) => Promise<string | null>;
             saveFile: (file_id: string, name: string) => Promise<{ success: boolean, id: string }>;
             getFiles: () => Promise<Array<{id: string, name: string, created_at: string}>>;
+            deleteFile: (file_id: string) => Promise<{ success: boolean, id: string }>;
         }
     }
 }

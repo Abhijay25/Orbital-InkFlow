@@ -93,3 +93,11 @@ electron.ipcMain.handle("get-files", async () => {
   const files = stmt.all();
   return files;
 });
+electron.ipcMain.handle("delete-file", async (event, file_id) => {
+  const stmt1 = db.prepare("DELETE FROM files WHERE id = ?");
+  const stmt2 = db.prepare("DELETE FROM notes WHERE file_id = ?;");
+  stmt1.run(file_id);
+  stmt2.run(file_id);
+  console.log("Deleted a file: ", file_id);
+  return { sucess: true, id: file_id };
+});
