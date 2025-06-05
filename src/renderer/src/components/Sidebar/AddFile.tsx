@@ -4,15 +4,13 @@ import Button from '@mui/material/Button';
 import addFileImage from "../../../../../resources/add-file.png";
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
-import { fileItem } from './Folder';
 
 interface AddFileProps {
-  fileItems: fileItem[];
-  setFileItems: React.Dispatch<React.SetStateAction<fileItem[]>>;
+    onSave: () => void;
 }
 
 // Button to add a file
-function AddFile({fileItems, setFileItems}: AddFileProps) {
+function AddFile({ onSave }: AddFileProps) {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
     const [inputValue, setInputValue] = useState<string>("");
 
@@ -35,29 +33,28 @@ function AddFile({fileItems, setFileItems}: AddFileProps) {
     };
 
     // Enables "Enter" to key in our textName
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = async (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter' && inputValue.trim()) {
-            event.preventDefault(); 
-            setFileItems([...fileItems,
-                { id: crypto.randomUUID(), fileName: inputValue }
-            ]);
-            handleClose(); 
+            event.preventDefault();
+            await window.electronAPI.saveFile(crypto.randomUUID(), inputValue);
+            onSave();
+            handleClose();
         }
     };
 
     return (
         <div>
-            <Button 
-                aria-describedby={id} 
-                variant="contained" 
+            <Button
+                aria-describedby={id}
+                variant="contained"
                 onClick={handleClick}
             >
-                <img 
-                    src={addFileImage} 
-                    style={{ 
-                        width: '20px', 
+                <img
+                    src={addFileImage}
+                    style={{
+                        width: '20px',
                         height: 'auto',
-                    }} 
+                    }}
                 />
             </Button>
             <Popover

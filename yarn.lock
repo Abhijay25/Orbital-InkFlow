@@ -1029,7 +1029,7 @@
 
 "@tiptap/extension-image@^2.12.0":
   version "2.12.0"
-  resolved "https://registry.npmjs.org/@tiptap/extension-image/-/extension-image-2.12.0.tgz"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-image/-/extension-image-2.12.0.tgz#e3a57ae699cac4bc944f1d4830c92dbadb157b5b"
   integrity sha512-wO+yrfMlnW3SYCb1Q1qAb+nt5WH6jnlQPTV6qdoIabRtW0puwMWULZDUgclPN5hxn8EXb9vBEu44egvH6hgkfQ==
 
 "@tiptap/extension-italic@^2.12.0":

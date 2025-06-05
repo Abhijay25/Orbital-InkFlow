@@ -2,7 +2,8 @@ import { Box } from "@mui/material";
 import Split from "react-split";
 import FileSystem from "./components/Sidebar/FileSystem";
 import Content from "./components/Content";
-import { useState, createContext } from "react";
+import { useState, createContext, useRef } from "react";
+import { EditorRef } from "./components/Editor";
 
 export type FileIDContextType = {
   fileID: string;
@@ -17,6 +18,7 @@ export const FileIDContext = createContext<FileIDContextType>({
 function App() {
 
   const [fileID, setFileID] = useState<string>("")
+  const editorRef = useRef<EditorRef>(null);
 
   console.log(fileID);
 
@@ -32,8 +34,8 @@ function App() {
           }} // Container Box and Split styling 
         >
           <FileIDContext.Provider value={{ fileID, setFileID }}>
-            <FileSystem />
-            <Content />
+            <FileSystem editorRef={editorRef} />
+            <Content fileId={fileID} editorRef={editorRef} />
           </FileIDContext.Provider>
         </Split>
       </Box>
