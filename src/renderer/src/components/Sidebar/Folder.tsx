@@ -37,10 +37,11 @@ function Folder({ fileItems: initialFileItems, editorRef }: FolderProps) {
             <File
                 textName={fileItem.fileName}
                 fileItems={fileItems}
-                setFileItems={setFileItems}
+                setFileItems={setFileItems} // can be removed, 
                 id={fileItem.id}
                 key={fileItem.id}
                 editorRef={editorRef}
+                onSave={loadFiles}
             />
         )
     })
