@@ -81,6 +81,11 @@ ipcMain.handle('save-content-to-file', async (event, file_id: string, content: s
   const stmt = db.prepare("INSERT INTO notes (file_id, content) VALUES (?, ?)");
   const result = stmt.run(file_id, content);
   console.log("This file is being saved to: ", file_id)
+
+  // For deployment
+  event;
+  //
+
   return { success: true, id: result.lastInsertRowid };
 });
 
@@ -88,14 +93,24 @@ ipcMain.handle('save-content-to-file', async (event, file_id: string, content: s
 ipcMain.handle('get-latest-content-by-file', async (event, file_id: string) => {
   const stmt = db.prepare("SELECT content FROM notes WHERE file_id = ? ORDER BY created_at DESC LIMIT 1");
   const result = stmt.get(file_id) as { content: string } | undefined;
+
+  // For deployment
+  event;
+  //
+
   return result ? result.content : null;
 });
 
 // Saves a file to a file system database under sidebar
 ipcMain.handle('save-file', async (event, file_id: string, name: string) => {
   const stmt = db.prepare("INSERT OR REPLACE INTO files (id, name) VALUES (?, ?)");
-  const result = stmt.run(file_id, name);
+  stmt.run(file_id, name);
   console.log("Update file system");
+
+  // For deployment
+  event;
+  //
+
   return { sucess: true, id: file_id };
 });
 
@@ -110,8 +125,12 @@ ipcMain.handle('get-files', async () => {
 ipcMain.handle('delete-file', async (event, file_id: string) => {
   const stmt1 = db.prepare("DELETE FROM files WHERE id = ?");
   const stmt2 = db.prepare("DELETE FROM notes WHERE file_id = ?;");
-  const result1 = stmt1.run(file_id);
-  const result2 = stmt2.run(file_id);
+  stmt1.run(file_id);
+  stmt2.run(file_id);
   console.log("Deleted a file: ", file_id);
+
+  // For deployment
+  event;
+  //
   return { sucess: true, id: file_id };
 });

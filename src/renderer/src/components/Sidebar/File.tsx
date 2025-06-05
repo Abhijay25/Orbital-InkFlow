@@ -9,12 +9,11 @@ interface FileProps {
     id: string;
     textName: string;
     fileItems: fileItem[];
-    setFileItems: React.Dispatch<React.SetStateAction<fileItem[]>>;
     editorRef: React.RefObject<EditorRef | null>;
     onSave: () => void;
 }
 
-function File({ id, textName, setFileItems, editorRef, onSave }: FileProps) {
+function File({ id, textName, editorRef, onSave }: FileProps) {
 
     const key = id;
 
