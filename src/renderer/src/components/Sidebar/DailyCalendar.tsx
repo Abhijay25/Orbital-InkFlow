@@ -1,5 +1,5 @@
 import Calendar from "react-calendar";
-import '../../styles/Calendar.css';
+import '../../styles/DailyCalendar.css';
 import { Box } from "@mui/material";
 
 function DailyCalendar() {
