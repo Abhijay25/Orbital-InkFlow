@@ -13,6 +13,13 @@ const extensions = [StarterKit,
   }), 
 ]
 
+export interface EditorRef {
+  getHTML: () => string;
+  commands: {
+    setContent: (content: string) => void;
+  };
+}
+
 interface EditorProps {
   fileId: string;
 }
@@ -21,7 +28,7 @@ const defaultContent = '<h1></h1>'
 
 // Editor component with ref to get HTML
 // This HTML is then sent, so it can be saved to the database
-const Editor = forwardRef(({ fileId }: EditorProps, ref) => {
+const Editor = forwardRef<EditorRef, EditorProps>(({ fileId }: EditorProps, ref) => {
   const editor = useEditor({
     extensions,
     content: defaultContent,
@@ -56,10 +63,13 @@ const Editor = forwardRef(({ fileId }: EditorProps, ref) => {
       console.log("content loaded");
     }
 
-  }, [editor])
+  }, [editor, fileId])
 
   useImperativeHandle(ref, () => ({
-    getHTML: () => editor?.getHTML(),
+    getHTML: () => editor?.getHTML() || '',
+    commands: {
+      setContent: (content: string) => editor?.commands.setContent(content)
+    }
   }))
 
   return (

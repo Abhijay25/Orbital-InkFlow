@@ -1,17 +1,19 @@
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
 import InboxIcon from '@mui/icons-material/Inbox';
-import { useState, useContext } from "react";
+import { useState, useContext, useRef } from "react";
 import { fileItem } from "./Folder";
 import { FileIDContext } from "@renderer/App";
+import { EditorRef } from "../Editor";
 
 interface FileProps {
     id: string;
     textName: string;
     fileItems: fileItem[];
     setFileItems: React.Dispatch<React.SetStateAction<fileItem[]>>;
+    editorRef: React.RefObject<EditorRef | null>;
 }
 
-function File({ id, textName, setFileItems }: FileProps) {
+function File({ id, textName, setFileItems, editorRef }: FileProps) {
 
     const key = id;
 
@@ -21,9 +23,14 @@ function File({ id, textName, setFileItems }: FileProps) {
 
     const { setFileID } = useContext(FileIDContext);
 
-    const handleClick = () => {
+    // Upon clicking onto this file tab, content:string has to be retrieved from database, then loaded into Editor
+    const handleClick = async () => {
+        const content = await window.electronAPI.getLatestContentByFile(key);
+        if (content && editorRef.current) {
+            editorRef.current.commands.setContent(content);
+        }
+        // update prop -> fileId
         setFileID(key);
-        console.log(key);
     }
 
     const handleRightClick = (event: React.MouseEvent<HTMLElement>) => {
