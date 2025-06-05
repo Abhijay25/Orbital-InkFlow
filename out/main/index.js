@@ -71,16 +71,6 @@ electron.app.on("window-all-closed", () => {
     electron.app.quit();
   }
 });
-electron.ipcMain.handle("save-content", async (event, content) => {
-  const stmt = db.prepare("INSERT INTO notes (content) VALUES (?)");
-  const result = stmt.run(content);
-  return { success: true, id: result.lastInsertRowid };
-});
-electron.ipcMain.handle("get-latest-content", async () => {
-  const stmt = db.prepare("SELECT content FROM notes ORDER BY created_at DESC LIMIT 1");
-  const result = stmt.get();
-  return result ? result.content : null;
-});
 electron.ipcMain.handle("save-content-to-file", async (event, file_id, content) => {
   const stmt = db.prepare("INSERT INTO notes (file_id, content) VALUES (?, ?)");
   const result = stmt.run(file_id, content);
@@ -102,4 +92,12 @@ electron.ipcMain.handle("get-files", async () => {
   const stmt = db.prepare("SELECT id, name, created_at FROM files ORDER BY created_at DESC");
   const files = stmt.all();
   return files;
+});
+electron.ipcMain.handle("delete-file", async (event, file_id) => {
+  const stmt1 = db.prepare("DELETE FROM files WHERE id = ?");
+  const stmt2 = db.prepare("DELETE FROM notes WHERE file_id = ?;");
+  stmt1.run(file_id);
+  stmt2.run(file_id);
+  console.log("Deleted a file: ", file_id);
+  return { sucess: true, id: file_id };
 });

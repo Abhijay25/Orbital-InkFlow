@@ -1,37 +1,28 @@
 import { Box } from "@mui/material";
-import Editor from "./Editor";
+import Editor, { EditorRef } from "./Editor";
 import "../styles/Editor.css";
-import { useRef } from "react";
 
 // Declare a type for window.electronAPI <- declared under preload/index.js
 // This is where we store all the functions that alter database from frontend
+// 'global' keyword, make it accessible to all
 declare global {
     interface Window {
         electronAPI: {
-            saveContent: (content: string) => Promise<void>;
             saveContentToFile: (file_id: string, content: string) => Promise<void>;
-            getLatestContent: () => Promise<string | null>;
             getLatestContentByFile: (file_id: string) => Promise<string | null>;
             saveFile: (file_id: string, name: string) => Promise<{ success: boolean, id: string }>;
             getFiles: () => Promise<Array<{id: string, name: string, created_at: string}>>;
+            deleteFile: (file_id: string) => Promise<{ success: boolean, id: string }>;
         }
     }
 }
 
-interface EditorRef {
-    getHTML: () => string;
-}
-
 interface ContentProps {
-    fileId: string
+    fileId: string;
+    editorRef: React.RefObject<EditorRef | null>;
 }
 
-function Content({ fileId }: ContentProps) {
-
-    // Use ref to get instance of the Editor component
-    // Can be used in the future
-    const editorRef = useRef<EditorRef>(null);
-
+function Content({ fileId, editorRef }: ContentProps) {
     return (
         // Box container for File System components
         <Box sx={{
