@@ -1,13 +1,28 @@
 .timer-container {
     background-color: grey;
-    z-index: 5; 
+    z-index: 5;
     border-radius: 5px;
-}
+    max-width: 400px;
+    max-height: 400px;
 
-.timer-content {
-    height: 100%;
-    width: 100%;
-    display: flex;
     align-items: center;
     justify-content: center;
+    align-content: center;
+    text-align: center;
+}
+
+.CircularProgressbar {
+    width: 60%;
+}
+
+.play-button {
+    background-color: transparent;
+    color: whitesmoke;
+    border: none;
+
+    width: 20%;
+}
+
+.play_pause {
+    margin-top: 15px;
 }

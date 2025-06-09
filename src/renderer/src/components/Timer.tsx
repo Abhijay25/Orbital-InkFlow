@@ -1,21 +1,20 @@
-import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import PlayButton from "./PlayButton";
 
 import "../styles/Timer.css";
+import PauseButton from "./PauseButton";
 
 function Timer() {
     return (
         <div className="timer-content">
-            <CountdownCircleTimer
-                isPlaying
-                duration={7}
-                colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                colorsTime={[7, 5, 2, 0]}
-            >
-                {({ remainingTime }) => remainingTime}
-
-            </CountdownCircleTimer>
+            <CircularProgressbar value={60} text={'50%'} />
+            <div>
+                <PlayButton />
+                <PauseButton />
+            </div>
         </div>
     )
 }
 
-export default Timer;
+export default Timer
