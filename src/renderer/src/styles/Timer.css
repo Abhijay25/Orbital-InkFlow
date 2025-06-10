@@ -40,26 +40,58 @@
     width: 20%;
 }
 
+.save-button {
+    background-color: transparent;
+    color: whitesmoke;
+    border: none;
+    cursor: pointer;
+
+    width: 20%;
+}
+
 .timer-sliders {
     text-align: left;
+}
+
+.save-align {
+    text-align: right;
 }
 
 .play_pause {
     margin-top: 15px;
 }
 
-label {
-    display: block;
-}
-
 .work-slider {
-    height: 20px;
+    height: 24px;
     border: 2px solid red;
     border-radius: 20px;
 }
 
 .break-slider {
-    height: 20px;
-    border: 2px solid black;
+    height: 24px;
+    border: 2px solid yellow;
     border-radius: 20px;
 }
+
+.work-thumb {
+    background-color: red;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+}
+
+.break-thumb {
+    background-color: yellow;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
