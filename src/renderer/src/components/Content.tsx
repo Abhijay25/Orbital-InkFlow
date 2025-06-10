@@ -5,6 +5,8 @@ import React from "react";
 
 import Timer from "./Timer";
 import TimerConfig from "./TimerConfig";
+import TimerContext from "./TimerContext";
+
 import "../styles/Editor.css";
 
 
@@ -30,6 +32,8 @@ interface ContentProps {
 
 function Content({ fileId, editorRef }: ContentProps) {
     const [showSlider, setShowSlider] = React.useState(true);
+    const [workMins, setWorkMins] = React.useState(45);
+    const [breakMins, setBreakMins] = React.useState(15);
     return (
         // Box container for File System components
         <Box sx={{
@@ -52,7 +56,14 @@ function Content({ fileId, editorRef }: ContentProps) {
                 height: 150,
             }} bounds="parent"
             className="timer-container">
-                {showSlider ? <TimerConfig /> : <Timer />}
+                <TimerContext.Provider value={{
+                    workMins,
+                    breakMins,
+                    setWorkMins,
+                    setBreakMins,
+                }}>
+                    {showSlider ? <TimerConfig /> : <Timer />}
+                </TimerContext.Provider>
             </Rnd>
         </Box>
     )
