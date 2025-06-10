@@ -37,6 +37,7 @@
     "react-calendar": "^6.0.0",
     "react-circular-progressbar": "^2.2.0",
     "react-rnd": "^10.5.2",
+    "react-slider": "^2.0.6",
     "react-split": "^2.0.14"
   },
   "devDependencies": {

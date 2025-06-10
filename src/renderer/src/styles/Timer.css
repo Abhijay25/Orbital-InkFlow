@@ -23,6 +23,43 @@
     width: 20%;
 }
 
+.pause-button {
+    background-color: transparent;
+    color: whitesmoke;
+    border: none;
+
+    width: 20%;
+}
+
+.settings-button {
+    background-color: transparent;
+    color: whitesmoke;
+    border: none;
+    cursor: pointer;
+
+    width: 20%;
+}
+
+.timer-sliders {
+    text-align: left;
+}
+
 .play_pause {
     margin-top: 15px;
+}
+
+label {
+    display: block;
+}
+
+.work-slider {
+    height: 20px;
+    border: 2px solid red;
+    border-radius: 20px;
+}
+
+.break-slider {
+    height: 20px;
+    border: 2px solid black;
+    border-radius: 20px;
 }

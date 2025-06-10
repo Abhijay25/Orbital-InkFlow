@@ -1,9 +1,12 @@
 import { Box } from "@mui/material";
 import Editor, { EditorRef } from "./Editor";
-import "../styles/Editor.css";
-import Timer from "./Timer";
-import { relative } from "path";
 import { Rnd } from "react-rnd";
+import React from "react";
+
+import Timer from "./Timer";
+import TimerConfig from "./TimerConfig";
+import "../styles/Editor.css";
+
 
 // Declare a type for window.electronAPI <- declared under preload/index.js
 // This is where we store all the functions that alter database from frontend
@@ -26,6 +29,7 @@ interface ContentProps {
 }
 
 function Content({ fileId, editorRef }: ContentProps) {
+    const [showSlider, setShowSlider] = React.useState(true);
     return (
         // Box container for File System components
         <Box sx={{
@@ -48,7 +52,7 @@ function Content({ fileId, editorRef }: ContentProps) {
                 height: 150,
             }} bounds="parent"
             className="timer-container">
-                <Timer />
+                {showSlider ? <TimerConfig /> : <Timer />}
             </Rnd>
         </Box>
     )
