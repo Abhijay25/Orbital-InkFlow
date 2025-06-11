@@ -5,6 +5,8 @@ type TimerType = {
   breakMins: number;
   setWorkMins: React.Dispatch<React.SetStateAction<number>>;
   setBreakMins: React.Dispatch<React.SetStateAction<number>>;
+  showSlider: boolean;
+  setShowSlider: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const TimerContext = createContext<TimerType | null>(null);

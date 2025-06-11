@@ -19,7 +19,7 @@ declare global {
             saveContentToFile: (file_id: string, content: string) => Promise<void>;
             getLatestContentByFile: (file_id: string) => Promise<string | null>;
             saveFile: (file_id: string, name: string) => Promise<{ success: boolean, id: string }>;
-            getFiles: () => Promise<Array<{id: string, name: string, created_at: string}>>;
+            getFiles: () => Promise<Array<{ id: string, name: string, created_at: string }>>;
             deleteFile: (file_id: string) => Promise<{ success: boolean, id: string }>;
         }
     }
@@ -31,14 +31,14 @@ interface ContentProps {
 }
 
 function Content({ fileId, editorRef }: ContentProps) {
-    const [showSlider, setShowSlider] = React.useState(true);
+    const [showSlider, setShowSlider] = React.useState(false);
     const [workMins, setWorkMins] = React.useState(45);
     const [breakMins, setBreakMins] = React.useState(15);
     return (
         // Box container for File System components
         <Box sx={{
             display: "flex",
-            position: "relative", 
+            position: "relative",
             alignItems: "center",
             justifyContent: "center",
             bgcolor: "#3b3b3b",
@@ -47,7 +47,7 @@ function Content({ fileId, editorRef }: ContentProps) {
         }}
         >
             <div className="content-window">
-                <Editor ref={editorRef} fileId={fileId}/>
+                <Editor ref={editorRef} fileId={fileId} />
             </div>
             <Rnd default={{
                 x: 0,
@@ -55,12 +55,14 @@ function Content({ fileId, editorRef }: ContentProps) {
                 width: 200,
                 height: 150,
             }} bounds="parent"
-            className="timer-container">
+                className="timer-container">
                 <TimerContext.Provider value={{
                     workMins,
                     breakMins,
                     setWorkMins,
                     setBreakMins,
+                    showSlider,
+                    setShowSlider,
                 }}>
                     {showSlider ? <TimerConfig /> : <Timer />}
                 </TimerContext.Provider>

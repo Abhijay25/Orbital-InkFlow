@@ -2,8 +2,10 @@ import ReactSlider from "react-slider";
 import TimerContext from "./TimerContext";
 import { useContext } from "react";
 
-import "../styles/Timer.css"
 import SaveButton from "./SaveButton";
+
+import "../styles/Timer.css"
+
 
 function TimerConfig() {
     const timerInfo = useContext(TimerContext);
@@ -15,7 +17,7 @@ function TimerConfig() {
     return (
         <div className="timer-sliders">
             <div className="save-align">
-                <SaveButton />
+                <SaveButton onClick={() => timerInfo.setShowSlider(false)}/>
             </div>
             <label>Work Time: {timerInfo.workMins} </label>
             <ReactSlider
