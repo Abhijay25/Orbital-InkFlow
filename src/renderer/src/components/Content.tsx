@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import Editor, { EditorRef } from "./Editor";
 import { Rnd } from "react-rnd";
-import React from "react";
+import React, { useRef } from "react";
 
 import Timer from "./Timer";
 import TimerConfig from "./TimerConfig";
@@ -52,10 +52,21 @@ function Content({ fileId, editorRef }: ContentProps) {
             <Rnd default={{
                 x: 0,
                 y: 0,
-                width: 200,
-                height: 150,
-            }} bounds="parent"
-                className="timer-container">
+                width: 210,
+                height: 180
+            }}
+                bounds="parent"
+                className="timer-container"
+                minHeight={175}
+                minWidth={200}
+                maxHeight={190}
+                maxWidth={230}
+                enableResizing
+                style={{
+                    position: "absolute",
+                    right: 0,
+                    bottom: 0,
+                }}>
                 <TimerContext.Provider value={{
                     workMins,
                     breakMins,
