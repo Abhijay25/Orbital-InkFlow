@@ -1,9 +1,9 @@
 .timer-container {
-    background-color: grey;
+    background-color: black;
     z-index: 5;
     border-radius: 5px;
-    max-width: 400px;
-    max-height: 400px;
+    padding-top: 5px;
+    border: 1px white;
 
     align-items: center;
     justify-content: center;
@@ -13,14 +13,17 @@
 
 .CircularProgressbar {
     width: 60%;
+    margin-bottom: 0px;
 }
 
 .play-button {
     background-color: transparent;
     color: whitesmoke;
     border: none;
+    margin-top: 0px;
 
     width: 20%;
+    cursor: pointer;
 }
 
 .pause-button {
@@ -29,6 +32,7 @@
     border: none;
 
     width: 20%;
+    cursor: pointer;
 }
 
 .settings-button {
@@ -62,36 +66,45 @@
 }
 
 .work-slider {
-    height: 24px;
+    margin-left: 2.5%;
+    height: 15px;
+    width: 95%;
+    
     border: 2px solid red;
-    border-radius: 20px;
-}
-
-.break-slider {
-    height: 24px;
-    border: 2px solid yellow;
     border-radius: 20px;
 }
 
 .work-thumb {
     background-color: red;
     cursor: pointer;
-    width: 20px;
-    height: 20px;
+    width: 11px;
+    height: 11px;
     border-radius: 10px;
 }
 
+.break-slider {
+    margin-left: 2.5%;
+    height: 15px;
+    width: 95%;
+    
+    border: 2px solid yellowgreen;
+    border-radius: 20px;
+    cursor: default;
+}
+
 .break-thumb {
-    background-color: yellow;
+    background-color: yellowgreen;
     cursor: pointer;
-    width: 20px;
-    height: 20px;
+    width: 11px;
+    height: 11px;
     border-radius: 10px;
 }
 
 label {
-    display: block;
-    margin-bottom: 5px;
+    margin-left: 2.5%;
+    margin-bottom: 1px;
     margin-top: 10px;
+
+    display: block;
 }
 
