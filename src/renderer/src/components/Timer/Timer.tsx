@@ -7,7 +7,7 @@ import PauseButton from "./PauseButton";
 import TimerSettings from "./TimerSettings";
 import TimerContext from "./TimerContext";
 
-import "../styles/Timer.css";
+import "../../styles/Timer.css";
 
 function Timer() {
     const timerInfo = useContext(TimerContext)!; // '!' to imply values will never be null

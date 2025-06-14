@@ -1,4 +1,4 @@
-import "../styles/Timer.css"
+import "../../styles/Timer.css"
 
 function TimerSettings(props) {
     return (
