@@ -8,6 +8,8 @@ import Folder from "./Folder";
 import DailyCalendar from "./DailyCalendar";
 import { EditorRef } from "../Editor";
 
+import "../../styles/FileSystem.css"
+
 interface FileSystemProps {
     editorRef: React.RefObject<EditorRef | null>;
 }
@@ -15,14 +17,11 @@ interface FileSystemProps {
 function FileSystem({ editorRef }: FileSystemProps) {
     return (
         <Stack sx={{
-            display: "flex",
             alignItems: "left",
             justifyContent: "space-between",
-            bgcolor: "#3b3b3b",
             m: 1, mr: 0.01,
-            borderRadius: 1,
-            overflow: "auto"
-        }}>
+        }}
+        className="file-system">
             <List>
                 <Box sx={{ width: '100%', maxWidth: 360 }}>
                     <Divider />

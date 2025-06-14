@@ -4,7 +4,7 @@ import { useContext } from "react";
 
 import SaveButton from "./SaveButton";
 
-import "../styles/Timer.css"
+import "../../styles/Timer.css"
 
 
 function TimerConfig() {

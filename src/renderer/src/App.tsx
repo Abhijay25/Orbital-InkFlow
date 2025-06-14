@@ -1,9 +1,10 @@
 import { Box } from "@mui/material";
+import { useState, createContext, useRef } from "react";
+import { EditorRef } from "./components/Editor";
+
 import Split from "react-split";
 import FileSystem from "./components/Sidebar/FileSystem";
 import Content from "./components/Content";
-import { useState, createContext, useRef } from "react";
-import { EditorRef } from "./components/Editor";
 
 export type FileIDContextType = {
   fileID: string;
