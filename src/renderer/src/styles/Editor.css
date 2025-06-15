@@ -62,6 +62,10 @@
   padding: 1rem;
 }
 
+.ProseMirror:focus {
+  outline: none;
+}
+
 /*
 --------------------------------------------------------------------
 Code Block CSS

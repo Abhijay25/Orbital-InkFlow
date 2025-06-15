@@ -17,20 +17,23 @@ function Timer() {
         throw new Error("TimerContext.Provider is missing");
     }
 
-    const [isPaused, setIsPaused] = useState(true);
+    const [isPaused, setIsPaused] = useState(true); // Status for Timer 
     const [timeLeft, setTimeLeft] = useState(0); // Time Left on the Timer for Work or Break
     const [mode, setMode] = useState('work'); // Changes between 'work' and 'break' in switchMode
 
+    // References for States that are Changing
     const timeLeftRef = useRef(timeLeft);
     const isPausedRef = useRef(isPaused);
     const modeRef = useRef(mode);
 
+    // For Timer to Count Down
     function tick() {
         timeLeftRef.current--;
         setTimeLeft(timeLeftRef.current);
     }
 
     useEffect(() => {
+        // If already in Work, Set Mode to Break and Add Time
         function switchMode() {
             const nextMode = modeRef.current === 'work'
                 ? 'break'
@@ -50,9 +53,11 @@ function Timer() {
         setTimeLeft(timeLeftRef.current);
 
         const interval = setInterval(() => {
+            // If Timer Is Paused, Do Nothing
             if (isPausedRef.current) {
                 return;
             }
+            // If Timer has Reached 0, Switch Modes
             if (timeLeftRef.current === 0) {
                 return switchMode();
             }
@@ -69,7 +74,7 @@ function Timer() {
 
     const minutes = Math.floor(timeLeft / 60);
     let seconds = timeLeft % 60;
-    let secondsString = '';
+    let secondsString = ''; // String to be Displayed in the Timer
     if (seconds < 10) {
         secondsString = '0' + seconds;
     } else {
