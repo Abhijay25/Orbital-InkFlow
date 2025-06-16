@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import { useState, createContext, useRef } from "react";
 import { EditorRef } from "./components/Editor";
-
 import Split from "react-split";
 import FileSystem from "./components/Sidebar/FileSystem";
 import Content from "./components/Content";
@@ -37,6 +36,7 @@ function App() {
           <FileIDContext.Provider value={{ fileID, setFileID }}>
             <FileSystem editorRef={editorRef} />
             <Content fileId={fileID} editorRef={editorRef} />
+
           </FileIDContext.Provider>
         </Split>
       </Box>
