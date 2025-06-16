@@ -9,7 +9,7 @@ import '../styles/Editor.css'
 const extensions = [StarterKit, 
   Image.configure({allowBase64: true,}), 
   Placeholder.configure({
-    placeholder: 'Title',
+    placeholder: '🚀 Create/Select a Note to get started 🚀',
   }), 
 ]
 
