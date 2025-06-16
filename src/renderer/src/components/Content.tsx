@@ -1,9 +1,14 @@
 import { Box } from "@mui/material";
 import Editor, { EditorRef } from "./Editor";
-import "../styles/Editor.css";
-import Timer from "./Timer";
-import { relative } from "path";
 import { Rnd } from "react-rnd";
+import React, { useRef } from "react";
+
+import Timer from "./Timer/Timer";
+import TimerConfig from "./Timer/TimerConfig";
+import TimerContext from "./Timer/TimerContext";
+
+import "../styles/Editor.css";
+
 
 // Declare a type for window.electronAPI <- declared under preload/index.js
 // This is where we store all the functions that alter database from frontend
@@ -14,7 +19,7 @@ declare global {
             saveContentToFile: (file_id: string, content: string) => Promise<void>;
             getLatestContentByFile: (file_id: string) => Promise<string | null>;
             saveFile: (file_id: string, name: string) => Promise<{ success: boolean, id: string }>;
-            getFiles: () => Promise<Array<{id: string, name: string, created_at: string}>>;
+            getFiles: () => Promise<Array<{ id: string, name: string, created_at: string }>>;
             deleteFile: (file_id: string) => Promise<{ success: boolean, id: string }>;
         }
     }
@@ -26,11 +31,14 @@ interface ContentProps {
 }
 
 function Content({ fileId, editorRef }: ContentProps) {
+    const [showSlider, setShowSlider] = React.useState(false);
+    const [workMins, setWorkMins] = React.useState(45);
+    const [breakMins, setBreakMins] = React.useState(15);
     return (
         // Box container for File System components
         <Box sx={{
             display: "flex",
-            position: "relative", 
+            position: "relative",
             alignItems: "center",
             justifyContent: "center",
             bgcolor: "#3b3b3b",
@@ -39,16 +47,27 @@ function Content({ fileId, editorRef }: ContentProps) {
         }}
         >
             <div className="content-window">
-                <Editor ref={editorRef} fileId={fileId}/>
+                <Editor ref={editorRef} fileId={fileId} />
             </div>
             <Rnd default={{
-                x: 0,
-                y: 0,
-                width: 200,
-                height: 200,
+                x: (window.outerWidth) * 0.739,
+                y: (window.outerHeight) * 0.805,
+                width: 210,
+                height: 180,
             }} bounds="parent"
-            className="timer-container">
-                <Timer />
+                className="timer-container"
+                minHeight={175} minWidth={200}
+                maxHeight={190} maxWidth={230}>
+                <TimerContext.Provider value={{
+                    workMins,
+                    breakMins,
+                    setWorkMins,
+                    setBreakMins,
+                    showSlider,
+                    setShowSlider,
+                }}>
+                    {showSlider ? <TimerConfig /> : <Timer />}
+                </TimerContext.Provider>
             </Rnd>
         </Box>
     )
