@@ -33,12 +33,15 @@
     "@tiptap/pm": "^2.12.0",
     "@tiptap/react": "^2.12.0",
     "@tiptap/starter-kit": "^2.12.0",
+    "@types/ws": "^8.18.1",
     "better-sqlite3": "^11.10.0",
+    "mic": "^2.1.2",
     "react-calendar": "^6.0.0",
     "react-circular-progressbar": "^2.2.0",
     "react-rnd": "^10.5.2",
     "react-slider": "^2.0.6",
-    "react-split": "^2.0.14"
+    "react-split": "^2.0.14",
+    "ws": "^8.18.2"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "^3.0.0",

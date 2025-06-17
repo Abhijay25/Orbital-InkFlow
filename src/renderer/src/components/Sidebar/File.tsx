@@ -43,7 +43,6 @@ function File({ id, textName, setFileItems, editorRef, onSave }: FileProps) {
     };
 
     const handleDelete = async () => {
-
         await window.electronAPI.deleteFile(key);
         onSave();
         setAnchorEl(null);
