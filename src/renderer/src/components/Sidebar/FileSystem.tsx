@@ -21,17 +21,22 @@ function FileSystem({ editorRef }: FileSystemProps) {
             justifyContent: "space-between",
             m: 1, mr: 0.01,
         }}
-        className="file-system">
-            <List>
-                <Box sx={{ width: '100%', maxWidth: 360 }}>
-                    <Divider />
+            className="file-system">
+            <Box>
+                <div>
+                    Logo PlaceHolder
+                </div>
+                <List className="file-list">
+                    <Box>
+                        <Divider />
 
-                    <Folder
-                        fileItems={[]}
-                        editorRef={editorRef}
-                    />
-                </Box>
-            </List>
+                        <Folder
+                            fileItems={[]}
+                            editorRef={editorRef}
+                        />
+                    </Box>
+                </List>
+            </Box>
             <DailyCalendar />
         </Stack>
     )
