@@ -7,3 +7,17 @@
     display: flex;
 }
 
+.logo-div {
+    height: 60px;
+    width: 100%;
+    padding: 5%;
+    padding-right: 10%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.inkflow-logo {
+    background-color: transparent;
+}
