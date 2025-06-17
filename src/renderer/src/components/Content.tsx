@@ -21,6 +21,13 @@ declare global {
             saveFile: (file_id: string, name: string) => Promise<{ success: boolean, id: string }>;
             getFiles: () => Promise<Array<{ id: string, name: string, created_at: string }>>;
             deleteFile: (file_id: string) => Promise<{ success: boolean, id: string }>;
+            transcription: {
+                start: () => Promise<void>;
+                stop: () => Promise<void>;
+                onUpdate: (callback: (data: { transcript: string; isFormatted: boolean }) => void) => void;
+                removeUpdateListener: (callback: any) => void;
+                getTranscript: () => string;
+            };
         }
     }
 }
