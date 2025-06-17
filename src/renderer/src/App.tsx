@@ -26,7 +26,8 @@ function App() {
     <>
       <Box sx={{ height: "100vh", width: "100vw", overflow: "hidden" }}>
         <Split sizes={[14, 86]}
-          minSize={[14, 86]}
+          minSize={[225, 100]}
+          maxSize={[300, Infinity]}
           direction="horizontal"
           style={{
             display: "flex",
