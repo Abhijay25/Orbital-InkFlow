@@ -66,4 +66,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
+hr {
+  height: 1px;
+  opacity: 0.2;
+}
