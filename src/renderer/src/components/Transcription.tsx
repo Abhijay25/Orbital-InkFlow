@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { EditorRef } from "./Editor";
+import micRed from "../../../../resources/micRed.png";
+import micBlue from "../../../../resources/micBlue.png";
+import { Box } from '@mui/material';
 
 interface TranscriptionProps {
-    fileId: string;
-    editorRef: React.RefObject<EditorRef | null>;
+  fileId: string;
+  editorRef: React.RefObject<EditorRef | null>;
 }
 
 function Transcription({ fileId, editorRef }: TranscriptionProps) {
@@ -37,7 +40,17 @@ function Transcription({ fileId, editorRef }: TranscriptionProps) {
 
   return (
     <>
-      <button onClick={handleToggleRecording}>Toggle Record</button>
+      <Box
+        component="img"
+        src={isRecording ? micBlue : micRed}
+        sx={{
+          width: 50,
+          height: 50,
+          cursor: "pointer",
+          transform: "translate(-8px, 20px)",
+        }}
+        onClick={handleToggleRecording}
+      />
     </>
   );
 };
