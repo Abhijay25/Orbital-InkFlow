@@ -1,4 +1,6 @@
 .tiptap {
+  background-color: black;
+  text-decoration-color: whitesmoke;
   border-radius: 5;
   border: none;
   
@@ -12,13 +14,8 @@
   box-sizing: border-box;
 }
 
-.dark .tiptap {
-  background-color: black;
-  text-decoration-color: whitesmoke;
-}
-
 .light .tiptap {
-  background-color: whitesmoke;
+  background-color: var(--paperlike);
   color: black;
 }
 
@@ -33,6 +30,11 @@
   flex-direction: column;
   box-sizing: border-box;
   overflow-y: auto;
+}
+
+.light .editor-container {
+  background-color: var(--paperlike);
+  border: 1px solid black;
 }
 
 .editor-container::-webkit-scrollbar {
@@ -62,6 +64,10 @@
   float: left;
   height: 0;
   pointer-events: none;
+}
+
+.light .tiptap h1.is-empty:first-child::before {
+  color: rgba(86, 85, 85);
 }
 
 .ProseMirror {
@@ -106,7 +112,8 @@ Code Block CSS
     display: inline-flex;
     position: relative;
     flex-grow: 0;
-  }
+}
+
 .image-resizer .resize-trigger {
   position: absolute;
   right: -6px;

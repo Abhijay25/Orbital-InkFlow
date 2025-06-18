@@ -58,10 +58,12 @@ function FileSystem({ editorRef }: FileSystemProps) {
                             width: 'auto'
                         }} />
                     {modeInfo.darkTheme
-                        ? <LightModeIcon style={{textAlign: "right"}}
-                             onClick={switchTheme}/>
-                        : <BedtimeSharpIcon style={{textAlign: "right"}}
-                         onClick={switchTheme}/>
+                        ? <LightModeIcon 
+                            style={{textAlign: "right", color: "white"}}
+                            onClick={switchTheme}/>
+                        : <BedtimeSharpIcon 
+                            style={{textAlign: "right", color: "black" }}
+                            onClick={switchTheme}/>
                     }
                 </div>
                 <hr />
