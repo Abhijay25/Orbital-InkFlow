@@ -11,6 +11,11 @@
     text-align: center;
 }
 
+.light .timer-container {
+    background-color: var(--paperlike);
+    border: 1px solid black;
+}
+
 .CircularProgressbar {
     width: 60%;
     margin-bottom: 0px;
@@ -51,6 +56,13 @@
     cursor: pointer;
 
     width: 20%;
+}
+
+.light .play-button,
+.light .pause-button,
+.light .settings-button,
+.light .save-button {
+    color: black;
 }
 
 .timer-sliders {
@@ -107,4 +119,5 @@ label {
 
     display: block;
 }
+
 

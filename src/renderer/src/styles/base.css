@@ -14,6 +14,7 @@
   --ev-c-text-1: rgba(255, 255, 245, 0.86);
   --ev-c-text-2: rgba(235, 235, 245, 0.6);
   --ev-c-text-3: rgba(235, 235, 245, 0.38);
+  --paperlike: rgba(238, 231, 215);
 
   --ev-button-alt-border: transparent;
   --ev-button-alt-text: var(--ev-c-text-1);
@@ -47,7 +48,6 @@ body {
   min-height: 100vh;
   color: var(--color-text);
   line-height: 1.6;
-  background-color: #111010;
   font-family:
     Inter,
     -apple-system,
@@ -64,6 +64,18 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body.dark {
+    background-color: #111010;
+}
+
+body.light {
+  background-color: var(--paperlike);
+}
+
+.light {
+  color: black;
 }
 
 hr {

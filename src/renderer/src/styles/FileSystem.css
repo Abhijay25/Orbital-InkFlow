@@ -8,6 +8,11 @@
     min-width: 225px;
 }
 
+.light .file-system {
+    background-color: var(--paperlike);
+    border: 1px solid black;
+}
+
 .logo-div {
     height: 60px;
     width: 100%;

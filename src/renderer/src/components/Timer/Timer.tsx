@@ -8,9 +8,11 @@ import TimerSettings from "./TimerSettings";
 import TimerContext from "./TimerContext";
 
 import "../../styles/Timer.css";
+import ModeContext from "../ModeContext";
 
 function Timer() {
     const timerInfo = useContext(TimerContext)!; // '!' to imply values will never be null
+    const modeInfo = useContext(ModeContext);
 
     if (!timerInfo) {
         console.log("TimerContext.Provider is missing");
@@ -88,7 +90,7 @@ function Timer() {
                 text={minutes + ':' + secondsString}
                 styles={buildStyles({
                     pathColor: mode === 'work' ? '#f54e4e' : '#4aec8c',
-                    textColor: '#fff',
+                    textColor: modeInfo?.darkTheme ? "white" : "black",
                 })} />
             <div className="play_pause">
                 {isPaused
