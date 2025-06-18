@@ -5,6 +5,7 @@
 
     overflow: auto;
     display: flex;
+    min-width: 225px;
 }
 
 .logo-div {
