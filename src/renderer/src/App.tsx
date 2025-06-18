@@ -39,7 +39,7 @@ function App() {
             <Content fileId={fileID} editorRef={editorRef} />
           </FileIDContext.Provider>
 
-          <Transcription fileId={fileID} editorRef={editorRef}/>
+          {/* <Transcription fileId={fileID} editorRef={editorRef}/> */}
         </Split>
         
         
