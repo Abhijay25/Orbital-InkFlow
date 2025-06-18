@@ -113,9 +113,10 @@ electron.ipcMain.handle("start-transcription", async () => {
     return { success: false, error: error.message };
   }
 });
-electron.ipcMain.handle("stop-transcription", () => {
+electron.ipcMain.handle("stop-transcription", async () => {
   try {
     cleanup();
+    await new Promise((resolve) => setTimeout(resolve, 500));
     return { success: true };
   } catch (error) {
     console.log("Failed to stop transcription", error);
@@ -188,6 +189,7 @@ async function run() {
   console.log("Audio will be saved to a WAV file when the session ends.");
   currentTranscript = "";
   recordedFrames = [];
+  stopRequested = false;
   try {
     ws = new WebSocket(API_ENDPOINT, {
       headers: {
@@ -254,6 +256,14 @@ WebSocket Disconnected: Status=${code}, Msg=${reason}`);
 }
 function startMicrophone() {
   try {
+    if (micInstance) {
+      try {
+        micInstance.stop();
+      } catch (error) {
+        console.error(`Error stopping existing microphone: ${error}`);
+      }
+      micInstance = null;
+    }
     micInstance = mic({
       rate: SAMPLE_RATE.toString(),
       channels: CHANNELS.toString(),
@@ -292,8 +302,21 @@ function cleanup() {
     }
     micInstance = null;
   }
-  if (ws?.readyState === WebSocket.OPEN || ws?.readyState === WebSocket.CONNECTING) {
+  if (micInputStream) {
     try {
+      micInputStream.removeAllListeners("data");
+      micInputStream.removeAllListeners("error");
+    } catch (error) {
+      console.error(`Error cleaning up microphone stream: ${error}`);
+    }
+    micInputStream = null;
+  }
+  if (ws) {
+    try {
+      ws.removeAllListeners("open");
+      ws.removeAllListeners("message");
+      ws.removeAllListeners("error");
+      ws.removeAllListeners("close");
       if (ws.readyState === WebSocket.OPEN) {
         const terminateMessage = { type: "Terminate" };
         console.log(
@@ -301,7 +324,9 @@ function cleanup() {
         );
         ws.send(JSON.stringify(terminateMessage));
       }
-      ws.close();
+      if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
+        ws.close();
+      }
     } catch (error) {
       console.error(`Error closing WebSocket: ${error}`);
     }
