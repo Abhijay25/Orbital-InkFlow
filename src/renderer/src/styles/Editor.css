@@ -1,7 +1,5 @@
 .tiptap {
-  background-color: black;
-  text-decoration-color: whitesmoke;
-  border-radius: 5px;
+  border-radius: 5;
   border: none;
   
   padding: 1rem;
@@ -12,6 +10,16 @@
   overflow-y: scroll;
   overflow: auto;
   box-sizing: border-box;
+}
+
+.dark .tiptap {
+  background-color: black;
+  text-decoration-color: whitesmoke;
+}
+
+.light .tiptap {
+  background-color: whitesmoke;
+  color: black;
 }
 
 .editor-container {

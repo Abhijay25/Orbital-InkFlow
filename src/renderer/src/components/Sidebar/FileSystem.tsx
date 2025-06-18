@@ -6,9 +6,10 @@ import {
 } from "@mui/material";
 import Folder from "./Folder";
 import DailyCalendar from "./DailyCalendar";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { EditorRef } from "../Editor";
 import SettingsMenu from "./SettingsMenu";
+import ModeContext from "../ModeContext";
 
 import "../../styles/FileSystem.css"
 import DarkLogo from "../../../../../resources/InkFlowBlack.png";
@@ -21,16 +22,23 @@ interface FileSystemProps {
 }
 
 function FileSystem({ editorRef }: FileSystemProps) {
-    const [isDark, setIsDark] = useState(true);
-    const [showSettings, setShowSettings] =useState(false)
-
-    function switchTheme() {
-        setIsDark(!isDark)
-    }
+    const [showSettings, setShowSettings] = useState(false)
 
     function toggleSettings() {
         setShowSettings(!showSettings)
     }
+
+    const modeInfo = useContext(ModeContext);
+    
+    if (!modeInfo) {
+        console.log("ModeContext.Provider is missing");
+        throw new Error("ModeContext.Provider is missing");
+    }
+
+    function switchTheme() {
+        modeInfo?.setDarkTheme(prev => !prev);
+    }
+
     return (
         <Stack sx={{
             alignItems: "left",
@@ -40,7 +48,7 @@ function FileSystem({ editorRef }: FileSystemProps) {
             className="file-system">
             <Box>
                 <div className="logo-div">
-                    <img src={isDark ? DarkLogo : LightLogo}
+                    <img src={modeInfo.darkTheme ? DarkLogo : LightLogo}
                         alt="Logo-Placeholder"
                         onError={() => console.error('Failed to Load Logo')}
                         className="inkFlow-logo"
@@ -49,9 +57,11 @@ function FileSystem({ editorRef }: FileSystemProps) {
                             height: '50px',
                             width: 'auto'
                         }} />
-                    {isDark
-                        ? <LightModeIcon style={{textAlign: "right"}} onClick={switchTheme}/>
-                        : <BedtimeSharpIcon style={{textAlign: "right"}} onClick={switchTheme}/>
+                    {modeInfo.darkTheme
+                        ? <LightModeIcon style={{textAlign: "right"}}
+                             onClick={switchTheme}/>
+                        : <BedtimeSharpIcon style={{textAlign: "right"}}
+                         onClick={switchTheme}/>
                     }
                 </div>
                 <hr />
