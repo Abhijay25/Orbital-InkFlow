@@ -135,9 +135,11 @@ ipcMain.handle('start-transcription', async () => {
 })
 
 // Stop Transcription
-ipcMain.handle('stop-transcription', () => {
+ipcMain.handle('stop-transcription', async () => {
   try {
     cleanup();
+    // Add a small delay to ensure all resources are properly released
+    await new Promise(resolve => setTimeout(resolve, 500));
     return { success: true };
   } catch (error: any) {
     console.log("Failed to stop transcription", error);
@@ -253,6 +255,7 @@ async function run() {
   // Reset currentTranscript and recordedFrames 
   currentTranscript = '';
   recordedFrames = [];
+  stopRequested = false;
 
   try {
     // Initialize WebSocket connection
@@ -330,6 +333,16 @@ async function run() {
 
 function startMicrophone() {
   try {
+    // Ensure any existing microphone instance is properly cleaned up
+    if (micInstance) {
+      try {
+        micInstance.stop();
+      } catch (error) {
+        console.error(`Error stopping existing microphone: ${error}`);
+      }
+      micInstance = null;
+    }
+
     micInstance = mic({
       rate: SAMPLE_RATE.toString(),
       channels: CHANNELS.toString(),
@@ -382,10 +395,27 @@ function cleanup() {
     }
     micInstance = null;
   }
+  // Clean up microphone input stream
+  if (micInputStream) {
+    try {
+      // Remove all event listeners
+      micInputStream.removeAllListeners('data');
+      micInputStream.removeAllListeners('error');
+    } catch (error) {
+      console.error(`Error cleaning up microphone stream: ${error}`);
+    }
+    micInputStream = null;
+  }
 
   // Close WebSocket connection if it's open
-  if (ws?.readyState === WebSocket.OPEN || ws?.readyState === WebSocket.CONNECTING) {
+  if (ws) {
     try {
+      // Remove all event listeners to prevent memory leaks
+      ws.removeAllListeners('open');
+      ws.removeAllListeners('message');
+      ws.removeAllListeners('error');
+      ws.removeAllListeners('close');
+
       // Send termination message if possible
       if (ws.readyState === WebSocket.OPEN) {
         const terminateMessage = { type: "Terminate" };
@@ -394,7 +424,10 @@ function cleanup() {
         );
         ws.send(JSON.stringify(terminateMessage));
       }
-      ws.close();
+      
+      if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
+        ws.close();
+      }
     } catch (error) {
       console.error(`Error closing WebSocket: ${error}`);
     }
