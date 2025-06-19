@@ -30,6 +30,16 @@ db.exec(`
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 `);
+if (process.platform === "darwin") {
+  process.env.PATH = [
+    "/usr/local/bin",
+    "/opt/homebrew/bin",
+    // Apple Silicon Homebrew
+    "/usr/bin",
+    "/bin",
+    process.env.PATH || ""
+  ].join(":");
+}
 function createWindow() {
   const mainWindow = new electron.BrowserWindow({
     width: 900,

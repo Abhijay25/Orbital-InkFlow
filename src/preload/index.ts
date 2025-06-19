@@ -25,7 +25,7 @@ try {
       removeUpdateListener: (wrappedCallback: (event: Electron.IpcRendererEvent, data: any) => void) => {
         ipcRenderer.removeListener('transcription-update', wrappedCallback);
       },
-      getTranscript: () => ipcRenderer.invoke('get-transcript'),
+      getTranscript: () => ipcRenderer.invoke('get-transcript')
     }
   })
 } catch (error) {

@@ -3,13 +3,21 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import db from '../database/db'
-
-///////////////////////////////////////////////////////
 import WebSocket from "ws"
 import mic from "mic"
 import querystring from "querystring"
 import fs from "fs"
-///////////////////////////////////////////////////////
+
+if (process.platform === 'darwin') {
+  // Add common Homebrew and system paths
+  process.env.PATH = [
+    '/usr/local/bin',
+    '/opt/homebrew/bin', // Apple Silicon Homebrew
+    '/usr/bin',
+    '/bin',
+    process.env.PATH || ''
+  ].join(':');
+}
 
 function createWindow(): void {
   // Create the browser window.
@@ -130,7 +138,7 @@ ipcMain.handle('start-transcription', async () => {
     return { success: true }
   } catch (error: any) {
     console.log("Failed to start transcription", error);
-    return { success: false, error: error.message};
+    return { success: false, error: error.message };
   }
 })
 
@@ -143,7 +151,7 @@ ipcMain.handle('stop-transcription', async () => {
     return { success: true };
   } catch (error: any) {
     console.log("Failed to stop transcription", error);
-    return { success: false, error: error.message}
+    return { success: false, error: error.message }
   }
 })
 
@@ -151,7 +159,6 @@ ipcMain.handle('stop-transcription', async () => {
 ipcMain.handle('get-transcript', () => {
   return currentTranscript;
 })
-
 
 
 // Codes to test the functionalities of audio transcriptor
@@ -181,7 +188,7 @@ let stopRequested = false;
 let recordedFrames: Buffer[] = []; // Store audio frames for WAV file
 
 // Stores the transcript generated
-let currentTranscript: string = ''; 
+let currentTranscript: string = '';
 
 // --- Helper functions ---
 function clearLine() {
@@ -424,7 +431,7 @@ function cleanup() {
         );
         ws.send(JSON.stringify(terminateMessage));
       }
-      
+
       if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
         ws.close();
       }

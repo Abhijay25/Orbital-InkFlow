@@ -25,11 +25,9 @@ function Transcription({ fileId, editorRef }: TranscriptionProps) {
         let content = "";
         content += await window.electronAPI.getLatestContentByFile(fileId);
         content += await window.electronAPI.transcription.getTranscript();
-        console.log(content);
         await window.electronAPI.saveContentToFile(fileId, content);
-        const savedContent = await window.electronAPI.getLatestContentByFile(fileId);
-        if (editorRef.current && savedContent) {
-          editorRef.current.commands.setContent(savedContent);
+        if (editorRef.current && content) {
+          editorRef.current.commands.setContent(content);
         }
         setIsRecording(false);
       }
