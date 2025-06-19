@@ -5,6 +5,12 @@
 
     overflow: auto;
     display: flex;
+    min-width: 225px;
+}
+
+.light .file-system {
+    background-color: var(--paperlike);
+    border: 1px solid black;
 }
 
 .logo-div {

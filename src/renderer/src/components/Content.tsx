@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import Editor, { EditorRef } from "./Editor";
 import { Rnd } from "react-rnd";
-import React, { useRef } from "react";
+import React from "react";
 
 import Timer from "./Timer/Timer";
 import TimerConfig from "./Timer/TimerConfig";
