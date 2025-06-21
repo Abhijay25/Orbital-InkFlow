@@ -1,19 +1,21 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { EditorRef } from "./Editor";
 import micRed from "../../../../resources/micRed.png";
 import micBlue from "../../../../resources/micBlue.png";
-import { Box } from '@mui/material';
+import { Box } from "@mui/material";
 
 interface TranscriptionProps {
   fileId: string;
   editorRef: React.RefObject<EditorRef | null>;
 }
 
-function Transcription({ fileId, editorRef }: TranscriptionProps) {
-
+function Transcription({
+  fileId,
+  editorRef,
+}: TranscriptionProps): React.ReactElement | null {
   const [isRecording, setIsRecording] = useState(false);
 
-  const handleToggleRecording = async () => {
+  const handleToggleRecording = async (): Promise<void> => {
     try {
       if (!isRecording) {
         await window.electronAPI.transcription.start();
@@ -32,7 +34,7 @@ function Transcription({ fileId, editorRef }: TranscriptionProps) {
         setIsRecording(false);
       }
     } catch (error) {
-      console.error('Failed to toggle recording:', error);
+      console.error("Failed to toggle recording:", error);
     }
   };
 
@@ -51,6 +53,6 @@ function Transcription({ fileId, editorRef }: TranscriptionProps) {
       />
     </>
   );
-};
+}
 
-export default Transcription; 
+export default Transcription;

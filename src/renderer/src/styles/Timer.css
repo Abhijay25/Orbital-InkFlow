@@ -1,123 +1,121 @@
 .timer-container {
-    background-color: black;
-    z-index: 5;
-    border-radius: 5px;
-    padding-top: 5px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
+  background-color: black;
+  z-index: 5;
+  border-radius: 5px;
+  padding-top: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
 
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
 }
 
 .light .timer-container {
-    background-color: var(--paperlike);
-    border: 1px solid black;
+  background-color: var(--paperlike);
+  border: 1px solid black;
 }
 
 .CircularProgressbar {
-    width: 60%;
-    margin-bottom: 0px;
+  width: 60%;
+  margin-bottom: 0px;
 }
 
 .play-button {
-    background-color: transparent;
-    color: whitesmoke;
-    border: none;
-    margin-top: 0px;
+  background-color: transparent;
+  color: whitesmoke;
+  border: none;
+  margin-top: 0px;
 
-    width: 20%;
-    cursor: pointer;
+  width: 20%;
+  cursor: pointer;
 }
 
 .pause-button {
-    background-color: transparent;
-    color: whitesmoke;
-    border: none;
+  background-color: transparent;
+  color: whitesmoke;
+  border: none;
 
-    width: 20%;
-    cursor: pointer;
+  width: 20%;
+  cursor: pointer;
 }
 
 .settings-button {
-    background-color: transparent;
-    color: whitesmoke;
-    border: none;
-    cursor: pointer;
+  background-color: transparent;
+  color: whitesmoke;
+  border: none;
+  cursor: pointer;
 
-    width: 20%;
+  width: 20%;
 }
 
 .save-button {
-    background-color: transparent;
-    color: whitesmoke;
-    border: none;
-    cursor: pointer;
+  background-color: transparent;
+  color: whitesmoke;
+  border: none;
+  cursor: pointer;
 
-    width: 20%;
+  width: 20%;
 }
 
 .light .play-button,
 .light .pause-button,
 .light .settings-button,
 .light .save-button {
-    color: black;
+  color: black;
 }
 
 .timer-sliders {
-    text-align: left;
+  text-align: left;
 }
 
 .save-align {
-    text-align: right;
+  text-align: right;
 }
 
 .play_pause {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 .work-slider {
-    margin-left: 2.5%;
-    height: 15px;
-    width: 95%;
-    
-    border: 2px solid red;
-    border-radius: 20px;
+  margin-left: 2.5%;
+  height: 15px;
+  width: 95%;
+
+  border: 2px solid red;
+  border-radius: 20px;
 }
 
 .work-thumb {
-    background-color: red;
-    cursor: pointer;
-    width: 11px;
-    height: 11px;
-    border-radius: 10px;
+  background-color: red;
+  cursor: pointer;
+  width: 11px;
+  height: 11px;
+  border-radius: 10px;
 }
 
 .break-slider {
-    margin-left: 2.5%;
-    height: 15px;
-    width: 95%;
-    
-    border: 2px solid yellowgreen;
-    border-radius: 20px;
-    cursor: default;
+  margin-left: 2.5%;
+  height: 15px;
+  width: 95%;
+
+  border: 2px solid yellowgreen;
+  border-radius: 20px;
+  cursor: default;
 }
 
 .break-thumb {
-    background-color: yellowgreen;
-    cursor: pointer;
-    width: 11px;
-    height: 11px;
-    border-radius: 10px;
+  background-color: yellowgreen;
+  cursor: pointer;
+  width: 11px;
+  height: 11px;
+  border-radius: 10px;
 }
 
 label {
-    margin-left: 2.5%;
-    margin-bottom: 1px;
-    margin-top: 10px;
+  margin-left: 2.5%;
+  margin-bottom: 1px;
+  margin-top: 10px;
 
-    display: block;
+  display: block;
 }
-
-
