@@ -1,6 +1,6 @@
 import "../../styles/Timer.css";
 
-function TimerSettings(props) {
+function TimerSettings(props): React.ReactElement | null {
   return (
     <button {...props} className="settings-button">
       <svg

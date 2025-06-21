@@ -9,10 +9,13 @@ interface TranscriptionProps {
   editorRef: React.RefObject<EditorRef | null>;
 }
 
-function Transcription({ fileId, editorRef }: TranscriptionProps) {
+function Transcription({
+  fileId,
+  editorRef,
+}: TranscriptionProps): React.ReactElement | null {
   const [isRecording, setIsRecording] = useState(false);
 
-  const handleToggleRecording = async () => {
+  const handleToggleRecording = async (): Promise<void> => {
     try {
       if (!isRecording) {
         await window.electronAPI.transcription.start();

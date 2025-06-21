@@ -46,7 +46,7 @@ const Editor = forwardRef<EditorRef, EditorProps>(
     // useEffect -> fetches the latest content from db, and pasted on textEditor
     // [editor, fileId] will be the dependency array -> useEffect run when the editor changes
     useEffect(() => {
-      const loadContent = async () => {
+      const loadContent = async (): Promise<void> => {
         // try-catch block used for clearer error message used for debugging
         try {
           console.log("retrieve content for file: ", fileId);
@@ -56,10 +56,7 @@ const Editor = forwardRef<EditorRef, EditorProps>(
             editor.commands.setContent(savedContent);
           }
         } catch (error) {
-          console.log(
-            "Encounter error when trying to load content from database to frontend for file: ",
-            fileId,
-          );
+          console.log("Encounter error: ", error);
         }
       };
 
@@ -83,5 +80,7 @@ const Editor = forwardRef<EditorRef, EditorProps>(
     );
   },
 );
+
+Editor.displayName = "Editor";
 
 export default Editor;

@@ -26,12 +26,15 @@ try {
         const wrappedCallback = (
           _event: Electron.IpcRendererEvent,
           data: { transcript: string; isFormatted: boolean },
-        ) => callback(data);
+        ): void => callback(data);
         ipcRenderer.on("transcription-update", wrappedCallback);
         return wrappedCallback; // Return for removal later
       },
       removeUpdateListener: (
-        wrappedCallback: (event: Electron.IpcRendererEvent, data: any) => void,
+        wrappedCallback: (
+          event: Electron.IpcRendererEvent,
+          data: unknown,
+        ) => void,
       ) => {
         ipcRenderer.removeListener("transcription-update", wrappedCallback);
       },

@@ -9,7 +9,7 @@ import {
 import InboxIcon from "@mui/icons-material/Inbox";
 import { useState, useContext } from "react";
 import { fileItem } from "./Folder";
-import { FileIDContext } from "@renderer/App";
+import { FileIDContext } from "../FileIDContext";
 import { EditorRef } from "../Editor";
 
 interface FileProps {
@@ -21,7 +21,12 @@ interface FileProps {
   onSave: () => void;
 }
 
-function File({ id, textName, setFileItems, editorRef, onSave }: FileProps) {
+function File({
+  id,
+  textName,
+  editorRef,
+  onSave,
+}: FileProps): React.ReactElement | null {
   const key = id;
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -32,7 +37,7 @@ function File({ id, textName, setFileItems, editorRef, onSave }: FileProps) {
 
   // Upon clicking onto this file tab, content:string has to be retrieved from database, then loaded into Editor
   // At the same time, update fileId within editor, so the content can be saved with respect to fileId
-  const handleClick = async () => {
+  const handleClick = async (): Promise<void> => {
     const content = await window.electronAPI.getLatestContentByFile(key);
     if (content && editorRef.current) {
       editorRef.current.commands.setContent(content);
@@ -40,15 +45,15 @@ function File({ id, textName, setFileItems, editorRef, onSave }: FileProps) {
     setFileID(key);
   };
 
-  const handleRightClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleRightClick = (event: React.MouseEvent<HTMLElement>): void => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setAnchorEl(null);
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async (): Promise<void> => {
     await window.electronAPI.deleteFile(key);
     onSave();
     setAnchorEl(null);

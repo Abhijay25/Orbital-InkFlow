@@ -1,6 +1,6 @@
 import "../../styles/Timer.css";
 
-function PauseButton(props) {
+function PauseButton(props): React.ReactElement | null {
   return (
     <button {...props} className="pause-button">
       <svg

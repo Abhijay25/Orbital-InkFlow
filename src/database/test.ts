@@ -2,7 +2,7 @@
 
 import { notesService, Note } from "./nodeService";
 
-const testCreateNote = () => {
+const testCreateNote = (): Note => {
   const newNote: Note = {
     title: "my Little Pony",
     content: "this is a story about a pony",
@@ -13,7 +13,7 @@ const testCreateNote = () => {
   return createdNote;
 };
 
-const runTests = async () => {
+const runTests = async (): Promise<void> => {
   try {
     const createdNote = testCreateNote();
     console.log(createdNote);

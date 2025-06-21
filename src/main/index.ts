@@ -118,7 +118,7 @@ ipcMain.handle("save-file", async (event, file_id: string, name: string) => {
   const stmt = db.prepare(
     "INSERT OR REPLACE INTO files (id, name) VALUES (?, ?)",
   );
-  const result = stmt.run(file_id, name);
+  stmt.run(file_id, name);
   console.log("Update file system");
   return { sucess: true, id: file_id };
 });
@@ -140,8 +140,8 @@ ipcMain.handle("get-files", async () => {
 ipcMain.handle("delete-file", async (event, file_id: string) => {
   const stmt1 = db.prepare("DELETE FROM files WHERE id = ?");
   const stmt2 = db.prepare("DELETE FROM notes WHERE file_id = ?;");
-  const result1 = stmt1.run(file_id);
-  const result2 = stmt2.run(file_id);
+  stmt1.run(file_id);
+  stmt2.run(file_id);
   console.log("Deleted a file: ", file_id);
   return { sucess: true, id: file_id };
 });
@@ -151,9 +151,11 @@ ipcMain.handle("start-transcription", async () => {
   try {
     await run();
     return { success: true };
-  } catch (error: any) {
-    console.log("Failed to start transcription", error);
-    return { success: false, error: error.message };
+  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const e = error as any;
+    console.log("Failed to start transcription", e);
+    return { success: false, error: e.message };
   }
 });
 
@@ -164,9 +166,11 @@ ipcMain.handle("stop-transcription", async () => {
     // Add a small delay to ensure all resources are properly released
     await new Promise((resolve) => setTimeout(resolve, 500));
     return { success: true };
-  } catch (error: any) {
-    console.log("Failed to stop transcription", error);
-    return { success: false, error: error.message };
+  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const e = error as any;
+    console.log("Failed to stop transcription", e);
+    return { success: false, error: e.message };
   }
 });
 
@@ -204,15 +208,15 @@ let recordedFrames: Buffer[] = []; // Store audio frames for WAV file
 let currentTranscript: string = "";
 
 // --- Helper functions ---
-function clearLine() {
+function clearLine(): void {
   process.stdout.write("\r" + " ".repeat(80) + "\r");
 }
 
-function formatTimestamp(timestamp) {
+function formatTimestamp(timestamp): string {
   return new Date(timestamp * 1000).toISOString();
 }
 
-function createWavHeader(sampleRate, channels, dataLength) {
+function createWavHeader(sampleRate, channels, dataLength): Buffer {
   const buffer = Buffer.alloc(44);
 
   // RIFF header
@@ -237,7 +241,7 @@ function createWavHeader(sampleRate, channels, dataLength) {
   return buffer;
 }
 
-function saveWavFile() {
+function saveWavFile(): void {
   if (recordedFrames.length === 0) {
     console.log("No audio data recorded.");
     return;
@@ -269,7 +273,7 @@ function saveWavFile() {
 }
 
 // --- Main function ---
-async function run() {
+async function run(): Promise<void> {
   console.log("Starting AssemblyAI streaming transcription...");
   console.log("Audio will be saved to a WAV file when the session ends.");
 
@@ -354,7 +358,7 @@ async function run() {
   setupTerminationHandlers();
 }
 
-function startMicrophone() {
+function startMicrophone(): void {
   try {
     // Ensure any existing microphone instance is properly cleaned up
     if (micInstance) {
@@ -403,7 +407,7 @@ function startMicrophone() {
   }
 }
 
-function cleanup() {
+function cleanup(): void {
   stopRequested = true;
 
   // Save recorded audio to WAV file
@@ -463,7 +467,7 @@ function cleanup() {
   console.log("Cleanup complete.");
 }
 
-function setupTerminationHandlers() {
+function setupTerminationHandlers(): void {
   // Handle Ctrl+C and other termination signals
   process.on("SIGINT", () => {
     console.log("\nCtrl+C received. Stopping...");
@@ -489,7 +493,10 @@ function setupTerminationHandlers() {
 }
 
 // Event emitter to send transcription updates to the renderer
-function sendTranscriptionUpdate(transcript: string, isFormatted: boolean) {
+function sendTranscriptionUpdate(
+  transcript: string,
+  isFormatted: boolean,
+): void {
   if (!transcript) return;
 
   // Update transcript

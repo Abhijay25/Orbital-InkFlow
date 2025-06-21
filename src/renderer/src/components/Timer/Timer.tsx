@@ -10,7 +10,7 @@ import TimerContext from "./TimerContext";
 import "../../styles/Timer.css";
 import ModeContext from "../ModeContext";
 
-function Timer() {
+function Timer(): React.ReactElement | null {
   const timerInfo = useContext(TimerContext)!; // '!' to imply values will never be null
   const modeInfo = useContext(ModeContext);
 
@@ -29,14 +29,14 @@ function Timer() {
   const modeRef = useRef(mode);
 
   // For Timer to Count Down
-  function tick() {
+  function tick(): void {
     timeLeftRef.current--;
     setTimeLeft(timeLeftRef.current);
   }
 
   useEffect(() => {
     // If already in Work, Set Mode to Break and Add Time
-    function switchMode() {
+    function switchMode(): void {
       const nextMode = modeRef.current === "work" ? "break" : "work";
       const secondsLeft =
         (nextMode === "work" ? timerInfo.workMins : timerInfo.breakMins) * 60;
@@ -71,7 +71,7 @@ function Timer() {
     mode === "work" ? timerInfo.workMins * 60 : timerInfo.breakMins * 60;
 
   const minutes = Math.floor(timeLeft / 60);
-  let seconds = timeLeft % 60;
+  const seconds = timeLeft % 60;
   let secondsString = ""; // String to be Displayed in the Timer
   if (seconds < 10) {
     secondsString = "0" + seconds;

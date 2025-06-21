@@ -6,7 +6,7 @@ import SaveButton from "./SaveButton";
 
 import "../../styles/Timer.css";
 
-function TimerConfig() {
+function TimerConfig(): React.ReactElement | null {
   const timerInfo = useContext(TimerContext);
 
   if (!timerInfo) {

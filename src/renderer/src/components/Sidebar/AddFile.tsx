@@ -10,17 +10,17 @@ interface AddFileProps {
 }
 
 // Button to add a file
-function AddFile({ onSave }: AddFileProps) {
+function AddFile({ onSave }: AddFileProps): React.ReactElement | null {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null,
   );
   const [inputValue, setInputValue] = useState<string>("");
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setAnchorEl(null);
     setInputValue("");
   };
@@ -30,14 +30,14 @@ function AddFile({ onSave }: AddFileProps) {
   const id = open ? "simple-popover" : undefined;
 
   // Handles and update our inputValue under TextField
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setInputValue(event.target.value);
   };
 
   // Enables "Enter" to key in our textName
   const handleKeyDown = async (
     event: React.KeyboardEvent<HTMLInputElement>,
-  ) => {
+  ): Promise<void> => {
     if (event.key === "Enter" && inputValue.trim()) {
       event.preventDefault();
       await window.electronAPI.saveFile(crypto.randomUUID(), inputValue);

@@ -1,23 +1,14 @@
 import { Box } from "@mui/material";
-import { useState, createContext, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { EditorRef } from "./components/Editor";
 import Split from "react-split";
 import FileSystem from "./components/Sidebar/FileSystem";
 import Content from "./components/Content";
 import Transcription from "./components/Transcription";
 import ModeContext from "./components/ModeContext";
+import { FileIDContext } from "./components/FileIDContext";
 
-export type FileIDContextType = {
-  fileID: string;
-  setFileID: React.Dispatch<React.SetStateAction<string>>;
-};
-
-export const FileIDContext = createContext<FileIDContextType>({
-  fileID: "",
-  setFileID: () => {},
-});
-
-function App() {
+function App(): React.ReactElement | null {
   const [fileID, setFileID] = useState<string>("");
   const editorRef = useRef<EditorRef>(null);
   const [darkTheme, setDarkTheme] = useState(true);

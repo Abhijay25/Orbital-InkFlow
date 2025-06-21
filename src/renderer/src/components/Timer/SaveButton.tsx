@@ -1,6 +1,6 @@
 import "../../styles/Timer.css";
 
-function SaveButton(props) {
+function SaveButton(props): React.ReactElement | null {
   return (
     <button {...props} className="save-button">
       <svg

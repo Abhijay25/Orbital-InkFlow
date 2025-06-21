@@ -1,6 +1,6 @@
 import "../../styles/Timer.css";
 
-function PlayButton(props) {
+function PlayButton(props): React.ReactElement | null {
   return (
     <button {...props} className="play-button">
       <svg

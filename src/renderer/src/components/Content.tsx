@@ -36,7 +36,7 @@ declare global {
             isFormatted: boolean;
           }) => void,
         ) => void;
-        removeUpdateListener: (callback: any) => void;
+        removeUpdateListener: (callback: unknown) => void;
         getTranscript: () => string;
       };
     };
@@ -48,7 +48,10 @@ interface ContentProps {
   editorRef: React.RefObject<EditorRef | null>;
 }
 
-function Content({ fileId, editorRef }: ContentProps) {
+function Content({
+  fileId,
+  editorRef,
+}: ContentProps): React.ReactElement | null {
   const [showSlider, setShowSlider] = React.useState(false);
   const [workMins, setWorkMins] = React.useState(45);
   const [breakMins, setBreakMins] = React.useState(15);

@@ -16,10 +16,10 @@ interface FileSystemProps {
   editorRef: React.RefObject<EditorRef | null>;
 }
 
-function FileSystem({ editorRef }: FileSystemProps) {
+function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
   const [showSettings, setShowSettings] = useState(false);
 
-  function toggleSettings() {
+  function toggleSettings(): void {
     setShowSettings(!showSettings);
   }
 
@@ -30,7 +30,7 @@ function FileSystem({ editorRef }: FileSystemProps) {
     throw new Error("ModeContext.Provider is missing");
   }
 
-  function switchTheme() {
+  function switchTheme(): void {
     modeInfo?.setDarkTheme((prev) => !prev);
   }
 

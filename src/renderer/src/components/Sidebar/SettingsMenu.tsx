@@ -1,6 +1,6 @@
 import { Rnd } from "react-rnd";
 
-function SettingsMenu() {
+function SettingsMenu(): React.ReactElement | null {
   return (
     <Rnd
       default={{

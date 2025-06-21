@@ -15,10 +15,13 @@ interface FolderProps {
   editorRef: React.RefObject<EditorRef | null>;
 }
 
-function Folder({ fileItems: initialFileItems, editorRef }: FolderProps) {
+function Folder({
+  fileItems: initialFileItems,
+  editorRef,
+}: FolderProps): React.ReactElement | null {
   const [fileItems, setFileItems] = useState<fileItem[]>(initialFileItems);
 
-  const loadFiles = async () => {
+  const loadFiles = async (): Promise<void> => {
     const files = await window.electronAPI.getFiles();
     const mappedFiles = files.map((file) => ({
       id: file.id,
