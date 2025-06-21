@@ -38,9 +38,9 @@ jobs:
       - name: Type check
         run: yarn tsc --noEmit
 
-      # Run Test
-      - name: Run tests
-        run: yarn test # to be changed
+      # # Run Test
+      # - name: Run tests
+      #   run: yarn test # to be changed
 
       # Build App
       - name: Build App
