@@ -5,7 +5,6 @@
     { "path": "./tsconfig.web.json" }
   ],
   "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
-  "include": ["src/database/**/*"],
   "compilerOptions": {
     "esModuleInterop": true,
     "module": "CommonJS"
