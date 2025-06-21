@@ -31,31 +31,41 @@ function App() {
 
   return (
     <>
-      <ModeContext.Provider value={{
-        darkTheme,
-        setDarkTheme
-      }}>
-        <Box sx={{ height: "100vh", width: "100vw", overflow: "hidden", position: "relative" }}>
-        <Split sizes={[14, 86]}
-          minSize={[225, 100]}
-          maxSize={[300, Infinity]}
-          direction="horizontal"
-          style={{
-            display: "flex",
-            height: "100%"
+      <ModeContext.Provider
+        value={{
+          darkTheme,
+          setDarkTheme,
+        }}
+      >
+        <Box
+          sx={{
+            height: "100vh",
+            width: "100vw",
+            overflow: "hidden",
+            position: "relative",
           }}
         >
-          <FileIDContext.Provider value={{ fileID, setFileID }}>
-            <FileSystem editorRef={editorRef} />
-            <Content fileId={fileID} editorRef={editorRef} />
-          </FileIDContext.Provider>
+          <Split
+            sizes={[14, 86]}
+            minSize={[225, 100]}
+            maxSize={[300, Infinity]}
+            direction="horizontal"
+            style={{
+              display: "flex",
+              height: "100%",
+            }}
+          >
+            <FileIDContext.Provider value={{ fileID, setFileID }}>
+              <FileSystem editorRef={editorRef} />
+              <Content fileId={fileID} editorRef={editorRef} />
+            </FileIDContext.Provider>
 
-          <Transcription fileId={fileID} editorRef={editorRef}/>
-        </Split>
-      </Box>
+            <Transcription fileId={fileID} editorRef={editorRef} />
+          </Split>
+        </Box>
       </ModeContext.Provider>
     </>
-  )
+  );
 }
 
 export default App;

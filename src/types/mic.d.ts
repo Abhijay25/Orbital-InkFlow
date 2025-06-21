@@ -1,5 +1,5 @@
-declare module 'mic' {
-  import { Stream } from 'stream';
+declare module "mic" {
+  import { Stream } from "stream";
 
   interface MicConfig {
     rate?: string;
@@ -7,7 +7,7 @@ declare module 'mic' {
     debug?: boolean;
     exitOnSilence?: number;
     device?: string;
-    endian?: 'little' | 'big';
+    endian?: "little" | "big";
     bitwidth?: string;
     encoding?: string;
     fileType?: string;
@@ -22,6 +22,6 @@ declare module 'mic' {
   }
 
   function mic(config: MicConfig): Mic;
-  
+
   export = mic;
-} 
+}

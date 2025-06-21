@@ -1,29 +1,29 @@
 .file-system {
-    background-color: black;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 5px;
+  background-color: black;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
 
-    overflow: auto;
-    display: flex;
-    min-width: 225px;
+  overflow: auto;
+  display: flex;
+  min-width: 225px;
 }
 
 .light .file-system {
-    background-color: var(--paperlike);
-    border: 1px solid black;
+  background-color: var(--paperlike);
+  border: 1px solid black;
 }
 
 .logo-div {
-    height: 60px;
-    width: 100%;
-    padding: 5%;
-    padding-right: 10%;
+  height: 60px;
+  width: 100%;
+  padding: 5%;
+  padding-right: 10%;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .inkflow-logo {
-    background-color: transparent;
+  background-color: transparent;
 }

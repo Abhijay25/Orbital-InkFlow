@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { EditorRef } from "./Editor";
 import micRed from "../../../../resources/micRed.png";
 import micBlue from "../../../../resources/micBlue.png";
-import { Box } from '@mui/material';
+import { Box } from "@mui/material";
 
 interface TranscriptionProps {
   fileId: string;
@@ -10,7 +10,6 @@ interface TranscriptionProps {
 }
 
 function Transcription({ fileId, editorRef }: TranscriptionProps) {
-
   const [isRecording, setIsRecording] = useState(false);
 
   const handleToggleRecording = async () => {
@@ -32,7 +31,7 @@ function Transcription({ fileId, editorRef }: TranscriptionProps) {
         setIsRecording(false);
       }
     } catch (error) {
-      console.error('Failed to toggle recording:', error);
+      console.error("Failed to toggle recording:", error);
     }
   };
 
@@ -51,6 +50,6 @@ function Transcription({ fileId, editorRef }: TranscriptionProps) {
       />
     </>
   );
-};
+}
 
-export default Transcription; 
+export default Transcription;

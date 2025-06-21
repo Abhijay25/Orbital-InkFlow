@@ -8,7 +8,9 @@ const WebSocket = require("ws");
 const mic = require("mic");
 const querystring = require("querystring");
 const icon = path.join(__dirname, "../../resources/icon.png");
-const userDataPath = electron.app ? electron.app.getPath("userData") : path.join(__dirname, "test-db");
+const userDataPath = electron.app
+  ? electron.app.getPath("userData")
+  : path.join(__dirname, "test-db");
 if (!fs.existsSync(userDataPath)) {
   fs.mkdirSync(userDataPath, { recursive: true });
 }
@@ -37,7 +39,7 @@ if (process.platform === "darwin") {
     // Apple Silicon Homebrew
     "/usr/bin",
     "/bin",
-    process.env.PATH || ""
+    process.env.PATH || "",
   ].join(":");
 }
 function createWindow() {
@@ -48,12 +50,12 @@ function createWindow() {
     vibrancy: "under-window",
     visualEffectState: "active",
     autoHideMenuBar: true,
-    ...process.platform === "linux" ? { icon } : {},
+    ...(process.platform === "linux" ? { icon } : {}),
     webPreferences: {
       preload: path.join(__dirname, "../preload/index.js"),
       sandbox: true,
-      contextIsolation: true
-    }
+      contextIsolation: true,
+    },
   });
   mainWindow.on("ready-to-show", () => {
     mainWindow.show();
@@ -75,7 +77,7 @@ electron.app.whenReady().then(() => {
   });
   electron.ipcMain.on("ping", () => console.log("pong"));
   createWindow();
-  electron.app.on("activate", function() {
+  electron.app.on("activate", function () {
     if (electron.BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 });
@@ -84,25 +86,39 @@ electron.app.on("window-all-closed", () => {
     electron.app.quit();
   }
 });
-electron.ipcMain.handle("save-content-to-file", async (event, file_id, content) => {
-  const stmt = db.prepare("INSERT INTO notes (file_id, content) VALUES (?, ?)");
-  const result = stmt.run(file_id, content);
-  console.log("This file is being saved to: ", file_id);
-  return { success: true, id: result.lastInsertRowid };
-});
-electron.ipcMain.handle("get-latest-content-by-file", async (event, file_id) => {
-  const stmt = db.prepare("SELECT content FROM notes WHERE file_id = ? ORDER BY created_at DESC LIMIT 1");
-  const result = stmt.get(file_id);
-  return result ? result.content : null;
-});
+electron.ipcMain.handle(
+  "save-content-to-file",
+  async (event, file_id, content) => {
+    const stmt = db.prepare(
+      "INSERT INTO notes (file_id, content) VALUES (?, ?)",
+    );
+    const result = stmt.run(file_id, content);
+    console.log("This file is being saved to: ", file_id);
+    return { success: true, id: result.lastInsertRowid };
+  },
+);
+electron.ipcMain.handle(
+  "get-latest-content-by-file",
+  async (event, file_id) => {
+    const stmt = db.prepare(
+      "SELECT content FROM notes WHERE file_id = ? ORDER BY created_at DESC LIMIT 1",
+    );
+    const result = stmt.get(file_id);
+    return result ? result.content : null;
+  },
+);
 electron.ipcMain.handle("save-file", async (event, file_id, name) => {
-  const stmt = db.prepare("INSERT OR REPLACE INTO files (id, name) VALUES (?, ?)");
+  const stmt = db.prepare(
+    "INSERT OR REPLACE INTO files (id, name) VALUES (?, ?)",
+  );
   stmt.run(file_id, name);
   console.log("Update file system");
   return { sucess: true, id: file_id };
 });
 electron.ipcMain.handle("get-files", async () => {
-  const stmt = db.prepare("SELECT id, name, created_at FROM files ORDER BY created_at DESC");
+  const stmt = db.prepare(
+    "SELECT id, name, created_at FROM files ORDER BY created_at DESC",
+  );
   const files = stmt.all();
   return files;
 });
@@ -139,7 +155,7 @@ electron.ipcMain.handle("get-transcript", () => {
 const YOUR_API_KEY = "6b55a83afb744dc080039f4cd7bb2a9d";
 const CONNECTION_PARAMS = {
   sample_rate: 16e3,
-  format_turns: true
+  format_turns: true,
   // Request formatted final transcripts
 };
 const API_ENDPOINT_BASE_URL = "wss://streaming.assemblyai.com/v3/ws";
@@ -180,7 +196,10 @@ function saveWavFile() {
     console.log("No audio data recorded.");
     return;
   }
-  const timestamp = (/* @__PURE__ */ new Date()).toISOString().replace(/[:.]/g, "-").slice(0, 19);
+  const timestamp = /* @__PURE__ */ new Date()
+    .toISOString()
+    .replace(/[:.]/g, "-")
+    .slice(0, 19);
   const filename = `recorded_audio_${timestamp}.wav`;
   try {
     const audioData = Buffer.concat(recordedFrames);
@@ -189,7 +208,9 @@ function saveWavFile() {
     const wavFile = Buffer.concat([wavHeader, audioData]);
     fs.writeFileSync(filename, wavFile);
     console.log(`Audio saved to: ${filename}`);
-    console.log(`Duration: ${(dataLength / (SAMPLE_RATE * CHANNELS * 2)).toFixed(2)} seconds`);
+    console.log(
+      `Duration: ${(dataLength / (SAMPLE_RATE * CHANNELS * 2)).toFixed(2)} seconds`,
+    );
   } catch (error) {
     console.error(`Error saving WAV file: ${error}`);
   }
@@ -203,8 +224,8 @@ async function run() {
   try {
     ws = new WebSocket(API_ENDPOINT, {
       headers: {
-        Authorization: YOUR_API_KEY
-      }
+        Authorization: YOUR_API_KEY,
+      },
     });
     if (!ws) throw new Error("Failed to initialize WebSocket");
     ws.on("open", () => {
@@ -221,7 +242,7 @@ async function run() {
           const expiresAt = data.expires_at;
           console.log(
             `
-Session began: ID=${sessionId}, ExpiresAt=${formatTimestamp(expiresAt)}`
+Session began: ID=${sessionId}, ExpiresAt=${formatTimestamp(expiresAt)}`,
           );
           sendTranscriptionUpdate(`Session began: ID=${sessionId}`, true);
         } else if (msgType === "Turn") {
@@ -238,9 +259,12 @@ Session began: ID=${sessionId}, ExpiresAt=${formatTimestamp(expiresAt)}`
           const sessionDuration = data.session_duration_seconds;
           console.log(
             `
-Session Terminated: Audio Duration=${audioDuration}s, Session Duration=${sessionDuration}s`
+Session Terminated: Audio Duration=${audioDuration}s, Session Duration=${sessionDuration}s`,
           );
-          sendTranscriptionUpdate(`Session Terminated: Audio Duration=${audioDuration}s`, true);
+          sendTranscriptionUpdate(
+            `Session Terminated: Audio Duration=${audioDuration}s`,
+            true,
+          );
         }
       } catch (error) {
         console.error(`
@@ -278,7 +302,7 @@ function startMicrophone() {
       rate: SAMPLE_RATE.toString(),
       channels: CHANNELS.toString(),
       debug: false,
-      exitOnSilence: 6
+      exitOnSilence: 6,
     });
     if (!micInstance) throw new Error("Failed to initialize microphone");
     micInputStream = micInstance.getAudioStream();
@@ -330,11 +354,14 @@ function cleanup() {
       if (ws.readyState === WebSocket.OPEN) {
         const terminateMessage = { type: "Terminate" };
         console.log(
-          `Sending termination message: ${JSON.stringify(terminateMessage)}`
+          `Sending termination message: ${JSON.stringify(terminateMessage)}`,
         );
         ws.send(JSON.stringify(terminateMessage));
       }
-      if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
+      if (
+        ws.readyState === WebSocket.OPEN ||
+        ws.readyState === WebSocket.CONNECTING
+      ) {
         ws.close();
       }
     } catch (error) {
@@ -378,7 +405,7 @@ function sendTranscriptionUpdate(transcript, isFormatted) {
   electron.BrowserWindow.getAllWindows().forEach((window) => {
     window.webContents.send("transcription-update", {
       transcript,
-      isFormatted
+      isFormatted,
     });
   });
 }
