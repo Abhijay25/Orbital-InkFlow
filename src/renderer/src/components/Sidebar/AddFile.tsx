@@ -4,13 +4,15 @@ import Button from "@mui/material/Button";
 import addFileImage from "../../../../../resources/add-file.png";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import { EditorRef } from "../Editor";
 
 interface AddFileProps {
-  onSave: () => void;
+  onSave: () => void,
+  editorRef: React.RefObject<EditorRef | null>
 }
 
 // Button to add a file
-function AddFile({ onSave }: AddFileProps): React.ReactElement | null {
+function AddFile({ onSave, editorRef }: AddFileProps): React.ReactElement | null {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null,
   );
@@ -40,7 +42,12 @@ function AddFile({ onSave }: AddFileProps): React.ReactElement | null {
   ): Promise<void> => {
     if (event.key === "Enter" && inputValue.trim()) {
       event.preventDefault();
-      await window.electronAPI.saveFile(crypto.randomUUID(), inputValue);
+      const fileID = crypto.randomUUID();
+      await window.electronAPI.saveFile(fileID, inputValue);
+      await window.electronAPI.saveContentToFile(fileID, " ");
+      if (editorRef.current) {
+        editorRef.current.commands.setContent(" ");
+      }
       onSave();
       handleClose();
     }
