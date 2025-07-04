@@ -7,6 +7,7 @@ import Content from "./components/Content";
 import Transcription from "./components/Transcription";
 import ModeContext from "./components/ModeContext";
 import { FileIDContext } from "./components/FileIDContext";
+import ChatBot from "./components/ChatBot";
 
 function App(): React.ReactElement | null {
   const [fileID, setFileID] = useState<string>("");
@@ -50,8 +51,14 @@ function App(): React.ReactElement | null {
               <FileSystem editorRef={editorRef} />
               <Content fileId={fileID} editorRef={editorRef} />
             </FileIDContext.Provider>
-
-            <Transcription fileId={fileID} editorRef={editorRef} />
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "2rem"
+            }}>
+              <Transcription fileId={fileID} editorRef={editorRef} />
+              <ChatBot />
+            </div>
           </Split>
         </Box>
       </ModeContext.Provider>

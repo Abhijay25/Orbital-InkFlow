@@ -43,6 +43,7 @@ function Transcription({
       <Box
         component="img"
         src={isRecording ? micBlue : micRed}
+        alt={isRecording ? "recording" : "not recording"}
         sx={{
           width: 50,
           height: 50,
