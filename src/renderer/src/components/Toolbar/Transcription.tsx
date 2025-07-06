@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { EditorRef } from "./Editor";
-import micRed from "../../../../resources/micRed.png";
-import micBlue from "../../../../resources/micBlue.png";
+import { EditorRef } from "../Editor";
+import micRed from "../../../../../resources/micRed.png";
+import micBlue from "../../../../../resources/micBlue.png";
 import { Box } from "@mui/material";
 
 interface TranscriptionProps {
@@ -48,7 +48,7 @@ function Transcription({
           width: 50,
           height: 50,
           cursor: "pointer",
-          transform: "translate(-8px, 20px)",
+          transform: "translate(16px, 20px)",
         }}
         onClick={handleToggleRecording}
       />

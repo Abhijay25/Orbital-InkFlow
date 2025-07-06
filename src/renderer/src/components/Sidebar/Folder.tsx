@@ -52,7 +52,7 @@ function Folder({
   return (
     <nav aria-label="default folder">
       <List>
-        <AddFile onSave={loadFiles} editorRef={editorRef}/>
+        <AddFile onSave={loadFiles} editorRef={editorRef} />
         {files}
       </List>
     </nav>

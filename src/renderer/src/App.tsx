@@ -4,10 +4,9 @@ import { EditorRef } from "./components/Editor";
 import Split from "react-split";
 import FileSystem from "./components/Sidebar/FileSystem";
 import Content from "./components/Content";
-import Transcription from "./components/Transcription";
 import ModeContext from "./components/ModeContext";
 import { FileIDContext } from "./components/FileIDContext";
-import ChatBot from "./components/ChatBot";
+import Toolbar from "./components/Toolbar/Toolbar";
 
 function App(): React.ReactElement | null {
   const [fileID, setFileID] = useState<string>("");
@@ -35,6 +34,7 @@ function App(): React.ReactElement | null {
             width: "100vw",
             overflow: "hidden",
             position: "relative",
+            overscrollBehavior: "none",
           }}
         >
           <Split
@@ -51,14 +51,7 @@ function App(): React.ReactElement | null {
               <FileSystem editorRef={editorRef} />
               <Content fileId={fileID} editorRef={editorRef} />
             </FileIDContext.Provider>
-            <div style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "2rem"
-            }}>
-              <Transcription fileId={fileID} editorRef={editorRef} />
-              <ChatBot />
-            </div>
+            <Toolbar fileId={fileID} editorRef={editorRef} />
           </Split>
         </Box>
       </ModeContext.Provider>

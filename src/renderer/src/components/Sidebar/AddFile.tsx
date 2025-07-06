@@ -7,12 +7,15 @@ import { useState } from "react";
 import { EditorRef } from "../Editor";
 
 interface AddFileProps {
-  onSave: () => void,
-  editorRef: React.RefObject<EditorRef | null>
+  onSave: () => void;
+  editorRef: React.RefObject<EditorRef | null>;
 }
 
 // Button to add a file
-function AddFile({ onSave, editorRef }: AddFileProps): React.ReactElement | null {
+function AddFile({
+  onSave,
+  editorRef,
+}: AddFileProps): React.ReactElement | null {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null,
   );

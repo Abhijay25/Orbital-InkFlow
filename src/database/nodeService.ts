@@ -9,7 +9,7 @@ import db from "./db";
 // Declaring data types within our database
 // Using snake casing for database, as it is more common in SQL naming
 export interface Note {
-  id?: number; // Made optional because new notes don't have ID yet
+  id?: number;
   title: string;
   content: string;
   created_at?: string;
