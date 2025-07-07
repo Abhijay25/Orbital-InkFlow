@@ -26,7 +26,7 @@ function ChatBot(): React.ReactElement | null {
       />
 
       {/* Chat box: Toggle open and close */}
-      {chatIsOpen ? <ChatInterface /> : <></>}
+      {chatIsOpen ? <ChatInterface setIsChat={setIsChat}/> : <></>}
     </>
   );
 }

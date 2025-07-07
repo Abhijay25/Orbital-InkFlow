@@ -39,7 +39,11 @@ const darkTheme = createTheme({
   },
 });
 
-function ChatInterface(): React.ReactElement | null {
+interface ChatInterfaceProps {
+  setIsChat: React.Dispatch<React.SetStateAction<boolean>>,
+}
+
+function ChatInterface({ setIsChat }: ChatInterfaceProps): React.ReactElement | null {
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -51,6 +55,7 @@ function ChatInterface(): React.ReactElement | null {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const sessionId = useRef(`session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
 
   const handleSend = async (): Promise<void> => {
     if (!input.trim()) return;
@@ -62,16 +67,20 @@ function ChatInterface(): React.ReactElement | null {
       timestamp: new Date(),
     };
 
+    setInput("");
+    setMessages((prev) => [...prev, userMessage]);
+    setIsTyping(true);
+
     const response = await fetch("http://localhost:3001/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: input }),
+      body: JSON.stringify({
+        prompt: userMessage.content,
+        sessionId: sessionId.current
+      }),
     });
-    const responseData = await response.json();
 
-    setMessages((prev) => [...prev, userMessage]);
-    setInput("");
-    setIsTyping(true);
+    const responseData = await response.json();
 
     // AI response
     setTimeout(() => {
@@ -86,6 +95,16 @@ function ChatInterface(): React.ReactElement | null {
       setIsTyping(false);
     }, 1500);
   };
+
+  const closeChat = (): void => {
+    
+    // Deletes the original session history
+    fetch(`http://localhost:3001/api/chat/${sessionId.current}`, {
+      method: "DELETE",
+    }).catch(console.error);
+
+    setIsChat(false);
+  }
 
   const handleKeyPress = (e): void => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -122,7 +141,7 @@ function ChatInterface(): React.ReactElement | null {
               </Typography>
             </Box>
             <Stack direction="row" spacing={1} className="header-spacing">
-              <IconButton color="inherit">
+              <IconButton color="inherit" onClick={closeChat}>
                 <CloseIcon />
               </IconButton>
             </Stack>
