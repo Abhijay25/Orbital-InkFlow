@@ -21,7 +21,7 @@ function App(): React.ReactElement | null {
   console.log(fileID);
 
   return (
-    <>
+    <div data-testid="app-container">
       <ModeContext.Provider
         value={{
           darkTheme,
@@ -55,7 +55,7 @@ function App(): React.ReactElement | null {
           </Split>
         </Box>
       </ModeContext.Provider>
-    </>
+    </div>
   );
 }
 

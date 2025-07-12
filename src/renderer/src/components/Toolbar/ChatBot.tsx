@@ -23,10 +23,11 @@ function ChatBot(): React.ReactElement | null {
           transform: "translate(16px, 20px)",
         }}
         onClick={toggleChatBot}
+        data-testid="chat-button"
       />
 
       {/* Chat box: Toggle open and close */}
-      {chatIsOpen ? <ChatInterface setIsChat={setIsChat}/> : <></>}
+      {chatIsOpen ? <ChatInterface setIsChat={setIsChat} /> : <></>}
     </>
   );
 }

@@ -74,8 +74,8 @@ function Content({
       </div>
       <Rnd
         default={{
-          x: window.outerWidth * 0.739,
-          y: window.outerHeight * 0.805,
+          x: window.outerWidth * 0,
+          y: window.outerHeight * 0.5,
           width: 210,
           height: 180,
         }}
