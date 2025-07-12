@@ -80,7 +80,7 @@ function Timer(): React.ReactElement | null {
   }
 
   return (
-    <div className="timer-content">
+    <div className="timer-content" data-testid="timer-content">
       <CircularProgressbar
         value={Math.round((timeLeft / totalTime) * 100)}
         text={minutes + ":" + secondsString}

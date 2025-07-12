@@ -7,7 +7,9 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 
-const conversationHistory: { [sessionId: string]: Array<{ role: string; content: string }> } = {};
+const conversationHistory: {
+  [sessionId: string]: Array<{ role: string; content: string }>;
+} = {};
 
 app.post("/api/chat", async (req, res) => {
   const { prompt, sessionId = "default" } = req.body;
@@ -20,7 +22,10 @@ app.post("/api/chat", async (req, res) => {
     conversationHistory[sessionId].push({ role: "user", content: prompt });
 
     const context = conversationHistory[sessionId]
-      .map(msg => `${msg.role === "user" ? "User" : "Assistant"}: ${msg.content}`)
+      .map(
+        (msg) =>
+          `${msg.role === "user" ? "User" : "Assistant"}: ${msg.content}`,
+      )
       .join("\n");
 
     const response = await fetch("http://localhost:11434/api/generate", {
@@ -38,7 +43,10 @@ app.post("/api/chat", async (req, res) => {
     }
 
     const data = await response.json();
-    conversationHistory[sessionId].push({ role: "assistant", content: data.response });
+    conversationHistory[sessionId].push({
+      role: "assistant",
+      content: data.response,
+    });
     res.json(data);
   } catch (error) {
     console.error("Error calling Ollama API:", error);
@@ -50,7 +58,7 @@ app.post("/api/chat", async (req, res) => {
 });
 
 app.delete("/api/chat/:sessionId", (req, res) => {
-  const { sessionId } = req.params // Extracts session ID as parameter
+  const { sessionId } = req.params; // Extracts session ID as parameter
 
   if (conversationHistory[sessionId]) {
     delete conversationHistory[sessionId];
@@ -58,7 +66,7 @@ app.delete("/api/chat/:sessionId", (req, res) => {
   } else {
     res.status(404).json({ error: "Session not found" });
   }
-})
+});
 
 app.get("/api/chat/:sessionId", (req, res) => {
   const { sessionId } = req.params;

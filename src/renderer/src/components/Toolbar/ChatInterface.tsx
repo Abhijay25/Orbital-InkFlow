@@ -40,10 +40,12 @@ const darkTheme = createTheme({
 });
 
 interface ChatInterfaceProps {
-  setIsChat: React.Dispatch<React.SetStateAction<boolean>>,
+  setIsChat: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ChatInterface({ setIsChat }: ChatInterfaceProps): React.ReactElement | null {
+function ChatInterface({
+  setIsChat,
+}: ChatInterfaceProps): React.ReactElement | null {
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -55,7 +57,9 @@ function ChatInterface({ setIsChat }: ChatInterfaceProps): React.ReactElement | 
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const sessionId = useRef(`session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+  const sessionId = useRef(
+    `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+  );
 
   const handleSend = async (): Promise<void> => {
     if (!input.trim()) return;
@@ -76,7 +80,7 @@ function ChatInterface({ setIsChat }: ChatInterfaceProps): React.ReactElement | 
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         prompt: userMessage.content,
-        sessionId: sessionId.current
+        sessionId: sessionId.current,
       }),
     });
 
@@ -97,14 +101,13 @@ function ChatInterface({ setIsChat }: ChatInterfaceProps): React.ReactElement | 
   };
 
   const closeChat = (): void => {
-    
     // Deletes the original session history
     fetch(`http://localhost:3001/api/chat/${sessionId.current}`, {
       method: "DELETE",
     }).catch(console.error);
 
     setIsChat(false);
-  }
+  };
 
   const handleKeyPress = (e): void => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -122,7 +125,7 @@ function ChatInterface({ setIsChat }: ChatInterfaceProps): React.ReactElement | 
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Box className="chat-container">
+      <Box className="chat-container" data-testid="chat-container">
         <AppBar position="static" className="chat-header">
           <Toolbar>
             <Avatar className="header-avatar">
@@ -231,6 +234,9 @@ function ChatInterface({ setIsChat }: ChatInterfaceProps): React.ReactElement | 
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={handleKeyPress}
               className="chat-textfield"
+              InputProps={{
+                inputProps: { "data-testid": "chat-textfield" },
+              }}
             />
             <Fab
               color="primary"
@@ -238,6 +244,7 @@ function ChatInterface({ setIsChat }: ChatInterfaceProps): React.ReactElement | 
               onClick={handleSend}
               disabled={!input.trim()}
               className={`send-button ${input.trim() ? "active" : ""}`}
+              data-testid="chat-send-button"
             >
               <SendIcon />
             </Fab>
