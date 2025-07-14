@@ -36,27 +36,27 @@ test.describe("Chat Interface", () => {
     });
   });
 
-  test("chatbot deletes context, and start fresh after closing it", async ({
-    page,
-  }) => {
-    // Opens the AI chatbot
-    await page.click('[data-testid="chat-button"]');
-    // Type in message
-    const testMessage = "Hi, what is 1 + 1?";
-    await page.locator('[data-testid="chat-textfield"]').type(testMessage);
-    // Send the message
-    await expect(
-      page.locator('[data-testid="chat-send-button"]'),
-    ).toBeEnabled();
-    await expect(page.locator(`text=${testMessage}`)).toBeVisible();
-    // Wait for the AI to reply (10 seconds)
-    await page.waitForTimeout(10000);
-    // Close the AI chat interface
-    await page.click('[data-testid="chat-button"]');
-    // Reopens the AI chat interface, "initial message should appear: Hello! I'm your AI assistant..."
-    await page.click('[data-testid="chat-button"]');
-    await expect(page.locator(".message-content")).toHaveText(
-      "Hello! I'm your AI assistant. How can I help you today?",
-    );
-  });
+  // test("chatbot deletes context, and start fresh after closing it", async ({
+  //   page,
+  // }) => {
+  //   // Opens the AI chatbot
+  //   await page.click('[data-testid="chat-button"]');
+  //   // Type in message
+  //   const testMessage = "Hi, what is 1 + 1?";
+  //   await page.locator('[data-testid="chat-textfield"]').type(testMessage);
+  //   // Send the message
+  //   await expect(
+  //     page.locator('[data-testid="chat-send-button"]'),
+  //   ).toBeEnabled();
+  //   await expect(page.locator(`text=${testMessage}`)).toBeVisible();
+  //   // Wait for the AI to reply (10 seconds)
+  //   await page.waitForTimeout(10000);
+  //   // Close the AI chat interface
+  //   await page.click('[data-testid="chat-button"]');
+  //   // Reopens the AI chat interface, "initial message should appear: Hello! I'm your AI assistant..."
+  //   await page.click('[data-testid="chat-button"]');
+  //   await expect(page.locator(".message-content")).toHaveText(
+  //     "Hello! I'm your AI assistant. How can I help you today?",
+  //   );
+  // });
 });

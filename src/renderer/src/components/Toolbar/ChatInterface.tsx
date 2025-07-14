@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import {
   Send as SendIcon,
-  SmartToy as BotIcon,
   Person as PersonIcon,
   Close as CloseIcon,
 } from "@mui/icons-material";
@@ -46,25 +45,28 @@ function ChatInterface({
 
   // Use ModeContext for theme
   const modeInfo = useContext(ModeContext);
-  const theme = useMemo(() =>
-    createTheme({
-      palette: {
-        mode: modeInfo?.darkTheme ? "dark" : "light",
-        primary: {
-          main: "#3f51b5",
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: modeInfo?.darkTheme ? "dark" : "light",
+          primary: {
+            main: "#3f51b5",
+          },
+          secondary: {
+            main: "#f50057",
+          },
+          background: {
+            default: modeInfo?.darkTheme ? "#0a0a0a" : "#fafafa",
+            paper: modeInfo?.darkTheme ? "#1a1a1a" : "#fff",
+          },
         },
-        secondary: {
-          main: "#f50057",
+        typography: {
+          fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
         },
-        background: {
-          default: modeInfo?.darkTheme ? "#0a0a0a" : "#fafafa",
-          paper: modeInfo?.darkTheme ? "#1a1a1a" : "#fff",
-        },
-      },
-      typography: {
-        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-      },
-    }), [modeInfo?.darkTheme]);
+      }),
+    [modeInfo?.darkTheme],
+  );
 
   const handleSend = async (): Promise<void> => {
     if (!input.trim()) return;
@@ -173,7 +175,11 @@ function ChatInterface({
                     {message.type === "user" ? (
                       <PersonIcon fontSize="small" />
                     ) : (
-                      <img src={BotImage} alt="Bot" style={{ width: 20, height: 20 }} />
+                      <img
+                        src={BotImage}
+                        alt="Bot"
+                        style={{ width: 20, height: 20 }}
+                      />
                     )}
                   </Avatar>
                   <Box>
@@ -203,7 +209,11 @@ function ChatInterface({
                   className="message-spacing"
                 >
                   <Avatar className="message-avatar bot">
-                    <img src={BotImage} alt="Bot" style={{ width: 20, height: 20 }} />
+                    <img
+                      src={BotImage}
+                      alt="Bot"
+                      style={{ width: 20, height: 20 }}
+                    />
                   </Avatar>
                   <Paper elevation={3} className="message-bubble">
                     <Box className="typing-indicator">
