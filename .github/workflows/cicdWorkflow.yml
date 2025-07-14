@@ -36,7 +36,10 @@ jobs:
 
       # # Run Test script
       - name: Run tests
-        run: yarn test 
+        run: |
+          yarn playwright install
+          yarn test
+
 
       # Build App
       - name: Build App
