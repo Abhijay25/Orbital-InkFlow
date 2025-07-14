@@ -74,8 +74,8 @@ const Editor = forwardRef<EditorRef, EditorProps>(
     }));
 
     return (
-      <div className="editor-container">
-        <EditorContent editor={editor} />
+      <div className="editor-container" data-testid="editor-container">
+        <EditorContent editor={editor} data-testid="editor" />
       </div>
     );
   },

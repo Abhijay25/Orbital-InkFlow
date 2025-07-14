@@ -49,7 +49,7 @@ function AddFile({
       await window.electronAPI.saveFile(fileID, inputValue);
       await window.electronAPI.saveContentToFile(fileID, " ");
       if (editorRef.current) {
-        editorRef.current.commands.setContent(" ");
+        editorRef.current.commands.setContent("");
       }
       onSave();
       handleClose();
@@ -58,7 +58,12 @@ function AddFile({
 
   return (
     <div>
-      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
+      <Button
+        aria-describedby={id}
+        variant="contained"
+        onClick={handleClick}
+        data-testid="addFileIcon"
+      >
         <img
           src={addFileImage}
           style={{
@@ -87,6 +92,7 @@ function AddFile({
             size="small"
             onChange={handleChange}
             onKeyDown={handleKeyDown}
+            data-testid="addFileText"
           />
         </div>
       </Popover>

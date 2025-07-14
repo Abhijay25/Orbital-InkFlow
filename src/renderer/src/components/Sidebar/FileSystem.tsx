@@ -61,11 +61,13 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
             <LightModeIcon
               style={{ textAlign: "right", color: "white" }}
               onClick={switchTheme}
+              data-testid="lightModeIcon"
             />
           ) : (
             <BedtimeSharpIcon
               style={{ textAlign: "right", color: "black" }}
               onClick={switchTheme}
+              data-testid="bedtimeSharpIcon"
             />
           )}
         </div>
