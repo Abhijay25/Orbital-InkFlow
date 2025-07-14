@@ -38,9 +38,9 @@ function App(): React.ReactElement | null {
           }}
         >
           <Split
-            sizes={[14, 86]}
-            minSize={[225, 100]}
-            maxSize={[300, Infinity]}
+            sizes={[14, 79.5, 6.5]}
+            minSize={[225, 100, 50]}
+            maxSize={[300, Infinity, 500]}
             direction="horizontal"
             style={{
               display: "flex",
@@ -50,8 +50,8 @@ function App(): React.ReactElement | null {
             <FileIDContext.Provider value={{ fileID, setFileID }}>
               <FileSystem editorRef={editorRef} />
               <Content fileId={fileID} editorRef={editorRef} />
+              <Toolbar fileId={fileID} editorRef={editorRef} />
             </FileIDContext.Provider>
-            <Toolbar fileId={fileID} editorRef={editorRef} />
           </Split>
         </Box>
       </ModeContext.Provider>

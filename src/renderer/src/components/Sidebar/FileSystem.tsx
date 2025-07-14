@@ -75,7 +75,6 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
         <List className="file-list">
           <Box>
             <Divider />
-
             <Folder fileItems={[]} editorRef={editorRef} />
           </Box>
         </List>

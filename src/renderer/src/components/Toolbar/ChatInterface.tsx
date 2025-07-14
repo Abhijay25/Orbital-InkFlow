@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext, useMemo } from "react";
 import {
   AppBar,
   Toolbar,
@@ -19,25 +19,8 @@ import {
 } from "@mui/icons-material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "../../styles/ChatInterface.css";
-
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#3f51b5",
-    },
-    secondary: {
-      main: "#f50057",
-    },
-    background: {
-      default: "#0a0a0a",
-      paper: "#1a1a1a",
-    },
-  },
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-  },
-});
+import ModeContext from "../ModeContext";
+import BotImage from "../../../../../resources/bot.png";
 
 interface ChatInterfaceProps {
   setIsChat: React.Dispatch<React.SetStateAction<boolean>>;
@@ -60,6 +43,28 @@ function ChatInterface({
   const sessionId = useRef(
     `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
   );
+
+  // Use ModeContext for theme
+  const modeInfo = useContext(ModeContext);
+  const theme = useMemo(() =>
+    createTheme({
+      palette: {
+        mode: modeInfo?.darkTheme ? "dark" : "light",
+        primary: {
+          main: "#3f51b5",
+        },
+        secondary: {
+          main: "#f50057",
+        },
+        background: {
+          default: modeInfo?.darkTheme ? "#0a0a0a" : "#fafafa",
+          paper: modeInfo?.darkTheme ? "#1a1a1a" : "#fff",
+        },
+      },
+      typography: {
+        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      },
+    }), [modeInfo?.darkTheme]);
 
   const handleSend = async (): Promise<void> => {
     if (!input.trim()) return;
@@ -124,12 +129,12 @@ function ChatInterface({
   };
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={theme}>
       <Box className="chat-container" data-testid="chat-container">
         <AppBar position="static" className="chat-header">
           <Toolbar>
             <Avatar className="header-avatar">
-              <BotIcon />
+              <img src={BotImage} alt="Bot" style={{ width: 28, height: 28 }} />
             </Avatar>
             <Box className="header-content">
               <Typography variant="h6" component="div" className="header-title">
@@ -151,7 +156,6 @@ function ChatInterface({
           </Toolbar>
         </AppBar>
 
-        {/* Messages Area */}
         <Box className="messages-container">
           <Box className="messages-list">
             {messages.map((message) => (
@@ -169,7 +173,7 @@ function ChatInterface({
                     {message.type === "user" ? (
                       <PersonIcon fontSize="small" />
                     ) : (
-                      <BotIcon fontSize="small" />
+                      <img src={BotImage} alt="Bot" style={{ width: 20, height: 20 }} />
                     )}
                   </Avatar>
                   <Box>
@@ -199,7 +203,7 @@ function ChatInterface({
                   className="message-spacing"
                 >
                   <Avatar className="message-avatar bot">
-                    <BotIcon fontSize="small" />
+                    <img src={BotImage} alt="Bot" style={{ width: 20, height: 20 }} />
                   </Avatar>
                   <Paper elevation={3} className="message-bubble">
                     <Box className="typing-indicator">

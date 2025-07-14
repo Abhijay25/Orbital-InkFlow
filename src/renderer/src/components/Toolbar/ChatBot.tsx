@@ -12,19 +12,20 @@ function ChatBot(): React.ReactElement | null {
 
   return (
     <>
-      <Box
-        component="img"
-        src={BotImage}
-        alt="ChatBot"
-        sx={{
-          width: 50,
-          height: 50,
-          cursor: "pointer",
-          transform: "translate(16px, 20px)",
-        }}
-        onClick={toggleChatBot}
-        data-testid="chat-button"
-      />
+      <Box>
+        <Box
+          component="img"
+          src={BotImage}
+          alt="ChatBot"
+          sx={{
+            width: 50,
+            height: 50,
+            cursor: "pointer",
+          }}
+          onClick={toggleChatBot}
+          data-testid="chat-button"
+        />
+      </Box>
 
       {/* Chat box: Toggle open and close */}
       {chatIsOpen ? <ChatInterface setIsChat={setIsChat} /> : <></>}

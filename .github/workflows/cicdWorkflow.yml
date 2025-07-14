@@ -34,9 +34,9 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      # # Run Test
-      # - name: Run tests
-      #   run: yarn test # to be changed
+      # # Run Test script
+      - name: Run tests
+        run: yarn test 
 
       # Build App
       - name: Build App
