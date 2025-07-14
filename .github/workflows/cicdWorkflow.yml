@@ -34,10 +34,12 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      # # Run Test script
+      # Run Test script
       - name: Run tests
         run: |
           yarn playwright install
+          yarn dev &
+          npx wait-on http://localhost:5173
           yarn test
 
 
