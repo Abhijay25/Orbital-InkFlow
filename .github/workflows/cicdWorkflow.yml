@@ -26,6 +26,14 @@ jobs:
         with:
           node-version: 20
 
+      # Install Playwright dependencies (for Linux CI)
+      - name: Install Playwright dependencies
+        run: npx playwright install-deps
+
+      # Disable Electron sandbox for CI
+      - name: Disable Electron sandbox for CI
+        run: echo 'ELECTRON_DISABLE_SANDBOX=true' >> $GITHUB_ENV
+
       # Install Dependencies
       - name: Install Dependencies
         run: yarn install --frozen-lockfile

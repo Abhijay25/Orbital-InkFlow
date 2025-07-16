@@ -4,7 +4,7 @@ import DailyCalendar from "./DailyCalendar";
 import { useContext, useState } from "react";
 import { EditorRef } from "../Editor";
 import SettingsMenu from "./SettingsMenu";
-import ModeContext from "../ModeContext";
+import ModeContext from "../Context/ModeContext";
 
 import "../../styles/FileSystem.css";
 import DarkLogo from "../../../../../resources/InkFlowBlack.png";

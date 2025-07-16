@@ -8,7 +8,7 @@ import TimerSettings from "./TimerSettings";
 import TimerContext from "./TimerContext";
 
 import "../../styles/Timer.css";
-import ModeContext from "../ModeContext";
+import ModeContext from "../Context/ModeContext";
 
 function Timer(): React.ReactElement | null {
   const timerInfo = useContext(TimerContext)!; // '!' to imply values will never be null

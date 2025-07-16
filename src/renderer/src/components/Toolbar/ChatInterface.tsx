@@ -18,8 +18,9 @@ import {
 } from "@mui/icons-material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "../../styles/ChatInterface.css";
-import ModeContext from "../ModeContext";
+import ModeContext from "../Context/ModeContext";
 import BotImage from "../../../../../resources/bot.png";
+import WindowSizeContext from "../Context/WindowSizeContext";
 
 interface ChatInterfaceProps {
   setIsChat: React.Dispatch<React.SetStateAction<boolean>>;
@@ -43,8 +44,8 @@ function ChatInterface({
     `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
   );
 
-  // Use ModeContext for theme
   const modeInfo = useContext(ModeContext);
+  const windowSizeContent = useContext(WindowSizeContext);
   const theme = useMemo(
     () =>
       createTheme({
@@ -112,7 +113,8 @@ function ChatInterface({
     fetch(`http://localhost:3001/api/chat/${sessionId.current}`, {
       method: "DELETE",
     }).catch(console.error);
-
+    windowSizeContent?.setContentSize(79.5);
+    windowSizeContent?.setToolBarSize(6.5);
     setIsChat(false);
   };
 
