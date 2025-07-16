@@ -42,8 +42,18 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      # Run Test script
-      - name: Run tests
+      # Run Test script (Linux)
+      - name: Run tests (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          yarn playwright install
+          xvfb-run -a yarn dev &
+          npx wait-on http://localhost:5173
+          yarn test
+
+      # Run Test script (macOS/Windows)
+      - name: Run tests (macOS/Windows)
+        if: runner.os != 'Linux'
         run: |
           yarn playwright install
           yarn dev &
