@@ -48,7 +48,6 @@ function Transcription({
           width: 50,
           height: 50,
           cursor: "pointer",
-          transform: "translate(16px, 20px)",
         }}
         onClick={handleToggleRecording}
       />

@@ -13,16 +13,23 @@
   --typing-dot-color: #666;
 }
 
-/* Main container */
+.chat-interface {
+  bottom: 0;
+}
+
 .chat-container {
-  height: 85vh;
+  height: 79vh;
   background: var(--background-gradient);
   display: flex;
   flex-direction: column;
-  transform: "translate(16px, 20px)",
+  transform: "translate(16px, 20px)";
+  bottom: 0;
 }
 
-/* Messages container */
+body.light .chat-container {
+  background: linear-gradient(135deg, #d6976f 0%, var(--paperlike) 100%);
+}
+
 .messages-container {
   flex: 1;
   overflow: hidden;
@@ -36,7 +43,6 @@
   padding: 16px;
 }
 
-/* Custom scrollbar */
 .messages-list::-webkit-scrollbar {
   width: 8px;
 }
@@ -87,6 +93,10 @@
   background: var(--bot-avatar-gradient);
 }
 
+body.light .message-avatar.bot {
+  background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+}
+
 .message-avatar.user {
   background: var(--user-avatar-gradient);
 }
@@ -119,11 +129,15 @@
   text-align: left;
 }
 
-/* Header styling */
 .chat-header {
   background: var(--header-gradient);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-color);
+}
+
+body.light .chat-header {
+  background: linear-gradient(135deg, #ff7e28 0%, #ffa86f 100%);
+  border-bottom: 1px solid #ccc;
 }
 
 .header-avatar {
@@ -131,6 +145,10 @@
   background: var(--bot-avatar-gradient);
   width: 40px;
   height: 40px;
+}
+
+body.light .header-avatar {
+  background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
 }
 
 .header-content {
@@ -148,12 +166,39 @@
   font-size: 0.875rem;
 }
 
+body.light .message-content {
+  color: #222 !important;
+}
+
+body.light .header-title {
+  color: rgb(255, 255, 255);
+}
+
+body.light .header-subtitle {
+  color: rgb(255, 255, 255);
+}
+
+body.light .message-bubble {
+  background: #fffdb9 !important;
+  color: #222 !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+body.light .message-timestamp {
+  color: rgba(0,0,0,0.5);
+}
+
 /* Input container */
 .input-container {
   padding: 16px;
   background: rgba(26, 26, 26, 0.9);
   backdrop-filter: blur(10px);
   border-top: 1px solid var(--border-color);
+}
+
+body.light .input-container {
+  background: rgba(250, 255, 235, 0.95);
+  border-top: 1px solid #ccc;
 }
 
 .input-stack {
@@ -169,12 +214,24 @@
   backdrop-filter: blur(10px);
 }
 
+body.light .chat-textfield .MuiOutlinedInput-root {
+  background-color: rgba(0,0,0,0.03);
+}
+
 .chat-textfield .MuiOutlinedInput-root fieldset {
   border-color: rgba(255, 255, 255, 0.2);
 }
 
+body.light .chat-textfield .MuiOutlinedInput-root fieldset {
+  border-color: rgba(0,0,0,0.15);
+}
+
 .chat-textfield .MuiOutlinedInput-root:hover fieldset {
   border-color: rgba(255, 255, 255, 0.3);
+}
+
+body.light .chat-textfield .MuiOutlinedInput-root:hover fieldset {
+  border-color: rgba(0,0,0,0.25);
 }
 
 .chat-textfield .MuiOutlinedInput-root.Mui-focused fieldset {
@@ -185,6 +242,10 @@
 .send-button {
   background: var(--bot-avatar-gradient);
   transition: all 0.3s ease;
+}
+
+body.light .send-button {
+  background: linear-gradient(135deg, #00ffea 0%, #00ff00 100%);
 }
 
 .send-button:hover {

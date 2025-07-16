@@ -158,6 +158,11 @@ code {
   border-radius: 5px;
 }
 
+body.light .tool-bar {
+  background-color: var(--paperlike);
+  border: 1px solid #333;
+}
+
 @media (max-width: 720px) {
   .text {
     font-size: 20px;

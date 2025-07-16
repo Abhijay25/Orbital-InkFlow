@@ -9,7 +9,7 @@ import {
 import InboxIcon from "@mui/icons-material/Inbox";
 import { useState, useContext } from "react";
 import { fileItem } from "./Folder";
-import { FileIDContext } from "../FileIDContext";
+import { FileIDContext } from "../Context/FileIDContext";
 import { EditorRef } from "../Editor";
 
 interface FileProps {

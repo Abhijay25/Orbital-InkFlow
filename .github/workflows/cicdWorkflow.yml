@@ -26,6 +26,14 @@ jobs:
         with:
           node-version: 20
 
+      # Install Playwright dependencies (for Linux CI)
+      - name: Install Playwright dependencies
+        run: npx playwright install-deps
+
+      # Disable Electron sandbox for CI
+      - name: Disable Electron sandbox for CI
+        run: echo 'ELECTRON_DISABLE_SANDBOX=true' >> $GITHUB_ENV
+
       # Install Dependencies
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -34,9 +42,24 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      # # Run Test
-      # - name: Run tests
-      #   run: yarn test # to be changed
+      # Run Test script (Linux)
+      - name: Run tests (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          yarn playwright install
+          xvfb-run -a yarn dev &
+          npx wait-on http://localhost:5173
+          yarn test
+
+      # Run Test script (macOS/Windows)
+      - name: Run tests (macOS/Windows)
+        if: runner.os != 'Linux'
+        run: |
+          yarn playwright install
+          yarn dev &
+          npx wait-on http://localhost:5173
+          yarn test
+
 
       # Build App
       - name: Build App
