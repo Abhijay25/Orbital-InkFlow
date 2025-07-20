@@ -7,6 +7,7 @@
   "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
   "compilerOptions": {
     "esModuleInterop": true,
-    "module": "CommonJS"
+    "module": "CommonJS",
+    "jsx": "react-jsx"
   }
 }
