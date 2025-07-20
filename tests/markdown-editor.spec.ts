@@ -4,7 +4,9 @@ test.describe("Markdown Editor", () => {
   test.beforeEach(async ({ page }) => {
     // Mock the Electron API so the click handler works in browser tests
     await page.addInitScript(() => {
-      (window as any).electronAPI = {
+      (
+        window as unknown as { electronAPI: Record<string, unknown> }
+      ).electronAPI = {
         saveFile: async () => {},
         saveContentToFile: async () => {},
         getLatestContentByFile: async () => "",
@@ -12,7 +14,7 @@ test.describe("Markdown Editor", () => {
         deleteFile: async () => {},
       };
     });
-  
+
     // Navigate to app
     await page.goto("/");
     // Wait for app to load

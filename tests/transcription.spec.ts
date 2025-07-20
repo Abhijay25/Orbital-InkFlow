@@ -4,7 +4,9 @@ test.describe("Transcription feature", () => {
   test.beforeEach(async ({ page }) => {
     // Mock the Electron API so the click handler works in browser tests
     await page.addInitScript(() => {
-      (window as any).electronAPI = {
+      (
+        window as unknown as { electronAPI: Record<string, unknown> }
+      ).electronAPI = {
         transcription: {
           start: async () => {},
           stop: async () => {},
@@ -14,7 +16,7 @@ test.describe("Transcription feature", () => {
         saveContentToFile: async () => {},
       };
     });
-  
+
     // Navigate to app
     await page.goto("/");
     // Wait for app to load

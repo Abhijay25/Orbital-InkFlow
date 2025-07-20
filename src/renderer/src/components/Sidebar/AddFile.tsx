@@ -105,10 +105,7 @@ function AddFile({
             onKeyDown={handleKeyDown}
             data-testid="add-file-text"
           />
-          <Button 
-            onClick={handleCreate}
-            data-testid="add-file-button"
-          >
+          <Button onClick={handleCreate} data-testid="add-file-button">
             ADD
           </Button>
         </div>
