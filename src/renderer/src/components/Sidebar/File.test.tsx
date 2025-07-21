@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import AddFile from "./AddFile";
+import File from "./File";
 
 beforeAll(() => {
   window.electronAPI = {
@@ -19,21 +19,36 @@ beforeAll(() => {
   };
 });
 
-test("calls onSave when ADD button is clicked", async () => {
+test("Calls deleteFile and onSave when right click file", async () => {
   const onSave = jest.fn();
   const editorRef = { current: null };
-  render(<AddFile onSave={onSave} editorRef={editorRef} />);
+  render(
+    <div data-testid="test-note">
+      <File
+        id={crypto.randomUUID()}
+        textName="Test Note"
+        editorRef={editorRef}
+        onSave={onSave}
+        fileItems={[]}
+        setFileItems={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
+    </div>,
+  );
 
-  // Simulate clicking the addFile button
-  fireEvent.click(screen.getByTestId("add-file-icon"));
+  // Find the button that opens the menu
+  const menuButton = screen.getByRole("button", { name: /test note/i });
 
-  // Typing in the input field
-  await userEvent.type(screen.getByTestId("add-file-text"), "Test Note");
+  // Simulate right-click to open the menu
+  fireEvent.contextMenu(menuButton);
 
-  // Add the new Test Note
-  await userEvent.click(screen.getByTestId("add-file-button"));
+  // Wait for the delete button to appear in the menu
+  const deleteButton = await screen.findByTestId("delete-test-button");
+  await userEvent.click(deleteButton);
 
   await waitFor(() => {
+    expect(window.electronAPI.deleteFile).toHaveBeenCalled();
     expect(onSave).toHaveBeenCalled();
   });
 });
