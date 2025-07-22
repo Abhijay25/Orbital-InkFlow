@@ -52,6 +52,7 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
             onError={() => console.error("Failed to Load Logo")}
             className="inkFlow-logo"
             onClick={toggleSettings}
+            data-testid="inkFlow-logo"
             style={{
               height: "50px",
               width: "auto",

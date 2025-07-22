@@ -37,13 +37,13 @@ test("Calls deleteFile and onSave when right click file", async () => {
     </div>,
   );
 
-  // Find the button that opens the menu
-  const menuButton = screen.getByRole("button", { name: /test note/i });
+  // Finds the "test note" component
+  const testNote = screen.getByRole("button", { name: /test note/i });
 
-  // Simulate right-click to open the menu
-  fireEvent.contextMenu(menuButton);
+  // Right-click the selected testNote
+  fireEvent.contextMenu(testNote);
 
-  // Wait for the delete button to appear in the menu
+  // Look for the delete button
   const deleteButton = await screen.findByTestId("delete-test-button");
   await userEvent.click(deleteButton);
 
