@@ -1,11 +1,15 @@
 import { Box } from "@mui/material";
 import { useState, createContext, useRef, useEffect } from "react";
 import { EditorRef } from "./components/Editor";
+
 import Split from "react-split";
 import FileSystem from "./components/Sidebar/FileSystem";
 import Content from "./components/Content";
 import Transcription from "./components/Transcription";
+import HomePage from "./components/HomePage";
+
 import ModeContext from "./components/ModeContext";
+import HomeContext from "./components/HomeContext";
 
 export type FileIDContextType = {
   fileID: string;
@@ -21,6 +25,7 @@ function App() {
   const [fileID, setFileID] = useState<string>("");
   const editorRef = useRef<EditorRef>(null);
   const [darkTheme, setDarkTheme] = useState(true);
+  const [showHome, setShowHome] = useState(false);
 
   useEffect(() => {
     document.body.classList.toggle("dark", darkTheme);
@@ -47,7 +52,9 @@ function App() {
         >
           <FileIDContext.Provider value={{ fileID, setFileID }}>
             <FileSystem editorRef={editorRef} />
-            <Content fileId={fileID} editorRef={editorRef} />
+            <HomeContext.Provider value={{ showHome, setShowHome }}>
+                {showHome ? <HomePage /> : <Content fileId={fileID} editorRef={editorRef} />}
+            </HomeContext.Provider>
           </FileIDContext.Provider>
 
           <Transcription fileId={fileID} editorRef={editorRef}/>

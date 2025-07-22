@@ -3,6 +3,7 @@ import Editor, { EditorRef } from "./Editor";
 import { Rnd } from "react-rnd";
 import React from "react";
 
+
 import Timer from "./Timer/Timer";
 import TimerConfig from "./Timer/TimerConfig";
 import TimerContext from "./Timer/TimerContext";
@@ -41,8 +42,9 @@ function Content({ fileId, editorRef }: ContentProps) {
     const [showSlider, setShowSlider] = React.useState(false);
     const [workMins, setWorkMins] = React.useState(45);
     const [breakMins, setBreakMins] = React.useState(15);
+
     return (
-        // Box container for File System components
+        // Box container for File System Components
         <Box sx={{
             display: "flex",
             position: "relative",
@@ -57,8 +59,8 @@ function Content({ fileId, editorRef }: ContentProps) {
                 <Editor ref={editorRef} fileId={fileId} />
             </div>
             <Rnd default={{
-                x: (window.outerWidth) * 0.739,
-                y: (window.outerHeight) * 0.805,
+                x: window.innerWidth * 0.735,
+                y: window.innerHeight * 0.8,
                 width: 210,
                 height: 180,
             }} bounds="parent"
