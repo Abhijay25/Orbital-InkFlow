@@ -15,7 +15,7 @@ function SettingsMenu(): React.ReactElement | null {
         zIndex: 10,
       }}
     >
-      <p>Hello</p>
+      <p>Setting</p>
     </Rnd>
   );
 }

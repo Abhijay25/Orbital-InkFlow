@@ -1,8 +1,3 @@
-// This file is created to:
-// 1. Keep all database operations
-// 2. Handle common database operations (CRUD)
-// 3. Provide type safety with TypeScript
-
 // Importing my database
 import db from "./db";
 

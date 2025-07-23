@@ -56,13 +56,24 @@ function AddFile({
     }
   };
 
+  const handleCreate = async (): Promise<void> => {
+    const fileID = crypto.randomUUID();
+    await window.electronAPI.saveFile(fileID, inputValue);
+    await window.electronAPI.saveContentToFile(fileID, " ");
+    if (editorRef.current) {
+      editorRef.current.commands.setContent("");
+    }
+    onSave();
+    handleClose();
+  };
+
   return (
     <div>
       <Button
         aria-describedby={id}
         variant="contained"
         onClick={handleClick}
-        data-testid="addFileIcon"
+        data-testid="add-file-icon"
       >
         <img
           src={addFileImage}
@@ -92,8 +103,11 @@ function AddFile({
             size="small"
             onChange={handleChange}
             onKeyDown={handleKeyDown}
-            data-testid="addFileText"
+            data-testid="add-file-text"
           />
+          <Button onClick={handleCreate} data-testid="add-file-button">
+            ADD
+          </Button>
         </div>
       </Popover>
     </div>

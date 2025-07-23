@@ -84,7 +84,9 @@ function File({
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleDelete}>Delete</MenuItem>
+        <MenuItem onClick={handleDelete} data-testid="delete-test-button">
+          Delete
+        </MenuItem>
       </Menu>
     </ListItem>
   );
