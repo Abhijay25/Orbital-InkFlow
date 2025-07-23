@@ -49,8 +49,10 @@ describe("notesService database unit test", () => {
   // Testing function deleteNote()
   it("Should delete a note when given an ID", () => {
     const isDeleted = notesService.deleteNote(createdNote.id!);
-    expect(isDeleted).to.be.true();
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(isDeleted).to.be.true;
     const note = notesService.getNoteById(createdNote.id!);
-    expect(note).to.be.undefined();
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    expect(note).to.be.undefined;
   });
 });
