@@ -49,7 +49,7 @@ jobs:
           yarn playwright install
           xvfb-run -a yarn dev &
           npx wait-on http://localhost:5173
-          yarn test
+          xvfb-run -a yarn test
 
       # Run Test script (macOS/Windows)
       - name: Run tests (macOS/Windows)
