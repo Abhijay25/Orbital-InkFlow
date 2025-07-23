@@ -60,7 +60,6 @@ jobs:
           npx wait-on http://localhost:5173
           yarn test
 
-
       # Build App
       - name: Build App
         run: yarn build

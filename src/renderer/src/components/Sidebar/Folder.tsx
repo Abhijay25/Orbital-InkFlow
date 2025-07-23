@@ -40,7 +40,7 @@ function Folder({
       <File
         textName={fileItem.fileName}
         fileItems={fileItems}
-        setFileItems={setFileItems} // can be removed,
+        setFileItems={setFileItems}
         id={fileItem.id}
         key={fileItem.id}
         editorRef={editorRef}

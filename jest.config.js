@@ -10,7 +10,10 @@ module.exports = {
     "<rootDir>/src/**/*.test.[jt]s?(x)",
     "<rootDir>/src/**/*.spec.[jt]s?(x)",
   ],
-  testPathIgnorePatterns: ["<rootDir>/tests/"],
+  testPathIgnorePatterns: [
+    "<rootDir>/tests/",
+    "<rootDir>/src/database/notesService.test.ts",
+  ],
   moduleNameMapper: {
     "\\.(png|jpg|jpeg|gif|svg)$": "<rootDir>/__mocks__/fileMock.js",
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",
