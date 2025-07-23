@@ -29,6 +29,7 @@ db.pragma("foreign_keys = ON");
 db.exec(`
     CREATE TABLE IF NOT EXISTS notes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
         content TEXT,
         file_id TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
