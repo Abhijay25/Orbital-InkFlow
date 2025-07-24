@@ -30,6 +30,16 @@ db.exec(`
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 `);
+if (process.platform === "darwin") {
+  process.env.PATH = [
+    "/usr/local/bin",
+    "/opt/homebrew/bin",
+    // Apple Silicon Homebrew
+    "/usr/bin",
+    "/bin",
+    process.env.PATH || ""
+  ].join(":");
+}
 function createWindow() {
   const mainWindow = new electron.BrowserWindow({
     width: 900,
@@ -74,25 +84,36 @@ electron.app.on("window-all-closed", () => {
     electron.app.quit();
   }
 });
-electron.ipcMain.handle("save-content-to-file", async (event, file_id, content) => {
-  const stmt = db.prepare("INSERT INTO notes (file_id, content) VALUES (?, ?)");
-  const result = stmt.run(file_id, content);
-  console.log("This file is being saved to: ", file_id);
-  return { success: true, id: result.lastInsertRowid };
-});
+electron.ipcMain.handle(
+  "save-content-to-file",
+  async (event, file_id, content) => {
+    const stmt = db.prepare(
+      "INSERT INTO notes (file_id, content) VALUES (?, ?)"
+    );
+    const result = stmt.run(file_id, content);
+    console.log("This file is being saved to: ", file_id);
+    return { success: true, id: result.lastInsertRowid };
+  }
+);
 electron.ipcMain.handle("get-latest-content-by-file", async (event, file_id) => {
-  const stmt = db.prepare("SELECT content FROM notes WHERE file_id = ? ORDER BY created_at DESC LIMIT 1");
+  const stmt = db.prepare(
+    "SELECT content FROM notes WHERE file_id = ? ORDER BY created_at DESC LIMIT 1"
+  );
   const result = stmt.get(file_id);
   return result ? result.content : null;
 });
 electron.ipcMain.handle("save-file", async (event, file_id, name) => {
-  const stmt = db.prepare("INSERT OR REPLACE INTO files (id, name) VALUES (?, ?)");
+  const stmt = db.prepare(
+    "INSERT OR REPLACE INTO files (id, name) VALUES (?, ?)"
+  );
   stmt.run(file_id, name);
   console.log("Update file system");
   return { sucess: true, id: file_id };
 });
 electron.ipcMain.handle("get-files", async () => {
-  const stmt = db.prepare("SELECT id, name, created_at FROM files ORDER BY created_at DESC");
+  const stmt = db.prepare(
+    "SELECT id, name, created_at FROM files ORDER BY created_at DESC"
+  );
   const files = stmt.all();
   return files;
 });
@@ -109,8 +130,9 @@ electron.ipcMain.handle("start-transcription", async () => {
     await run();
     return { success: true };
   } catch (error) {
-    console.log("Failed to start transcription", error);
-    return { success: false, error: error.message };
+    const e = error;
+    console.log("Failed to start transcription", e);
+    return { success: false, error: e.message };
   }
 });
 electron.ipcMain.handle("stop-transcription", async () => {
@@ -119,8 +141,9 @@ electron.ipcMain.handle("stop-transcription", async () => {
     await new Promise((resolve) => setTimeout(resolve, 500));
     return { success: true };
   } catch (error) {
-    console.log("Failed to stop transcription", error);
-    return { success: false, error: error.message };
+    const e = error;
+    console.log("Failed to stop transcription", e);
+    return { success: false, error: e.message };
   }
 });
 electron.ipcMain.handle("get-transcript", () => {
@@ -179,7 +202,9 @@ function saveWavFile() {
     const wavFile = Buffer.concat([wavHeader, audioData]);
     fs.writeFileSync(filename, wavFile);
     console.log(`Audio saved to: ${filename}`);
-    console.log(`Duration: ${(dataLength / (SAMPLE_RATE * CHANNELS * 2)).toFixed(2)} seconds`);
+    console.log(
+      `Duration: ${(dataLength / (SAMPLE_RATE * CHANNELS * 2)).toFixed(2)} seconds`
+    );
   } catch (error) {
     console.error(`Error saving WAV file: ${error}`);
   }
@@ -230,7 +255,10 @@ Session began: ID=${sessionId}, ExpiresAt=${formatTimestamp(expiresAt)}`
             `
 Session Terminated: Audio Duration=${audioDuration}s, Session Duration=${sessionDuration}s`
           );
-          sendTranscriptionUpdate(`Session Terminated: Audio Duration=${audioDuration}s`, true);
+          sendTranscriptionUpdate(
+            `Session Terminated: Audio Duration=${audioDuration}s`,
+            true
+          );
         }
       } catch (error) {
         console.error(`

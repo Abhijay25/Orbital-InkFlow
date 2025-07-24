@@ -2,23 +2,29 @@
   "name": "inkflow",
   "version": "1.0.0",
   "description": "An Electron application with React and TypeScript",
-  "main": "./out/main/index.js",
+  "main": "out/main/index.js",
   "author": "example.com",
   "homepage": "https://electron-vite.org",
+  "license": "MIT",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",
     "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
     "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
-    "typecheck": "npm run typecheck:node && npm run typecheck:web",
+    "typecheck": "yarn typecheck:node && yarn typecheck:web",
     "start": "electron-vite preview",
-    "dev": "electron-vite dev",
-    "build": "npm run typecheck && electron-vite build",
+    "dev": "concurrently \"electron-vite dev\" \"yarn start:server\"",
+    "build": "electron-vite build",
     "postinstall": "electron-builder install-app-deps",
-    "build:unpack": "npm run build && electron-builder --dir",
-    "build:win": "npm run build && electron-builder --win",
+    "build:unpack": "yarn build && electron-builder --dir",
+    "build:win": "yarn build && electron-builder --win",
     "build:mac": "electron-vite build && electron-builder --mac",
-    "build:linux": "electron-vite build && electron-builder --linux"
+    "build:linux": "electron-vite build && electron-builder --linux",
+    "start:server": "tsx src/database/ollamaService.ts",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
@@ -33,9 +39,14 @@
     "@tiptap/pm": "^2.12.0",
     "@tiptap/react": "^2.12.0",
     "@tiptap/starter-kit": "^2.12.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
     "@types/ws": "^8.18.1",
     "better-sqlite3": "^11.10.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
     "mic": "^2.1.2",
+    "ollama": "^0.5.16",
     "react-calendar": "^6.0.0",
     "react-circular-progressbar": "^2.2.0",
     "react-rnd": "^10.5.2",
@@ -47,16 +58,20 @@
     "@electron-toolkit/eslint-config-prettier": "^3.0.0",
     "@electron-toolkit/eslint-config-ts": "^3.0.0",
     "@electron-toolkit/tsconfig": "^1.0.1",
+    "@playwright/test": "^1.54.1",
     "@types/better-sqlite3": "^7.6.13",
-    "@types/node": "^22.14.1",
+    "@types/node": "^24.0.10",
     "@types/react": "^19.1.1",
     "@types/react-dom": "^19.1.2",
+    "@typescript-eslint/eslint-plugin": "^8.34.1",
+    "@typescript-eslint/parser": "^8.34.1",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.21",
+    "concurrently": "^9.2.0",
     "electron": "^35.1.5",
-    "electron-builder": "^25.1.8",
+    "electron-builder": "^26.0.12",
     "electron-vite": "^3.1.0",
-    "eslint": "^9.24.0",
+    "eslint": "^9.29.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
@@ -65,6 +80,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.7",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.3",
     "vite": "^6.2.6"
   },
@@ -74,5 +90,25 @@
   },
   "engines": {
     "yarn": ">=1.22.0"
+  },
+  "build": {
+    "appId": "com.inkflow.desktop",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "resources/InkFlowLogoWhite.icns",
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "This app needs access to the microphone for transcription."
+      }
+    },
+    "files": [
+      "out/main/index.js",
+      "out/preload/index.js",
+      "out/renderer/",
+      "package.json"
+    ]
   }
 }

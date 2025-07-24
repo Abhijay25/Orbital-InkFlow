@@ -1,11 +1,11 @@
-@import './base.css';
+@import "./base.css";
 
 body {
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background-image: url('./wavy-lines.svg');
+  background-image: url("./wavy-lines.svg");
   background-size: cover;
   user-select: none;
 }
@@ -129,7 +129,7 @@ code {
   bottom: 30px;
   margin: 0 auto;
   padding: 15px 0;
-  font-family: 'Menlo', 'Lucida Console', monospace;
+  font-family: "Menlo", "Lucida Console", monospace;
   display: inline-flex;
   overflow: hidden;
   align-items: center;
@@ -146,9 +146,21 @@ code {
   font-size: 14px;
   line-height: 14px;
   opacity: 0.8;
+
   &:last-child {
     border: none;
   }
+}
+
+.tool-bar {
+  background-color: black;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+}
+
+body.light .tool-bar {
+  background-color: var(--paperlike);
+  border: 1px solid #333;
 }
 
 @media (max-width: 720px) {
@@ -164,6 +176,7 @@ code {
 }
 
 @media (max-width: 350px) {
+
   .tip,
   .actions {
     display: none;

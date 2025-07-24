@@ -39,7 +39,6 @@ Apollo 11
 
 ## Project Scope
 
-
 ## Project Motivation
 
 As a student, the hunt for a digital note taking app is a tiring one. Either
@@ -55,21 +54,20 @@ To create a note taking app that incorporates features that improve ease of use 
 
 ## User Stories
 
- - As a student, I can easily navigate the app to quickly find the notes I need.
- - As a student, there will be an AI tool that helps to point out any mistakes (such as grammar, and spelling mistakes) while I am typing down my notes.
- - As a user, I can upload videos to the app and generate video transcripts.
- - As a user, I can navigate to the daily to-do list by expanding into the chosen date from the calendar.
- - As a user, I can set a timer to record the amount of time I have spent on work and remind me to take breaks.
- - As a user, I can customize the app’s appearance to suit my preferences.
+- As a student, I can easily navigate the app to quickly find the notes I need.
+- As a student, there will be an AI tool that helps to point out any mistakes (such as grammar, and spelling mistakes) while I am typing down my notes.
+- As a user, I can upload videos to the app and generate video transcripts.
+- As a user, I can navigate to the daily to-do list by expanding into the chosen date from the calendar.
+- As a user, I can set a timer to record the amount of time I have spent on work and remind me to take breaks.
+- As a user, I can customize the app’s appearance to suit my preferences.
 
 ## Core Features
 
- - *Notes Organiser* : Utilizing Markdown text and file system to enable searching through and editing files with ease
- - *Calendar* : Monthly calendar with the ability to take down daily notes, and create To-Do lists
- - *Timer* : A modifiable timer than can be used as a reminder or for study techniques (like Pomodoro method)
- - *AI Assistant* : A support chatbot to help streamline, translate or transcribe notes
+- _Notes Organiser_ : Utilizing Markdown text and file system to enable searching through and editing files with ease
+- _Calendar_ : Monthly calendar with the ability to take down daily notes, and create To-Do lists
+- _Timer_ : A modifiable timer than can be used as a reminder or for study techniques (like Pomodoro method)
+- _AI Assistant_ : A support chatbot to help streamline, translate or transcribe notes
 
 ## Design
 
 ![InkFlow](resources/image.png)
-
