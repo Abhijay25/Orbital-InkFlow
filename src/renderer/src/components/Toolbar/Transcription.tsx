@@ -50,6 +50,7 @@ function Transcription({
           cursor: "pointer",
         }}
         onClick={handleToggleRecording}
+        data-testid={isRecording ? "blue-mic" : "red-mic"}
       />
     </>
   );

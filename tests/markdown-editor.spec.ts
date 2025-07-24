@@ -2,19 +2,32 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Markdown Editor", () => {
   test.beforeEach(async ({ page }) => {
+    // Mock the Electron API so the click handler works in browser tests
+    await page.addInitScript(() => {
+      (
+        window as unknown as { electronAPI: Record<string, unknown> }
+      ).electronAPI = {
+        saveFile: async () => {},
+        saveContentToFile: async () => {},
+        getLatestContentByFile: async () => "",
+        getFiles: async () => [],
+        deleteFile: async () => {},
+      };
+    });
+
     // Navigate to app
     await page.goto("/");
-    // Wait for page to load with a shorter timeout
-    await page.waitForLoadState("domcontentloaded");
-    // Give the app a moment to initialize
-    await page.waitForTimeout(2000);
+    // Wait for app to load
+    await page.waitForSelector('[data-testid="app-container"]', {
+      timeout: 10000,
+    });
   });
 
   test("should be able to type in the markdown editor", async ({ page }) => {
     // Create a new note
-    await page.click('[data-testid="addFileIcon"]');
+    await page.click('[data-testid="add-file-icon"]');
     await page.keyboard.type("Test Note 1");
-    await page.press('[data-testid="addFileText"]', "Enter");
+    await page.press('[data-testid="add-file-text"]', "Enter");
     // Wait for the dialog to close and editor to be ready
     await page.waitForSelector('[data-testid="editor"]', { timeout: 5000 });
     // Wait for any modal/popover to disappear

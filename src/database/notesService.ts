@@ -1,13 +1,6 @@
-// This file is created to:
-// 1. Keep all database operations
-// 2. Handle common database operations (CRUD)
-// 3. Provide type safety with TypeScript
-
-// Importing my database
 import db from "./db";
 
-// Declaring data types within our database
-// Using snake casing for database, as it is more common in SQL naming
+// Declaring Note type, that is to be used as a storage unit in our database
 export interface Note {
   id?: number;
   title: string;
@@ -47,7 +40,7 @@ export const notesService = {
     const stmt = db.prepare(`
             UPDATE notes
             SET title = COALESCE(@title, title),
-                content = COALESCE(@content, content)
+                content = COALESCE(@content, content),
                 updated_at = CURRENT_TIMESTAMP
             WHERE id = @id
             RETURNING *
