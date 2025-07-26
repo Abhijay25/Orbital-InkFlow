@@ -8377,6 +8377,18 @@ mocha@^11.0.1:
     yargs-parser "^21.1.1"
     yargs-unparser "^2.0.0"
 
+moment-timezone@^0.5.33:
+  version "0.5.48"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.48.tgz#111727bb274734a518ae154b5ca589283f058967"
+  integrity sha512-f22b8LV1gbTO2ms2j2z13MuPogNoh5UzxL3nzNAYKGraILnbGc9NEE6dyiiiLv46DGRb8A4kg8UKWLjPthxBHw==
+  dependencies:
+    moment "^2.29.4"
+
+moment@^2.29.1, moment@^2.29.4:
+  version "2.30.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.30.1.tgz#f8c91c07b7a786e30c59926df530b4eac96974ae"
+  integrity sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -9463,6 +9475,14 @@ react-is@^19.1.0:
   version "19.1.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-19.1.0.tgz#805bce321546b7e14c084989c77022351bbdd11b"
   integrity sha512-Oe56aUPnkHyyDxxkvqtd7KkdQP5uIUfHxd5XTb3wE9d/kRnZLmKbDB0GWk919tdQ+mxxPtG6EAs6RMT6i1qtHg==
+
+react-live-clock@^6.1.25:
+  version "6.1.25"
+  resolved "https://registry.yarnpkg.com/react-live-clock/-/react-live-clock-6.1.25.tgz#9980f174e8554bb857ce6149bb34efff3d08fa0f"
+  integrity sha512-IjhRtgpseA2FQjpHFD9OUYUQSKXKMvcHlzDp9QPFjWZe3mqORd6OcL4bRz48JB8IQYSoIRvqDgDzwrkhSMraxg==
+  dependencies:
+    moment "^2.29.1"
+    moment-timezone "^0.5.33"
 
 react-refresh@^0.17.0:
   version "0.17.0"
