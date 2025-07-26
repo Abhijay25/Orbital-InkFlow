@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import Editor, { EditorRef } from "./Editor";
 import { Rnd } from "react-rnd";
-import React from "react";
-
+import React, { useContext } from "react";
+import HomePage from "./HomePage";
 import Timer from "./Timer/Timer";
 import TimerConfig from "./Timer/TimerConfig";
 import TimerContext from "./Timer/TimerContext";
-
+import HomeContext from "./Context/HomeContext";
 import "../styles/Editor.css";
 
 // Declare a type for window.electronAPI <- declared under preload/index.js
@@ -55,6 +55,9 @@ function Content({
   const [showSlider, setShowSlider] = React.useState(false);
   const [workMins, setWorkMins] = React.useState(45);
   const [breakMins, setBreakMins] = React.useState(15);
+
+  const homeInfo = useContext(HomeContext);
+
   return (
     // Box container for File System components
     <Box
@@ -70,7 +73,12 @@ function Content({
       }}
     >
       <div className="content-window">
-        <Editor ref={editorRef} fileId={fileId} />
+        {/* <Editor ref={editorRef} fileId={fileId} /> */}
+        {homeInfo?.showHome ? (
+          <HomePage />
+        ) : (
+          <Editor ref={editorRef} fileId={fileId} />
+        )}
       </div>
       <Rnd
         default={{
