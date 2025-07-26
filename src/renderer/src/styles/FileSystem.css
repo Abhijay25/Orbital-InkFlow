@@ -27,3 +27,19 @@
 .inkflow-logo {
   background-color: transparent;
 }
+
+.toolbar {
+  background-color: black;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  
+  width: 14%;
+}
+
+.light .toolbar {
+  background-color: var(--paperlike);
+  border: 1px solid black;
+
+  width: 14%;
+}
+
