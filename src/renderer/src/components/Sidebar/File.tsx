@@ -11,6 +11,7 @@ import { useState, useContext } from "react";
 import { fileItem } from "./Folder";
 import { FileIDContext } from "../Context/FileIDContext";
 import { EditorRef } from "../Editor";
+import HomeContext from "../Context/HomeContext";
 
 interface FileProps {
   id: string;
@@ -35,9 +36,12 @@ function File({
 
   const { setFileID } = useContext(FileIDContext);
 
+  const homeInfo = useContext(HomeContext);
+
   // Upon clicking onto this file tab, content:string has to be retrieved from database, then loaded into Editor
   // At the same time, update fileId within editor, so the content can be saved with respect to fileId
   const handleClick = async (): Promise<void> => {
+    homeInfo?.setShowHome(false);
     const content = await window.electronAPI.getLatestContentByFile(key);
     if (content && editorRef.current) {
       editorRef.current.commands.setContent(content);

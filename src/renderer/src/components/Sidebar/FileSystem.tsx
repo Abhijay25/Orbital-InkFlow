@@ -14,7 +14,6 @@ import DailyCalendar from "./DailyCalendar";
 import { useContext, useState } from "react";
 import { EditorRef } from "../Editor";
 import ModeContext from "../Context/ModeContext";
-
 import "../../styles/FileSystem.css";
 import MenuSharpIcon from "@mui/icons-material/MenuSharp";
 import DarkLogo from "../../../../../resources/InkFlowBlack.png";
@@ -31,7 +30,7 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
   const [open, setOpen] = useState(false);
 
   const modeInfo = useContext(ModeContext);
-  const homeInfo = useContext(HomeContext)!;
+  const homeInfo = useContext(HomeContext);
 
   // if(!homeInfo) {
   //   console.log("Unable to track Homepage state");
@@ -73,6 +72,10 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
     </Box>
   );
 
+  const openHome = (): void => {
+    homeInfo?.setShowHome(true);
+  }
+
   return (
     <Stack
       sx={{
@@ -90,7 +93,7 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
             alt="Logo-Placeholder"
             onError={() => console.error("Failed to Load Logo")}
             className="inkFlow-logo"
-            onClick={() => homeInfo.setShowHome(true)}
+            onClick={openHome}
             data-testid="inkFlow-logo"
             style={{
               height: "50px",
