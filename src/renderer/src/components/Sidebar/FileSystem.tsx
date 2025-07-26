@@ -1,29 +1,42 @@
-import { Box, Stack, List, Divider } from "@mui/material";
+import {
+  Box,
+  Stack,
+  List,
+  Divider,
+  Drawer,
+  ListItemIcon,
+  ListItemText,
+  ListItem,
+  ListItemButton,
+} from "@mui/material";
 import Folder from "./Folder";
 import DailyCalendar from "./DailyCalendar";
 import { useContext, useState } from "react";
 import { EditorRef } from "../Editor";
-import SettingsMenu from "./SettingsMenu";
 import ModeContext from "../Context/ModeContext";
 
 import "../../styles/FileSystem.css";
+import MenuSharpIcon from "@mui/icons-material/MenuSharp";
 import DarkLogo from "../../../../../resources/InkFlowBlack.png";
 import LightLogo from "../../../../../resources/InkFlowWhite.png";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import BedtimeSharpIcon from "@mui/icons-material/BedtimeSharp";
+import HomeContext from "../Context/HomeContext";
 
 interface FileSystemProps {
   editorRef: React.RefObject<EditorRef | null>;
 }
 
 function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
-  const [showSettings, setShowSettings] = useState(false);
-
-  function toggleSettings(): void {
-    setShowSettings(!showSettings);
-  }
+  const [open, setOpen] = useState(false);
 
   const modeInfo = useContext(ModeContext);
+  const homeInfo = useContext(HomeContext)!;
+
+  // if(!homeInfo) {
+  //   console.log("Unable to track Homepage state");
+  //   throw new Error("HomeContext.Provider is missing");
+  // }
 
   if (!modeInfo) {
     console.log("ModeContext.Provider is missing");
@@ -33,6 +46,32 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
   function switchTheme(): void {
     modeInfo?.setDarkTheme((prev) => !prev);
   }
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
+
+  const ThemeSwitch = (
+    <ListItemButton onClick={switchTheme}>
+      <ListItemIcon>
+        {modeInfo.darkTheme ? <LightModeIcon /> : <BedtimeSharpIcon />}
+      </ListItemIcon>
+      <ListItemText primary="Toggle Theme" />
+    </ListItemButton>
+  );
+
+  const DrawerList = (
+    <Box
+      sx={{ width: "14vw", minWidth: 225 }}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+    >
+      <List>
+        <ListItem disablePadding>{ThemeSwitch}</ListItem>
+      </List>
+      <Divider />
+    </Box>
+  );
 
   return (
     <Stack
@@ -51,26 +90,23 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
             alt="Logo-Placeholder"
             onError={() => console.error("Failed to Load Logo")}
             className="inkFlow-logo"
-            onClick={toggleSettings}
+            onClick={() => homeInfo.setShowHome(true)}
             data-testid="inkFlow-logo"
             style={{
               height: "50px",
               width: "auto",
             }}
           />
-          {modeInfo.darkTheme ? (
-            <LightModeIcon
-              style={{ textAlign: "right", color: "white" }}
-              onClick={switchTheme}
-              data-testid="lightModeIcon"
-            />
-          ) : (
-            <BedtimeSharpIcon
-              style={{ textAlign: "right", color: "black" }}
-              onClick={switchTheme}
-              data-testid="bedtimeSharpIcon"
-            />
-          )}
+
+          <MenuSharpIcon onClick={toggleDrawer(true)} />
+          <Drawer
+            sx={{ width: "14vw", minWidth: 225 }}
+            open={open}
+            onClose={toggleDrawer(false)}
+            className="toolbar"
+          >
+            {DrawerList}
+          </Drawer>
         </div>
         <hr />
         <List className="file-list">
@@ -81,7 +117,6 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
         </List>
       </Box>
       <DailyCalendar />
-      {showSettings && <SettingsMenu />}
     </Stack>
   );
 }
