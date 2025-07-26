@@ -1,4 +1,14 @@
-import { Box, Stack, List, Divider, Drawer, ListItemIcon, ListItemText, ListItem, ListItemButton } from "@mui/material";
+import {
+  Box,
+  Stack,
+  List,
+  Divider,
+  Drawer,
+  ListItemIcon,
+  ListItemText,
+  ListItem,
+  ListItemButton,
+} from "@mui/material";
 import Folder from "./Folder";
 import DailyCalendar from "./DailyCalendar";
 import { useContext, useState } from "react";
@@ -6,7 +16,7 @@ import { EditorRef } from "../Editor";
 import ModeContext from "../Context/ModeContext";
 
 import "../../styles/FileSystem.css";
-import MenuSharpIcon from '@mui/icons-material/MenuSharp';
+import MenuSharpIcon from "@mui/icons-material/MenuSharp";
 import DarkLogo from "../../../../../resources/InkFlowBlack.png";
 import LightLogo from "../../../../../resources/InkFlowWhite.png";
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -37,29 +47,31 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
     modeInfo?.setDarkTheme((prev) => !prev);
   }
 
-    const toggleDrawer = (newOpen: boolean) => () => {
-      setOpen(newOpen);
-    };
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
 
-    const ThemeSwitch = (
-        <ListItemButton onClick={switchTheme}>
-            <ListItemIcon>{modeInfo.darkTheme ? <LightModeIcon /> : <BedtimeSharpIcon />}</ListItemIcon>
-            <ListItemText primary="Toggle Theme" />
-        </ListItemButton>
-    )
+  const ThemeSwitch = (
+    <ListItemButton onClick={switchTheme}>
+      <ListItemIcon>
+        {modeInfo.darkTheme ? <LightModeIcon /> : <BedtimeSharpIcon />}
+      </ListItemIcon>
+      <ListItemText primary="Toggle Theme" />
+    </ListItemButton>
+  );
 
-    const DrawerList = (
-      <Box sx={{width: '14vw', minWidth: 225}} role="presentation" onClick={toggleDrawer(false)}>
-        <List>
-          <ListItem disablePadding>
-            {ThemeSwitch}
-          </ListItem>
-
-        </List>
-        <Divider />
-      </Box>
-    )
-  
+  const DrawerList = (
+    <Box
+      sx={{ width: "14vw", minWidth: 225 }}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+    >
+      <List>
+        <ListItem disablePadding>{ThemeSwitch}</ListItem>
+      </List>
+      <Divider />
+    </Box>
+  );
 
   return (
     <Stack
@@ -87,12 +99,14 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
           />
 
           <MenuSharpIcon onClick={toggleDrawer(true)} />
-          <Drawer sx={{width: '14vw', minWidth: 225}}open={open} onClose={toggleDrawer(false)} 
-            className="toolbar" 
-            >
+          <Drawer
+            sx={{ width: "14vw", minWidth: 225 }}
+            open={open}
+            onClose={toggleDrawer(false)}
+            className="toolbar"
+          >
             {DrawerList}
           </Drawer>
-
         </div>
         <hr />
         <List className="file-list">

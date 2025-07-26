@@ -44,16 +44,16 @@ function App(): React.ReactElement | null {
             setToolBarSize,
           }}
         > */}
-          <Box
-            sx={{
-              height: "100vh",
-              width: "100vw",
-              overflow: "hidden",
-              position: "relative",
-              overscrollBehavior: "none",
-            }}
-          >
-            <HomeContext.Provider value={{showHome, setShowHome}}>
+        <Box
+          sx={{
+            height: "100vh",
+            width: "100vw",
+            overflow: "hidden",
+            position: "relative",
+            overscrollBehavior: "none",
+          }}
+        >
+          <HomeContext.Provider value={{ showHome, setShowHome }}>
             <Split
               sizes={[14, 86]}
               minSize={[225, 100]}
@@ -66,13 +66,17 @@ function App(): React.ReactElement | null {
             >
               <FileIDContext.Provider value={{ fileID, setFileID }}>
                 <FileSystem editorRef={editorRef} />
-                
-                  {showHome ? <HomePage /> : <Content fileId={fileID} editorRef={editorRef} />}
+
+                {showHome ? (
+                  <HomePage />
+                ) : (
+                  <Content fileId={fileID} editorRef={editorRef} />
+                )}
                 {/* <Toolbar fileId={fileID} editorRef={editorRef} /> */}
               </FileIDContext.Provider>
             </Split>
-            </HomeContext.Provider>
-          </Box>
+          </HomeContext.Provider>
+        </Box>
         {/* </WindowSizeContext.Provider> */}
       </ModeContext.Provider>
     </div>

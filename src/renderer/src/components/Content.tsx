@@ -3,7 +3,6 @@ import Editor, { EditorRef } from "./Editor";
 import { Rnd } from "react-rnd";
 import React from "react";
 
-
 import Timer from "./Timer/Timer";
 import TimerConfig from "./Timer/TimerConfig";
 import TimerContext from "./Timer/TimerContext";
