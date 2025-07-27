@@ -7,9 +7,33 @@
 
     overflow: auto;
     display: flex;
-    padding: 1rem;
+}
+
+.light .homepage {
+    background-color: var(--paperlike);
+    border: 1px solid black;
+    color: black;
 }
 
 .welcome {
-    font-size: xx-large;
+    font-size: 60px;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
+
+.light .welcome {
+    color: black;
+}
+
+.clock {
+    font-size: 165px;
+    font-weight: 800;
+
+    padding-top: 0;
+    margin-top: 0;    
+}
+
+.light .clock {
+    color: black;
+}
+

@@ -2,6 +2,8 @@ import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import moment from "moment";
 import "moment-timezone";
+
+import DarkBackground from "../../../../resources/DarkBackground.jpg";
 import "../styles/Home.css";
 
 // Custom Clock component to replace react-live-clock
@@ -24,6 +26,7 @@ function HomePage(): React.ReactElement | null {
     <Box
       sx={{
         display: "flex",
+        flexDirection: "column",
         position: "relative",
         alignItems: "center",
         justifyContent: "center",
