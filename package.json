@@ -1,6 +1,6 @@
 {
   "name": "inkflow",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A powerful, privacy-focused note-taking application with AI assistance",
   "main": "out/main/index.js",
   "author": "example.com",
