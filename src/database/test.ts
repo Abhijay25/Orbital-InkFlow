@@ -1,6 +1,6 @@
 // This file is created to test our database functionalities
 
-import { notesService, Note } from "./nodeService";
+import { notesService, Note } from "./notesService";
 
 const testCreateNote = (): Note => {
   const newNote: Note = {
