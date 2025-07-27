@@ -7,6 +7,8 @@ import WebSocket from "ws";
 import mic from "mic";
 import querystring from "querystring";
 import fs from "fs";
+import express from "express";
+import cors from "cors";
 
 if (process.platform === "darwin") {
   // Add common Homebrew and system paths
