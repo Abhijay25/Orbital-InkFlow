@@ -32,10 +32,10 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
   const modeInfo = useContext(ModeContext);
   const homeInfo = useContext(HomeContext);
 
-  // if(!homeInfo) {
-  //   console.log("Unable to track Homepage state");
-  //   throw new Error("HomeContext.Provider is missing");
-  // }
+  if(!homeInfo) {
+    console.log("Unable to track Homepage state");
+    throw new Error("HomeContext.Provider is missing");
+  }
 
   if (!modeInfo) {
     console.log("ModeContext.Provider is missing");

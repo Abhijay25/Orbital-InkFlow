@@ -7,6 +7,8 @@ import Timer from "./Timer/Timer";
 import TimerConfig from "./Timer/TimerConfig";
 import TimerContext from "./Timer/TimerContext";
 import HomeContext from "./Context/HomeContext";
+
+import "../styles/Home.css";
 import "../styles/Editor.css";
 
 // Declare a type for window.electronAPI <- declared under preload/index.js
