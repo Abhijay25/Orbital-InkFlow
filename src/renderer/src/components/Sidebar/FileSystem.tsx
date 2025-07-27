@@ -14,13 +14,16 @@ import DailyCalendar from "./DailyCalendar";
 import { useContext, useState } from "react";
 import { EditorRef } from "../Editor";
 import ModeContext from "../Context/ModeContext";
+import HomeContext from "../Context/HomeContext";
+
 import "../../styles/FileSystem.css";
 import MenuSharpIcon from "@mui/icons-material/MenuSharp";
 import DarkLogo from "../../../../../resources/InkFlowBlack.png";
 import LightLogo from "../../../../../resources/InkFlowWhite.png";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import BedtimeSharpIcon from "@mui/icons-material/BedtimeSharp";
-import HomeContext from "../Context/HomeContext";
+import TimerSharpIcon from '@mui/icons-material/TimerSharp';
+import HideTimerContext from "../Context/HideTimerContext";
 
 interface FileSystemProps {
   editorRef: React.RefObject<EditorRef | null>;
@@ -31,6 +34,7 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
 
   const modeInfo = useContext(ModeContext);
   const homeInfo = useContext(HomeContext);
+  const timerInfo = useContext(HideTimerContext);
 
   if(!homeInfo) {
     console.log("Unable to track Homepage state");
@@ -42,8 +46,17 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
     throw new Error("ModeContext.Provider is missing");
   }
 
+  if (!timerInfo) {
+    console.log("Unable to track HideTimer state");
+    throw new Error ("HideTimerContent.Provider is missing");
+  }
+
   function switchTheme(): void {
     modeInfo?.setDarkTheme((prev) => !prev);
+  }
+
+  function toggleTimer(): void {
+    timerInfo?.setHideTimer((prev) => !prev);
   }
 
   const toggleDrawer = (newOpen: boolean) => () => {
@@ -59,6 +72,13 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
     </ListItemButton>
   );
 
+  const TimerToggle = (
+    <ListItemButton onClick={toggleTimer}>
+      <ListItemIcon><TimerSharpIcon /></ListItemIcon>
+      <ListItemText primary="Show Timer" />
+    </ListItemButton>
+  );
+
   const DrawerList = (
     <Box
       sx={{ width: "14vw", minWidth: 225 }}
@@ -67,6 +87,7 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
     >
       <List>
         <ListItem disablePadding>{ThemeSwitch}</ListItem>
+        <ListItem disablePadding>{TimerToggle}</ListItem>
       </List>
       <Divider />
     </Box>

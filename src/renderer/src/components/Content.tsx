@@ -10,6 +10,7 @@ import HomeContext from "./Context/HomeContext";
 
 import "../styles/Home.css";
 import "../styles/Editor.css";
+import HideTimerContext from "./Context/HideTimerContext";
 
 // Declare a type for window.electronAPI <- declared under preload/index.js
 // This is where we store all the functions that alter database from frontend
@@ -59,6 +60,7 @@ function Content({
   const [breakMins, setBreakMins] = React.useState(15);
 
   const homeInfo = useContext(HomeContext);
+  const timerInfo = useContext(HideTimerContext);
 
   return (
     // Box container for File System components
@@ -82,33 +84,35 @@ function Content({
           <Editor ref={editorRef} fileId={fileId} />
         )}
       </div>
-      <Rnd
-        default={{
-          x: window.outerWidth * 0,
-          y: window.outerHeight * 0.5,
-          width: 210,
-          height: 180,
-        }}
-        bounds="parent"
-        className="timer-container"
-        minHeight={175}
-        minWidth={200}
-        maxHeight={190}
-        maxWidth={230}
-      >
-        <TimerContext.Provider
-          value={{
-            workMins,
-            breakMins,
-            setWorkMins,
-            setBreakMins,
-            showSlider,
-            setShowSlider,
+      {timerInfo?.hideTimer && (
+        <Rnd
+          default={{
+            x: window.outerWidth * 0,
+            y: window.outerHeight * 0.5,
+            width: 210,
+            height: 180,
           }}
+          bounds="parent"
+          className="timer-container"
+          minHeight={175}
+          minWidth={200}
+          maxHeight={190}
+          maxWidth={230}
         >
-          {showSlider ? <TimerConfig /> : <Timer />}
-        </TimerContext.Provider>
-      </Rnd>
+          <TimerContext.Provider
+            value={{
+              workMins,
+              breakMins,
+              setWorkMins,
+              setBreakMins,
+              showSlider,
+              setShowSlider,
+            }}
+          >
+            {showSlider ? <TimerConfig /> : <Timer />}
+          </TimerContext.Provider>
+        </Rnd>
+      )}
     </Box>
   );
 }
