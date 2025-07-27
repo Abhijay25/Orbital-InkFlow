@@ -46,6 +46,7 @@ function createWindow() {
     width: 900,
     height: 670,
     show: false,
+    title: "InkFlow",
     vibrancy: "under-window",
     visualEffectState: "active",
     autoHideMenuBar: true,
@@ -70,7 +71,7 @@ function createWindow() {
   }
 }
 electron.app.whenReady().then(() => {
-  utils.electronApp.setAppUserModelId("com.electron");
+  utils.electronApp.setAppUserModelId("com.inkflow.app");
   electron.app.on("browser-window-created", (_, window) => {
     utils.optimizer.watchWindowShortcuts(window);
   });
@@ -92,7 +93,6 @@ electron.ipcMain.handle(
       "INSERT INTO notes (file_id, content) VALUES (?, ?)"
     );
     const result = stmt.run(file_id, content);
-    console.log("This file is being saved to: ", file_id);
     return { success: true, id: result.lastInsertRowid };
   }
 );

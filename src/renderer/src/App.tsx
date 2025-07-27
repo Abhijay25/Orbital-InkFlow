@@ -65,7 +65,9 @@ function App(): React.ReactElement | null {
                 }}
               >
                 <FileIDContext.Provider value={{ fileID, setFileID }}>
-                  <ShowTimerContext.Provider value={{hideTimer, setHideTimer}}>
+                  <ShowTimerContext.Provider
+                    value={{ hideTimer, setHideTimer }}
+                  >
                     <FileSystem editorRef={editorRef} />
                     <Content fileId={fileID} editorRef={editorRef} />
                     <Toolbar fileId={fileID} editorRef={editorRef} />

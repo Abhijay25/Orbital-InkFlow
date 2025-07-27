@@ -23,26 +23,79 @@ test.describe("Markdown Editor", () => {
     });
   });
 
-  test("should be able to type in the markdown editor", async ({ page }) => {
-    // Create a new note
+  test("should be able to create a new note and type in the editor", async ({
+    page,
+  }) => {
+    // Step 1: Create a new note
     await page.click('[data-testid="add-file-icon"]');
-    await page.keyboard.type("Test Note 1");
+
+    // Wait for the popover to appear
+    await page.waitForSelector('[data-testid="add-file-text"]', {
+      timeout: 5000,
+    });
+
+    // Type the note name
+    await page.fill('[data-testid="add-file-text"]', "Test Note 1");
+
+    // Press Enter to create the note
     await page.press('[data-testid="add-file-text"]', "Enter");
-    // Wait for the dialog to close and editor to be ready
+
+    // Step 2: Wait for the editor to be ready
     await page.waitForSelector('[data-testid="editor"]', { timeout: 5000 });
-    // Wait for any modal/popover to disappear
-    await page.waitForTimeout(1000);
-    // Try to close any open modal by pressing Escape
-    await page.keyboard.press("Escape");
-    await page.waitForTimeout(500);
-    // Try clicking on the ProseMirror content area directly
+
+    // Wait for the popover to close
+    await page.waitForSelector('[data-testid="add-file-text"]', {
+      state: "hidden",
+      timeout: 5000,
+    });
+
+    // Step 3: Focus and type in the editor
+    const editor = page.locator('[data-testid="editor"]');
+    const proseMirror = editor.locator(".ProseMirror");
+
+    // Click to focus the editor
+    await proseMirror.click();
+
+    // Clear any existing content and type new content
+    await page.keyboard.press("Control+a"); // Select all
+    await page.keyboard.press("Delete"); // Clear
+    await page.keyboard.type("Hello, this is a test note!");
+
+    // Step 4: Verify the content was typed
+    await expect(proseMirror).toContainText("Hello, this is a test note!");
+  });
+
+  test("should be able to edit existing content in the editor", async ({
+    page,
+  }) => {
+    // Step 1: Create a new note first
+    await page.click('[data-testid="add-file-icon"]');
+    await page.waitForSelector('[data-testid="add-file-text"]', {
+      timeout: 5000,
+    });
+    await page.fill('[data-testid="add-file-text"]', "Editable Note");
+    await page.press('[data-testid="add-file-text"]', "Enter");
+
+    // Wait for editor to be ready
+    await page.waitForSelector('[data-testid="editor"]', { timeout: 5000 });
+    await page.waitForSelector('[data-testid="add-file-text"]', {
+      state: "hidden",
+      timeout: 5000,
+    });
+
+    // Step 2: Type initial content
     const proseMirror = page.locator('[data-testid="editor"] .ProseMirror');
     await proseMirror.click();
-    // Type content using keyboard
-    await page.keyboard.type("content 123");
-    // Wait a bit for the content to be processed
-    await page.waitForTimeout(500);
-    // Verify that there is content written in the editor
-    await expect(proseMirror).toContainText("content 123");
+    await page.keyboard.type("Initial content");
+
+    // Verify initial content
+    await expect(proseMirror).toContainText("Initial content");
+
+    // Step 3: Edit the content
+    await page.keyboard.press("Home"); // Go to beginning
+    await page.keyboard.type("Updated: ");
+
+    // Verify edited content
+    await expect(proseMirror).toContainText("Updated: Initial content");
   });
 });

@@ -22,7 +22,7 @@ import DarkLogo from "../../../../../resources/InkFlowBlack.png";
 import LightLogo from "../../../../../resources/InkFlowWhite.png";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import BedtimeSharpIcon from "@mui/icons-material/BedtimeSharp";
-import TimerSharpIcon from '@mui/icons-material/TimerSharp';
+import TimerSharpIcon from "@mui/icons-material/TimerSharp";
 import HideTimerContext from "../Context/HideTimerContext";
 
 interface FileSystemProps {
@@ -36,7 +36,7 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
   const homeInfo = useContext(HomeContext);
   const timerInfo = useContext(HideTimerContext);
 
-  if(!homeInfo) {
+  if (!homeInfo) {
     console.log("Unable to track Homepage state");
     throw new Error("HomeContext.Provider is missing");
   }
@@ -48,7 +48,7 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
 
   if (!timerInfo) {
     console.log("Unable to track HideTimer state");
-    throw new Error ("HideTimerContent.Provider is missing");
+    throw new Error("HideTimerContent.Provider is missing");
   }
 
   function switchTheme(): void {
@@ -66,7 +66,11 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
   const ThemeSwitch = (
     <ListItemButton onClick={switchTheme}>
       <ListItemIcon>
-        {modeInfo.darkTheme ? <LightModeIcon /> : <BedtimeSharpIcon />}
+        {modeInfo.darkTheme ? (
+          <LightModeIcon data-testid="LightModeIcon" />
+        ) : (
+          <BedtimeSharpIcon data-testid="BedtimeSharpIcon" />
+        )}
       </ListItemIcon>
       <ListItemText primary="Toggle Theme" />
     </ListItemButton>
@@ -74,7 +78,9 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
 
   const TimerToggle = (
     <ListItemButton onClick={toggleTimer}>
-      <ListItemIcon><TimerSharpIcon /></ListItemIcon>
+      <ListItemIcon>
+        <TimerSharpIcon />
+      </ListItemIcon>
       <ListItemText primary="Show Timer" />
     </ListItemButton>
   );
@@ -95,7 +101,7 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
 
   const openHome = (): void => {
     homeInfo?.setShowHome(true);
-  }
+  };
 
   return (
     <Stack
@@ -122,7 +128,10 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
             }}
           />
 
-          <MenuSharpIcon onClick={toggleDrawer(true)} />
+          <MenuSharpIcon
+            onClick={toggleDrawer(true)}
+            data-testid="setting-button"
+          />
           <Drawer
             sx={{ width: "14vw", minWidth: 225 }}
             open={open}
