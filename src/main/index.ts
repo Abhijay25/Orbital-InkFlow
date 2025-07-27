@@ -25,6 +25,7 @@ function createWindow(): void {
     width: 900,
     height: 670,
     show: false,
+    title: "InkFlow",
     vibrancy: "under-window",
     visualEffectState: "active",
     autoHideMenuBar: true,
@@ -60,7 +61,7 @@ function createWindow(): void {
 // initialization and is ready to create browser windows.
 app.whenReady().then(() => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId("com.electron");
+  electronApp.setAppUserModelId("com.inkflow.app");
   app.on("browser-window-created", (_, window) => {
     optimizer.watchWindowShortcuts(window);
   });
@@ -92,7 +93,6 @@ ipcMain.handle(
       "INSERT INTO notes (file_id, content) VALUES (?, ?)",
     );
     const result = stmt.run(file_id, content);
-    console.log("This file is being saved to: ", file_id);
     return { success: true, id: result.lastInsertRowid };
   },
 );

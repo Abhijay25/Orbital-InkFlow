@@ -3,6 +3,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import ModeContext from "../Context/ModeContext";
+import HomeContext from "../Context/HomeContext";
 
 beforeAll(() => {
   window.electronAPI = {
@@ -31,21 +32,26 @@ jest.mock("./DailyCalendar", () => {
 test("Ensures that setting menu can be opened successfully", async () => {
   const editorRef = { current: null };
   const mockSetTheme = jest.fn();
+  const mockSetShowHome = jest.fn();
 
   // Simulate a render
   render(
     <ModeContext.Provider
       value={{ darkTheme: true, setDarkTheme: mockSetTheme }}
     >
-      <FileSystem editorRef={editorRef} />
+      <HomeContext.Provider
+        value={{ showHome: false, setShowHome: mockSetShowHome }}
+      >
+        <FileSystem editorRef={editorRef} />
+      </HomeContext.Provider>
     </ModeContext.Provider>,
   );
 
   // Simulate a click on the logo
-  const logo = await screen.findByTestId("inkFlow-logo");
+  const logo = await screen.findByTestId("setting-button");
   await userEvent.click(logo);
 
   await waitFor(() => {
-    expect(screen.getByText("Setting")).toBeInTheDocument();
+    expect(screen.getByText("Toggle Theme")).toBeInTheDocument();
   });
 });
