@@ -1,6 +1,23 @@
 import { Box } from "@mui/material";
-import Clock from "react-live-clock";
+import { useState, useEffect } from "react";
+import moment from "moment";
+import "moment-timezone";
 import "../styles/Home.css";
+
+// Custom Clock component to replace react-live-clock
+function CustomClock({ format, timezone }: { format: string; timezone: string }) {
+  const [time, setTime] = useState(moment().tz(timezone).format(format));
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(moment().tz(timezone).format(format));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [format, timezone]);
+
+  return <span className="clock">{time}</span>;
+}
 
 function HomePage(): React.ReactElement | null {
   return (
@@ -14,10 +31,8 @@ function HomePage(): React.ReactElement | null {
       className="homepage"
     >
         <h1 className="welcome">Welcome Back!</h1>
-        <Clock 
+        <CustomClock 
           format={'HH:mm:ss'}
-          ticking={true}
-          className="clock"
           timezone="Asia/Singapore"
         />
         

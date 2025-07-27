@@ -1,6 +1,11 @@
 import "./styles/main.css";
 import "./styles/base.css";
 
+// Configure moment.js before any components that use it
+import moment from 'moment';
+import 'moment-timezone';
+moment.locale('en');
+
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
