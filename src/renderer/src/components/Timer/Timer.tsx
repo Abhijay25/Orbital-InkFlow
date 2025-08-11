@@ -39,10 +39,10 @@ function Timer(): React.ReactElement | null {
     // isInitializedRef set to false when timer is first rendered,
     // Then, it resets to the default value, toggles the ref to true.
     // Then, this ref will be left untouched until timer is closed.
-    if(!isInitializedRef.current) {
-        timeLeftRef.current = timerInfo.workMins * 60;
-        setTimeLeft(timeLeftRef.current);
-        isInitializedRef.current = true;
+    if (!isInitializedRef.current) {
+      timeLeftRef.current = timerInfo.workMins * 60;
+      setTimeLeft(timeLeftRef.current);
+      isInitializedRef.current = true;
     }
     // If already in Work, Set Mode to Break and Add Time
     function switchMode(): void {
