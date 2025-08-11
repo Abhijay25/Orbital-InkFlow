@@ -27,6 +27,7 @@ function Timer(): React.ReactElement | null {
   const timeLeftRef = useRef(timeLeft);
   const isPausedRef = useRef(isPaused);
   const modeRef = useRef(mode);
+  const isInitializedRef = useRef(false);
 
   // For Timer to Count Down
   function tick(): void {
@@ -35,6 +36,14 @@ function Timer(): React.ReactElement | null {
   }
 
   useEffect(() => {
+    // isInitializedRef set to false when timer is first rendered,
+    // Then, it resets to the default value, toggles the ref to true.
+    // Then, this ref will be left untouched until timer is closed.
+    if(!isInitializedRef.current) {
+        timeLeftRef.current = timerInfo.workMins * 60;
+        setTimeLeft(timeLeftRef.current);
+        isInitializedRef.current = true;
+    }
     // If already in Work, Set Mode to Break and Add Time
     function switchMode(): void {
       const nextMode = modeRef.current === "work" ? "break" : "work";
@@ -47,9 +56,6 @@ function Timer(): React.ReactElement | null {
       setTimeLeft(secondsLeft);
       timeLeftRef.current = secondsLeft;
     }
-
-    timeLeftRef.current = timerInfo.workMins * 60;
-    setTimeLeft(timeLeftRef.current);
 
     const interval = setInterval(() => {
       // If Timer Is Paused, Do Nothing
