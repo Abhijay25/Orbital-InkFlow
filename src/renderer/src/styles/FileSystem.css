@@ -28,18 +28,40 @@
   background-color: transparent;
 }
 
-.toolbar {
+.toolbar-box {
   background-color: black;
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 5px;
-  
-  width: 14%;
+  color: whitesmoke;
+}
+
+.light .toolbar-box {
+  background-color: var(--paperlike);
+  border: 1px solid black;
+  color: black;
+  border-radius: 5px;
+}
+
+.toolbar {
+  background-color: black;
 }
 
 .light .toolbar {
   background-color: var(--paperlike);
-  border: 1px solid black;
-
-  width: 14%;
 }
 
+.moon-logo {
+  color: black;
+}
+
+.sun-logo {
+  color: whitesmoke;
+}
+
+.timer-logo {
+  color: whitesmoke;
+}
+
+.light .timer-logo {
+  color: black;
+}

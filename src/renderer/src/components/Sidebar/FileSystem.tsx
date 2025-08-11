@@ -67,29 +67,38 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
     <ListItemButton onClick={switchTheme}>
       <ListItemIcon>
         {modeInfo.darkTheme ? (
-          <LightModeIcon data-testid="LightModeIcon" />
+          <LightModeIcon data-testid="LightModeIcon" className="sun-logo"/>
         ) : (
-          <BedtimeSharpIcon data-testid="BedtimeSharpIcon" />
+          <BedtimeSharpIcon data-testid="BedtimeSharpIcon" className="moon-logo"/>
         )}
       </ListItemIcon>
-      <ListItemText primary="Toggle Theme" />
+      <ListItemText primary="Toggle Theme" slotProps={{
+        primary: {
+          sx: { fontSize: '1.25rem'}
+        }
+      }}/>
     </ListItemButton>
   );
 
   const TimerToggle = (
     <ListItemButton onClick={toggleTimer}>
       <ListItemIcon>
-        <TimerSharpIcon />
+        <TimerSharpIcon className="timer-logo"/>
       </ListItemIcon>
-      <ListItemText primary="Show Timer" />
+      <ListItemText primary="Show Timer" slotProps={{
+        primary: {
+          sx: { fontSize: '1.25rem'}
+        }
+      }}/>
     </ListItemButton>
   );
 
   const DrawerList = (
     <Box
-      sx={{ width: "14vw", minWidth: 225 }}
+      sx={{ width: "14vw", minWidth: 225, height: "100%" }}
       role="presentation"
       onClick={toggleDrawer(false)}
+      className="toolbar-box"
     >
       <List>
         <ListItem disablePadding>{ThemeSwitch}</ListItem>
@@ -133,7 +142,7 @@ function FileSystem({ editorRef }: FileSystemProps): React.ReactElement | null {
             data-testid="setting-button"
           />
           <Drawer
-            sx={{ width: "14vw", minWidth: 225 }}
+            sx={{ width: "14vw", minWidth: 225}}
             open={open}
             onClose={toggleDrawer(false)}
             className="toolbar"
