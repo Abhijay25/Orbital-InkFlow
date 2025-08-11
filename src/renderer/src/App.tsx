@@ -9,7 +9,7 @@ import { FileIDContext } from "./components/Context/FileIDContext";
 import HomeContext from "./components/Context/HomeContext";
 import WindowSizeContext from "./components/Context/WindowSizeContext";
 import Toolbar from "./components/Toolbar/Toolbar";
-import ShowTimerContext from "./components/Context/HideTimerContext";
+import HideTimerContext from "./components/Context/HideTimerContext";
 
 function App(): React.ReactElement | null {
   const [fileID, setFileID] = useState<string>("");
@@ -65,13 +65,13 @@ function App(): React.ReactElement | null {
                 }}
               >
                 <FileIDContext.Provider value={{ fileID, setFileID }}>
-                  <ShowTimerContext.Provider
+                  <HideTimerContext.Provider
                     value={{ hideTimer, setHideTimer }}
                   >
                     <FileSystem editorRef={editorRef} />
                     <Content fileId={fileID} editorRef={editorRef} />
                     <Toolbar fileId={fileID} editorRef={editorRef} />
-                  </ShowTimerContext.Provider>
+                  </HideTimerContext.Provider>
                 </FileIDContext.Provider>
               </Split>
             </HomeContext.Provider>
