@@ -9,6 +9,9 @@ import querystring from "querystring";
 import fs from "fs";
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 if (process.platform === "darwin") {
   // Add common Homebrew and system paths
@@ -265,7 +268,7 @@ ipcMain.handle("get-transcript", () => {
 // Use of AssemblyAI API, free credits $50, have to pay in the future
 
 // --- Configuration ---
-const YOUR_API_KEY = "6b55a83afb744dc080039f4cd7bb2a9d"; // Replace with your actual API key
+const ASSEMBLYAI_API_KEY = process.env.ASSEMBLYAI_API_KEY || "";
 const CONNECTION_PARAMS = {
   sample_rate: 16000,
   format_turns: true, // Request formatted final transcripts
@@ -366,9 +369,14 @@ async function run(): Promise<void> {
 
   try {
     // Initialize WebSocket connection
+    if (!ASSEMBLYAI_API_KEY) {
+      throw new Error(
+        "Missing ASSEMBLYAI_API_KEY. Please create a .env file with ASSEMBLYAI_API_KEY set.",
+      );
+    }
     ws = new WebSocket(API_ENDPOINT, {
       headers: {
-        Authorization: YOUR_API_KEY,
+        Authorization: ASSEMBLYAI_API_KEY,
       },
     });
 
